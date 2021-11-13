@@ -1,0 +1,18 @@
+@media (max-width:984px){
+    .ds-none-t{
+        display: none;
+    }
+}
+.hero__categories{
+    border: 1px solid #2ecc71;
+    ul{
+        background-color: #dff9fb   ;
+        font-weight: 550;
+    }
+}
+.underline-text{
+    text-decoration: underline;
+}
+.underline-text:hover{
+    color: #2ecc71;
+}

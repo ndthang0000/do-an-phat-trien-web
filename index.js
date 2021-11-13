@@ -5,7 +5,8 @@ const path=require('path')
 const app = express()
 
 const route=require('./src/routes/index')
-const db=require('./src/database/index')
+
+const db=require('./src/database/index') // connect database
 
 app.use(express.static(path.join(__dirname,'/src/public'))) // public 
 
