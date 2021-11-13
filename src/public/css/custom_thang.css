@@ -20,4 +20,39 @@
 .underline-text:hover {
   color: #2ecc71;
 }
+
+.btn-checkout {
+  background-image: -webkit-gradient(linear, left top, right top, from(#02AAB0), color-stop(51%, #00CDAC), to(#02AAB0));
+  background-image: linear-gradient(to right, #02AAB0 0%, #00CDAC 51%, #02AAB0 100%);
+}
+
+.btn-checkout {
+  padding: 10px 25px;
+  text-align: center;
+  text-transform: uppercase;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  -webkit-box-shadow: 0 0 20px #eee;
+          box-shadow: 0 0 20px #eee;
+  border-radius: 10px;
+  display: block;
+  cursor: pointer;
+}
+
+.btn-checkout:hover {
+  background-position: right center;
+  /* change the direction of the change here */
+  color: #fff !important;
+  text-decoration: none;
+}
+
+.header__logo {
+  padding: 0;
+}
+
+.header__cart__price {
+  color: #d8d7d7 !important;
+}
 /*# sourceMappingURL=custom_thang.css.map */
