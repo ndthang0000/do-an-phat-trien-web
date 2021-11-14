@@ -55,4 +55,19 @@
 .header__cart__price {
   color: #d8d7d7 !important;
 }
+
+.custom_icon_social {
+  padding: 10px 15px;
+  background-color: #e9e8e8;
+  border-radius: 50%;
+  margin-right: 5px !important;
+}
+
+.custom_icon_social:hover {
+  background-color: #eeeeee;
+}
+
+.header__menu ul li {
+  margin-right: 20px;
+}
 /*# sourceMappingURL=custom_thang.css.map */

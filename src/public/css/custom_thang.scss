@@ -44,3 +44,15 @@
 .header__cart__price{
     color: rgb(216, 215, 215) !important
 }
+.custom_icon_social{
+    padding: 10px 15px;
+    background-color: rgb(233, 232, 232);
+    border-radius: 50%;
+    margin-right: 5px !important;
+}
+.custom_icon_social:hover{
+    background-color: rgb(238, 238, 238);
+}
+.header__menu ul li{
+    margin-right: 20px;
+}
