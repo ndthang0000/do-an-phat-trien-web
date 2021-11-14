@@ -7,5 +7,8 @@ class ProductController{
         console.log(req.params)
         res.render('product-detail')
     }
+    caterology(req,res){
+        res.render('products')
+    }
 }
 module.exports=new ProductController
