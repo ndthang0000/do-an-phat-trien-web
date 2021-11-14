@@ -1,15 +1,12 @@
-@media (max-width:984px){
+@media (max-width:800px){
     .ds-none-t{
         display: none;
     }
-}
-.hero__categories{
-    border: 1px solid #2ecc71;
-    ul{
-        background-color: #dff9fb   ;
-        font-weight: 550;
+    .hero__categories ul{
+        display: none;
     }
 }
+
 .underline-text{
     text-decoration: underline;
 }
@@ -18,7 +15,7 @@
 }
 
 
-.btn-checkout {background-image: linear-gradient(to right, #02AAB0 0%, #00CDAC  51%, #02AAB0  100%)}
+.btn-checkout {background-image: linear-gradient(to right, #0fc436 0%, #15dfa2  51%, #16d456  100%)}
 .btn-checkout {
     padding: 10px 25px;
     text-align: center;
