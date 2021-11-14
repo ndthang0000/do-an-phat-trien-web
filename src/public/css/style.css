@@ -616,7 +616,7 @@ ol {
 }
 
 .hero__categories ul {
-	border: 1px solid #ebebeb;
+	border: 1px solid #2ecc71;
 	padding-left: 40px;
 	padding-top: 10px;
 	padding-bottom: 12px;
@@ -2983,9 +2983,10 @@ ol {
 		text-align: center;
 		border: 1px solid #1c1c1c;
 		cursor: pointer;
-		position: absolute;
+		position: fixed;
 		right: 15px;
 		top: 22px;
+		z-index: 10000;
 	}
 	.header .container {
 		position: relative;
