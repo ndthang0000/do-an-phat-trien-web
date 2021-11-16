@@ -1,7 +1,7 @@
 const express=require('express')
 const route=express.Router()
 
-const productController=require('../conttrollers/ProductController')
+const productController=require('../controllers/ProductController')
 
 route.get('/detail/:slug',productController.detail)
 route.get('/:caterology',productController.caterology)

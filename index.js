@@ -23,3 +23,5 @@ route(app)
 db.connect()
 
 app.listen(process.env.PORT||5000)
+
+module.exports=path.join(__dirname,'/src/public')

@@ -6,6 +6,7 @@ mongoose.plugin(slug);
 const Product=new Schema({
     name:{required:true,type:String},
     price:{type:Number,required:true},
+    pricePromotion:{type:Number},
     des:{type:String},
     info:[{color:{type:String},size:{type:String},quantity:{type:Number},_id:false}],
     type:{type:String},
