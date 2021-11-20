@@ -15,18 +15,19 @@
 }
 
 
-.btn-checkout {background-image: linear-gradient(to right, #0fc436 0%, #15dfa2  51%, #16d456  100%)}
+.btn-checkout {background-image: linear-gradient(to right, #33df58 0%, #15dfa2  51%, #25be58  100%)}
 .btn-checkout {
     padding: 10px 25px;
     text-align: center;
     text-transform: uppercase;
     transition: 0.5s;
     background-size: 200% auto;
-    color: rgb(255, 255, 255) ;            
+    color: rgb(255, 255, 255);            
     box-shadow: 0 0 20px #eee;
     border-radius: 10px;
     display: block;
     cursor: pointer;
+    font-weight: 800;
 }
 
 .btn-checkout:hover {
