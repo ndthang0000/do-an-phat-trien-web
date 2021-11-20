@@ -1287,8 +1287,8 @@ ol {
 }
 
 .product__discount__item__pic .product__discount__percent {
-	height: 45px;
-	width: 45px;
+	height: 40px;
+	width: 40px;
 	background: #dd2222;
 	border-radius: 50%;
 	font-size: 14px;
@@ -1298,6 +1298,9 @@ ol {
 	position: absolute;
 	left: 15px;
 	top: 15px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .product__item__pic__hover {

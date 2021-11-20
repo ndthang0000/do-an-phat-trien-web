@@ -10,7 +10,11 @@ const db=require('./src/database/index') // connect database
 
 app.use(express.static(path.join(__dirname,'/src/public'))) // public 
 
-app.engine('hbs', exphbs({extname:'hbs'}));         //set view engine
+app.engine('hbs', exphbs({
+    extname:'hbs',
+    helpers:{
+        upperCase(e) { return e.toUpperCase()},
+}}));         //set view engine
 app.set('view engine', 'hbs');          //set view engine
 app.set('views',path.join(__dirname,'src/resources/views'))         //set view engine
 

@@ -16,8 +16,8 @@
 }
 
 .btn-checkout {
-  background-image: -webkit-gradient(linear, left top, right top, from(#0fc436), color-stop(51%, #15dfa2), to(#16d456));
-  background-image: linear-gradient(to right, #0fc436 0%, #15dfa2 51%, #16d456 100%);
+  background-image: -webkit-gradient(linear, left top, right top, from(#33df58), color-stop(51%, #15dfa2), to(#25be58));
+  background-image: linear-gradient(to right, #33df58 0%, #15dfa2 51%, #25be58 100%);
 }
 
 .btn-checkout {
@@ -33,6 +33,7 @@
   border-radius: 10px;
   display: block;
   cursor: pointer;
+  font-weight: 800;
 }
 
 .btn-checkout:hover {
