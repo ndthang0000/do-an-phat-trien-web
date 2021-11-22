@@ -8,15 +8,9 @@
                             <span>All Production</span>
                         </div>
                         <ul>
-                            <li><a href="/">Tee</a></li>
-                            <li><a href="/">Jacket | Bomber</a></li>
-                            <li><a href="/">Paint</a></li>
-                            <li><a href="/">Jean</a></li>
-                            <li><a href="/">Suit Case</a></li>
-                            <li><a href="/">Short</a></li>
-                            <li><a href="/">Sweeter</a></li>
-                            <li><a href="/">Hoodie</a></li>
-                            <li><a href="/">Bag</a></li>
+                            {{#each caterology}}
+                            <li><a href="/product/{{this}}">{{upperCase this}}</a></li>
+                            {{/each}}
                         </ul>
                     </div>
                 </div>

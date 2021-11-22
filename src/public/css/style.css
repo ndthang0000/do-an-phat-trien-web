@@ -1080,7 +1080,7 @@ ol {
 -----------------------*/
 
 .sidebar__item {
-	margin-bottom: 35px;
+	margin-bottom: 22px;
 }
 
 .sidebar__item.sidebar__item__color--option {
@@ -1259,12 +1259,12 @@ ol {
 }
 
 .product__discount {
-	padding-bottom: 50px;
+	padding-bottom: 15px;
 }
 
 .product__discount__title {
 	text-align: left;
-	margin-bottom: 65px;
+	margin-bottom: 15px;
 }
 
 .product__discount__title h2 {
