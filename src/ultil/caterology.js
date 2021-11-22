@@ -1,2 +1,2 @@
-var listCaterology=['tee','jacket','pant','jean','short','sweater','hoodie','bag','sale-off']
+var listCaterology=['tee','jacket','pant','short','hoodie','bag','accessory','sale-off']
 module.exports=listCaterology

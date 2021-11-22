@@ -12,17 +12,13 @@
                     <div class="product__details__pic">
                         <div class="product__details__pic__item">
                             <img class="product__details__pic__item--large"
-                                src="/img/product/details/product-details-1.jpg" alt="">
+                                src="https://the-1-beauty-fashion-admin.herokuapp.com{{product.imagesUrl}}" alt="">
                         </div>
                         <div class="product__details__pic__slider owl-carousel">
+                            {{#each product.imagesUrl}}
                             <img data-imgbigurl="/img/product/details/product-details-2.jpg"
-                                src="/img/product/details/thumb-1.jpg" alt="">
-                            <img data-imgbigurl="/img/product/details/product-details-3.jpg"
-                                src="/img/product/details/thumb-2.jpg" alt="">
-                            <img data-imgbigurl="/img/product/details/product-details-5.jpg"
-                                src="/img/product/details/thumb-3.jpg" alt="">
-                            <img data-imgbigurl="/img/product/details/product-details-4.jpg"
-                                src="/img/product/details/thumb-4.jpg" alt="">
+                                src="https://the-1-beauty-fashion-admin.herokuapp.com{{this}}" alt="">
+                            {{/each}}
                         </div>
                     </div>
                 </div>
@@ -38,9 +34,7 @@
                             <span>(18 reviews)</span>
                         </div>
                         <div class="product__details__price">${{product.price}}</div>
-                        <p>Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Vestibulum ac diam sit amet quam
-                            vehicula elementum sed sit amet dui. Sed porttitor lectus nibh. Vestibulum ac diam sit amet
-                            quam vehicula elementum sed sit amet dui. Proin eget tortor risus.</p>
+                        <p>{{product.des}}</p>
                         <div class="product__details__quantity">
                             <div class="quantity">
                                 <div class="pro-qty">
@@ -51,7 +45,7 @@
                         <a href="/" class="primary-btn">ADD TO CARD</a>
                         <a href="/" class="heart-icon"><span class="icon_heart_alt"></span></a>
                         <ul>
-                            <li><b>Availability</b> <span>In Stock</span></li>
+                            <li><b>Availability</b> <span>{{product.quantity}}</span></li>
                             <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li>
                             <li><b>Weight</b> <span>0.5 kg</span></li>
                             <li><b>Share on</b>

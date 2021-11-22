@@ -55,5 +55,23 @@
     margin-right: 20px;
 }
 
+.fixed-menu-thang{
+    position: fixed;
+    width: 300px !important;
+    top: 40px;
+    left: 80px;
+    height: 600px;
+    overflow-x: hidden;overflow-y: scroll;
+}
+.discount{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 0px 12px;
+    background-color: #f00;
+    color: white;
+    border-radius: 2px;
+    box-shadow: 1px 2px 1px 1px rgb(241, 115, 115);
+}
 
 

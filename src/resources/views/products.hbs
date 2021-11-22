@@ -13,20 +13,16 @@
 
     <section class="product spad">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-5" style="position: -webkit-sticky;position: sticky; top: 0;">
-                    <div class="sidebar">
+            <div class="row" style="position: relative;">  
+                <div class="col-lg-3 col-md-5 ">
+                    <div style="position: relative; width: 100%;">
+                        <div class="sidebar">
                         <div class="sidebar__item">
                             <h4>Caterology</h4>
                             <ul>
-                                <li><a href="/product/tee">Tee</a></li>
-                                <li><a href="/product/jacket">Jacket | Bomber</a></li>
-                                <li><a href="/product/paints">Paints</a></li>
-                                <li><a href="/product/jean">Jean</a></li>
-                                <li><a href="/product/short">Short</a></li>
-                                <li><a href="/product/sweater">Sweater</a></li>
-                                <li><a href="/product/hoodie">Hoodie</a></li>
-                                <li><a href="/product/bag">Bag</a></li>
+                                {{#each caterology}}
+                                <li><a href="/product/{{this}}">{{upperCase this}}</a></li>
+                                {{/each}}
                             </ul>
                         </div>
                         <div class="sidebar__item">
@@ -178,13 +174,61 @@
                             </div>
                         </div>
                     </div>
+                    </div>
+                    
                 </div>
                 <div class="col-lg-9 col-md-7">
                     <div class="product__discount">
                         <div class="section-title product__discount__title">
-                            <h2>{{caterology}}</h2>
+                            <h2>{{caterologyName}}</h2>
                         </div>
+                    </div>
+                    <div class="filter__item">
                         <div class="row">
+                            <div class="col-lg-4 col-md-5">
+                                <div class="filter__sort">
+                                    <span>Sort By</span>
+                                    <select>
+                                        <option value="0">Default</option>
+                                        <option value="0">Default</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4">
+                                <div class="filter__found">
+                                    <h6><span>16</span> Products found</h6>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-3">
+                                <div class="filter__option">
+                                    <span class="icon_grid-2x2"></span>
+                                    <span class="icon_ul"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 80px;">
+                        {{#each products}}
+                        <div class="col-lg-4 col-md-6 col-sm-6">
+                            <div class="product__item">
+                                <div class="product__item__pic set-bg" data-setbg="https://the-1-beauty-fashion-admin.herokuapp.com{{imagesUrl}}" style="display: block;position: relative;"> 
+                                    <div class="discount">{{discount}}</div>
+                                    <ul class="product__item__pic__hover">
+                                        <li><a href="/"><i class="fa fa-heart"></i></a></li>
+                                        <li><a href="/product/detail/{{slug}}"><i class="fa fa-retweet"></i></a></li>
+                                        <li><a href="/"><i class="fa fa-shopping-cart"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="product__item__text">
+                                    <h6><a href="/product/detail/{{slug}}" style="font-weight:600;font-size:20px">{{name}}</a></h6>
+                                    <h4 style="color: #d0011b; font-weight: 650; text-align: center;position: relative;">${{pricePromotion}} <span style="color: #acacac;text-decoration: line-through;font-size: 14px;font-weight: 500;position: absolute; right: 35px;top: 0px;">${{price}}</span></h4>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        {{/each}}
+                    </div>
+                    <div class="row">
                             <div class="product__discount__slider owl-carousel">
                                 <div class="col-lg-4">
                                     <div class="product__discount__item">
@@ -296,50 +340,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="filter__item">
-                        <div class="row">
-                            <div class="col-lg-4 col-md-5">
-                                <div class="filter__sort">
-                                    <span>Sort By</span>
-                                    <select>
-                                        <option value="0">Default</option>
-                                        <option value="0">Default</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-4">
-                                <div class="filter__found">
-                                    <h6><span>16</span> Products found</h6>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-3">
-                                <div class="filter__option">
-                                    <span class="icon_grid-2x2"></span>
-                                    <span class="icon_ul"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        {{#each products}}
-                        <div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="/img/product/product-1.jpg" style="display: block;"> 
-                                    <ul class="product__item__pic__hover">
-                                        <li><a href="/"><i class="fa fa-heart"></i></a></li>
-                                        <li><a href="/"><i class="fa fa-retweet"></i></a></li>
-                                        <li><a href="/"><i class="fa fa-shopping-cart"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="product__item__text">
-                                    <h6><a href="/product/detail/{{slug}}" style="font-weight:600;font-size:20px">{{name}}</a></h6>
-                                    <h5 style="color: red; font-weight:500">{{price}}$</h5>
-                                </div>
-                            </div>
-                        </div>
-                        {{/each}}
-                    </div>
                 </div>
             </div>
         </div>
