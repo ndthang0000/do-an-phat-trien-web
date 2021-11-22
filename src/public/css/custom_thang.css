@@ -87,4 +87,11 @@
   -webkit-box-shadow: 1px 2px 1px 1px #f17373;
           box-shadow: 1px 2px 1px 1px #f17373;
 }
+
+.promotion {
+  margin-left: 15px;
+  color: #bebcbc;
+  text-decoration: line-through;
+  font-size: 18px;
+}
 /*# sourceMappingURL=custom_thang.css.map */
