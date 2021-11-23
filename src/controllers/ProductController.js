@@ -2,6 +2,9 @@ const Product=require('../database/models/Product')
 const {MultipleMongooseToObject}=require('../ultil/mongoose')
 const {MongooseToObject}=require('../ultil/mongoose')
 const listCaterology=require('../ultil/caterology')
+const formatProduct=require('./helper/formatProduct')
+
+
 
 class ProductController{
     async index(req,res){  // get all product
@@ -9,13 +12,14 @@ class ProductController{
             const allProduct=await Product.find({})
             const formatAllProduct=MultipleMongooseToObject(allProduct)
             formatAllProduct.forEach(product=>{
-                product.quantity=product.info.reduce((total,item)=>{
-                    return total+item.quantity
-                },0)
-                product.discount=parseInt(100-(product.pricePromotion/product.price)*100)
+                formatProduct(product)
             })
-            console.log(formatAllProduct)
-            res.render('products',{caterology:listCaterology,caterologyName:'All Product',products:formatAllProduct})
+            const relatedProduct=await Product.find({}).limit(3).sort({updatedAt:-1})
+            const formatRelateProduct=MultipleMongooseToObject(relatedProduct)
+            formatRelateProduct.forEach(product=>{
+                formatProduct(product)
+            })
+            res.render('products',{caterology:listCaterology,caterologyName:'All Product',products:formatAllProduct,relateProduct:formatRelateProduct})
         
         }
         catch(e){
@@ -29,18 +33,13 @@ class ProductController{
         try{
             var allProduct=await Product.findOne({slug:slug.slug})
             const formatAllProduct=MongooseToObject(allProduct)
-            formatAllProduct.quantity=formatAllProduct.info.reduce((total,item)=>{
-                return total+item.quantity
-            },0)
-            formatAllProduct.discount=parseInt(100-(formatAllProduct.pricePromotion/formatAllProduct.price)*100)
-            const relateProduct=await Product.find({}).limit(1).skip(5)
+            formatProduct(formatAllProduct)
+            const relateProduct=await Product.find({}).limit(3).skip(1).sort({updatedAt:-1})
             const formatRelateProduct=MultipleMongooseToObject(relateProduct)
             formatRelateProduct.forEach(product=>{
-                product.quantity=product.info.reduce((total,item)=>{
-                    return total+item.quantity
-                },0)
-                product.discount=parseInt(100-(product.pricePromotion/product.price)*100)
+                formatProduct(product)
             })
+            console.log(formatRelateProduct)
             if(formatAllProduct){
                 res.render('product-detail',{product:formatAllProduct,relateProduct:formatRelateProduct})
             }
@@ -64,12 +63,14 @@ class ProductController{
                 const allProduct=await Product.find({type:slug.caterology})
                 const formatAllProduct=MultipleMongooseToObject(allProduct)
                 formatAllProduct.forEach(product=>{
-                    product.quantity=product.info.reduce((total,item)=>{
-                        return total+item.quantity
-                    },0)
-                    product.discount=parseInt(100-(product.pricePromotion/product.price)*100)
+                    formatProduct(product)
                 })
-                res.render('products',{products:formatAllProduct,caterology:slug.caterology.toUpperCase(),caterology:listCaterology})
+                const relatedProduct=await Product.find({}).limit(3).sort({updatedAt:-1})
+                const formatRelateProduct=MultipleMongooseToObject(relatedProduct)
+                formatRelateProduct.forEach(product=>{
+                    formatProduct(product)
+                })
+                res.render('products',{products:formatAllProduct,caterologyName:slug.caterology.toUpperCase(),caterology:listCaterology,relateProduct:formatRelateProduct})
             }
             catch(e){
                 res.render('404')
