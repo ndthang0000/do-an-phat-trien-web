@@ -148,11 +148,11 @@
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="product__item">
                                 <div class="product__item__pic set-bg" data-setbg="https://the-1-beauty-fashion-admin.herokuapp.com{{imagesUrl.[0]}}" style="display: block;position: relative;"> 
-                                    <div class="discount">-{{discount}}%</div>
+                                    <div class="discount">-{{discount pricePromotion price}}%</div>
                                     <ul class="product__item__pic__hover">
-                                        <li><a href="/"><i class="fa fa-heart"></i></a></li>
+                                        <li><a href="/product/detail/{{slug}}"><i class="fa fa-heart"></i></a></li>
                                         <li><a href="/product/detail/{{slug}}"><i class="fa fa-retweet"></i></a></li>
-                                        <li><a href="/"><i class="fa fa-shopping-cart"></i></a></li>
+                                        <li><a href="/product/detail/{{slug}}"><i class="fa fa-shopping-cart"></i></a></li>
                                     </ul>
                                 </div>
                                 <div class="product__item__text">
@@ -175,11 +175,11 @@
                                 <div class="product__discount__item">
                                     <div class="product__discount__item__pic set-bg"
                                         data-setbg="https://the-1-beauty-fashion-admin.herokuapp.com{{imagesUrl.[0]}}">
-                                        <div class="product__discount__percent">-{{discount}}%</div>
+                                        <div class="product__discount__percent">-{{discount pricePromotion price}}%</div>
                                         <ul class="product__item__pic__hover">
-                                            <li><a href="/"><i class="fa fa-heart"></i></a></li>
+                                            <li><a href="/product/detail/{{slug}}"><i class="fa fa-heart"></i></a></li>
                                             <li><a href="/product/detail/{{slug}}"><i class="fa fa-retweet"></i></a></li>
-                                            <li><a href="/"><i class="fa fa-shopping-cart"></i></a></li>
+                                            <li><a href="/product/detail/{{slug}}"><i class="fa fa-shopping-cart"></i></a></li>
                                         </ul>
                                     </div>
                                     <div class="product__discount__item__text">

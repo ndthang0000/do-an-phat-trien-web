@@ -10,17 +10,8 @@ class ProductController{
     async index(req,res){  // get all product
         try{
             const allProduct=await Product.find({})
-            const formatAllProduct=MultipleMongooseToObject(allProduct)
-            formatAllProduct.forEach(product=>{
-                formatProduct(product)
-            })
             const relatedProduct=await Product.find({}).limit(3).sort({updatedAt:-1})
-            const formatRelateProduct=MultipleMongooseToObject(relatedProduct)
-            formatRelateProduct.forEach(product=>{
-                formatProduct(product)
-            })
-            res.render('products',{caterology:listCaterology,caterologyName:'All Product',products:formatAllProduct,relateProduct:formatRelateProduct})
-        
+            res.render('products',{caterology:listCaterology,caterologyName:'All Product',products:MultipleMongooseToObject(allProduct),relateProduct:MultipleMongooseToObject(relatedProduct)})
         }
         catch(e){
             console.log(e)
@@ -28,20 +19,13 @@ class ProductController{
         }
     }
     async detail(req,res){   // get detail product 
-        const slug=req.params
-        console.log(slug)
+        console.log(req.params.slug)
         try{
-            var allProduct=await Product.findOne({slug:slug.slug})
-            const formatAllProduct=MongooseToObject(allProduct)
-            formatProduct(formatAllProduct)
+            const allProduct=await Product.findOne({slug:req.params.slug})
             const relateProduct=await Product.find({}).limit(3).skip(1).sort({updatedAt:-1})
-            const formatRelateProduct=MultipleMongooseToObject(relateProduct)
-            formatRelateProduct.forEach(product=>{
-                formatProduct(product)
-            })
-            console.log(formatRelateProduct)
-            if(formatAllProduct){
-                res.render('product-detail',{product:formatAllProduct,relateProduct:formatRelateProduct})
+            console.log(allProduct)
+            if(allProduct){
+                res.render('product-detail',{product:MongooseToObject(allProduct),relateProduct:MultipleMongooseToObject(relateProduct)})
             }
             else{
                 res.render('404')
@@ -61,16 +45,8 @@ class ProductController{
         else{
             try{
                 const allProduct=await Product.find({type:slug.caterology})
-                const formatAllProduct=MultipleMongooseToObject(allProduct)
-                formatAllProduct.forEach(product=>{
-                    formatProduct(product)
-                })
                 const relatedProduct=await Product.find({}).limit(3).sort({updatedAt:-1})
-                const formatRelateProduct=MultipleMongooseToObject(relatedProduct)
-                formatRelateProduct.forEach(product=>{
-                    formatProduct(product)
-                })
-                res.render('products',{products:formatAllProduct,caterologyName:slug.caterology.toUpperCase(),caterology:listCaterology,relateProduct:formatRelateProduct})
+                res.render('products',{products:MultipleMongooseToObject(allProduct),caterologyName:slug.caterology.toUpperCase(),caterology:listCaterology,relateProduct:MultipleMongooseToObject(relatedProduct)})
             }
             catch(e){
                 res.render('404')

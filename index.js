@@ -14,7 +14,12 @@ app.engine('hbs', exphbs({
     extname:'hbs',
     helpers:{
         upperCase(item) { return item.charAt(0).toUpperCase() + item.slice(1);},
-}}));         //set view engine
+        increase(a,i){return a+i},
+        quantity(item){return item.reduce((total,i)=>{return total+i.quantity},0) },
+        newLine(a){if(a) return a.replace(/\n/g, "<br />");},
+        discount(a,b) {return (100-a/b*100).toFixed(0)}
+    }
+}));         //set view engine
 app.set('view engine', 'hbs');          //set view engine
 app.set('views',path.join(__dirname,'src/resources/views'))         //set view engine
 

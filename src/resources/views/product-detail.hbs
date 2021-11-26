@@ -5,7 +5,7 @@
     <!-- Breadcrumb Section End -->
 
     <!-- Product Details Section Begin -->
-    <section class="product-details spad">
+<section class="product-details spad">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-md-6">
@@ -13,11 +13,11 @@
                         <div class="product__details__pic__item" style="position: relative;">
                             <img class="product__details__pic__item--large"
                                 src="https://the-1-beauty-fashion-admin.herokuapp.com{{product.imagesUrl.[0]}}" alt="" >
-                                <div class="discount">-{{product.discount}}%</div>
+                                <div class="discount">-{{discount product.pricePromotion product.price}}%</div>
                         </div>
                         <div class="product__details__pic__slider owl-carousel">
                             {{#each product.imagesUrl}}
-                            <img data-imgbigurl="/img/product/details/product-details-2.jpg"
+                            <img data-imgbigurl="https://the-1-beauty-fashion-admin.herokuapp.com{{this}}"
                                 src="https://the-1-beauty-fashion-admin.herokuapp.com{{this}}" alt="">
                             {{/each}}
                         </div>
@@ -34,8 +34,8 @@
                             <i class="fa fa-star-half-o"></i>
                             <span>(18 reviews)</span>
                         </div>
-                        <div class="product__details__price">${{product.price}} <span class="promotion">${{product.pricePromotion}}</span></div>
-                        <p>{{product.des}}</p>
+                        <div class="product__details__price">${{product.pricePromotion}} <span class="promotion">${{product.price}}</span></div>
+                        <p>{{{newLine product.des}}}</p>
                         <div class="product__details__quantity">
                             <div class="quantity">
                                 <div class="pro-qty">
@@ -46,7 +46,7 @@
                         <a href="/" class="primary-btn">ADD TO CARD</a>
                         <a href="/" class="heart-icon"><span class="icon_heart_alt"></span></a>
                         <ul>
-                            <li><b>Availability</b> <span> <strong>{{product.quantity}} </strong> item in Warehouse</span></li>
+                            <li><b>Availability</b> <span> <strong>{{quantity product.info}} </strong> item in Warehouse</span></li>
                             <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li>
                             <li><b>Share on</b>
                                 <div class="share">
@@ -109,11 +109,11 @@
                 </div>
             </div>
         </div>
-    </section>
+</section>
     <!-- Product Details Section End -->
 
     <!-- Related Product Section Begin -->
-    <section class="related-product">
+<section class="related-product">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -126,24 +126,24 @@
                 <div class="product__discount__slider owl-carousel">
                     {{#each relateProduct}}
                     <div class="col-lg-4">
-                                    <div class="product__discount__item">
-                                        <div class="product__discount__item__pic set-bg"
-                                            data-setbg="https://the-1-beauty-fashion-admin.herokuapp.com{{this.imagesUrl.[0]}}">
-                                            <div class="product__discount__percent">-{{this.discount}}%</div>
-                                            <ul class="product__item__pic__hover">
-                                                <li><a href="/"><i class="fa fa-heart"></i></a></li>
-                                                <li><a href="/product/detail/{{this.slug}}"><i class="fa fa-retweet"></i></a></li>
-                                                <li><a href="/"><i class="fa fa-shopping-cart"></i></a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="product__discount__item__text">
-                                            <h5><a href="/product/detail/{{this.slug}}">{{this.name}}</a></h5>
-                                            <div class="product__item__price">${{this.pricePromotion}} <span>${{this.price}}</span></div>
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="product__discount__item">
+                            <div class="product__discount__item__pic set-bg"
+                                data-setbg="https://the-1-beauty-fashion-admin.herokuapp.com{{this.imagesUrl.[0]}}">
+                                <div class="product__discount__percent">-{{discount this.pricePromotion this.price}}%</div>
+                                <ul class="product__item__pic__hover">
+                                    <li><a href="/product/detail/{{this.slug}}"><i class="fa fa-heart"></i></a></li>
+                                    <li><a href="/product/detail/{{this.slug}}"><i class="fa fa-retweet"></i></a></li>
+                                    <li><a href="/product/detail/{{this.slug}}"><i class="fa fa-shopping-cart"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="product__discount__item__text">
+                                <h5><a href="/product/detail/{{this.slug}}">{{this.name}}</a></h5>
+                                <div class="product__item__price">${{this.pricePromotion}} <span>${{this.price}}</span></div>
+                            </div>
+                        </div>
+                    </div>
                     {{/each}}
                 </div>
             </div>
         </div>
-    </section>
+</section>
