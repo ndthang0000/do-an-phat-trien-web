@@ -6,15 +6,20 @@ class SiteController{
     async index(req,res){
         try{
             var caterologyProduct=[]
-            const tee=await Product.findOne({type:'tee'})
+            var tee=await Product.findOne({type:'tee'})
+            tee=MongooseToObject(tee)
             tee.caterology='tee'
-            const hoodie=await Product.findOne({type:'hoodie'})
+            var hoodie=await Product.findOne({type:'hoodie'})
+            hoodie=MongooseToObject(hoodie)
             hoodie.caterology='hoodie'
-            const accessory=await Product.findOne({type:'accessory'})
+            var accessory=await Product.findOne({type:'accessory'})
+            accessory=MongooseToObject(accessory)
             accessory.caterology='accessory'
-            const pant=await Product.findOne({type:'pant'})
+            var pant=await Product.findOne({type:'pant'})
+            pant=MongooseToObject(pant)
             pant.caterology='pant'
-            const bag=await Product.findOne({type:'bag'})
+            var bag=await Product.findOne({type:'bag'})
+            bag=MongooseToObject(bag)
             bag.caterology='bag'
             caterologyProduct.push(tee)
             caterologyProduct.push(hoodie)
@@ -22,7 +27,7 @@ class SiteController{
             caterologyProduct.push(pant)
             caterologyProduct.push(bag)
             console.log(caterologyProduct)
-            res.render('home',{caterology,caterologyProducts:MultipleMongooseToObject(caterologyProduct)})
+            res.render('home',{caterology,caterologyProducts:caterologyProduct})
         }
         catch(e){
             console.log(e)
