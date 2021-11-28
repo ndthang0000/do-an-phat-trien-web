@@ -26,8 +26,8 @@ class SiteController{
             caterologyProduct.push(accessory)
             caterologyProduct.push(pant)
             caterologyProduct.push(bag)
-            console.log(caterologyProduct)
-            res.render('home',{caterology,caterologyProducts:caterologyProduct})
+            const allProduct=await Product.find({}).limit(20).skip(2)
+            res.render('home',{caterology,caterologyProducts:caterologyProduct,allProduct:MultipleMongooseToObject(allProduct)})
         }
         catch(e){
             console.log(e)
