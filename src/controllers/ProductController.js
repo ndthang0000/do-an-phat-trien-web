@@ -54,5 +54,18 @@ class ProductController{
         }
         
     }
+    async filer(req,res){
+        try{
+            const min =parseInt(req.body.min.split('$')[1])
+            const max =parseInt(req.body.max.split('$')[1])
+            const allProduct=await Product.find({pricePromotion:{$lt:max,},price:{$gt:min}})
+            console.log(allProduct)
+            res.json({success:true,allProduct:MultipleMongooseToObject(allProduct)})
+        }
+        catch(e){
+            res.json({success:false})
+
+        }
+    }
 }
 module.exports=new ProductController
