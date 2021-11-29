@@ -19,11 +19,9 @@ class ProductController{
         }
     }
     async detail(req,res){   // get detail product 
-        console.log(req.params.slug)
         try{
             const allProduct=await Product.findOne({slug:req.params.slug})
             const relateProduct=await Product.find({}).limit(3).skip(1).sort({updatedAt:-1})
-            console.log(allProduct)
             if(allProduct){
                 res.render('product-detail',{product:MongooseToObject(allProduct),relateProduct:MultipleMongooseToObject(relateProduct)})
             }
@@ -37,7 +35,6 @@ class ProductController{
     }
     async caterology(req,res){
         const slug=req.params
-        console.log(slug)
         if(!listCaterology.includes(slug.caterology)){
             console.log('vo 404')
             res.render('404')
@@ -58,8 +55,16 @@ class ProductController{
         try{
             const min =parseInt(req.body.min.split('$')[1])
             const max =parseInt(req.body.max.split('$')[1])
-            const allProduct=await Product.find({pricePromotion:{$lt:max,},price:{$gt:min}})
-            console.log(allProduct)
+            if(req.body.status==='Hot'){
+                var allProduct=await Product.find({pricePromotion:{$lt:max,},price:{$gt:min}}).skip(5)
+            }
+            else if (req.body.status==='New'){
+                var allProduct=await Product.find({pricePromotion:{$lt:max,},price:{$gt:min}}).sort({updatedAt: -1}).limit(10)
+            }
+            else{
+                var allProduct=await Product.find({pricePromotion:{$lt:max,},price:{$gt:min}})
+            }
+
             res.json({success:true,allProduct:MultipleMongooseToObject(allProduct)})
         }
         catch(e){

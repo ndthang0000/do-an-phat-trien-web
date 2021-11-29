@@ -38,78 +38,23 @@
                                     <div class="price-input">
                                         <input type="text" id="minamount" name="min">
                                         <input type="text" id="maxamount" name="max">
-                                        <button id="btn-ok"style="margin-left: 20px; padding: 5px 20px; border: none;outline: none; background-color: hotpink;border-radius: 5px;">OK</button>
                                     </div>
                                 </div>
                             </div>
 
                         </div>
                         <div class="sidebar__item sidebar__item__color--option">
-                            <h4>Colors</h4>
-                            <div class="sidebar__item__color sidebar__item__color--white">
-                                <label for="white">
-                                    White
-                                    <input type="radio" id="white">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__color sidebar__item__color--gray">
-                                <label for="gray">
-                                    Gray
-                                    <input type="radio" id="gray">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__color sidebar__item__color--red">
-                                <label for="red">
-                                    Red
-                                    <input type="radio" id="red">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__color sidebar__item__color--black">
-                                <label for="black">
-                                    Black
-                                    <input type="radio" id="black">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__color sidebar__item__color--blue">
-                                <label for="blue">
-                                    Blue
-                                    <input type="radio" id="blue">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__color sidebar__item__color--green">
-                                <label for="green">
-                                    Green
-                                    <input type="radio" id="green">
-                                </label>
+                            <h4>Status</h4>
+                            <div style="display: flex;justify-content: space-around;padding: 5px 10px; ">
+                                <div class="btn-filter new-btn">New
+                                    
+                                </div>
+                                <div class="btn-filter hot-btn">
+                                    
+                                    Hot</div>
                             </div>
                         </div>
-                        <div class="sidebar__item">
-                            <h4>Popular Size</h4>
-                            <div class="sidebar__item__size">
-                                <label for="large">
-                                    S
-                                    <input type="radio" id="large">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__size">
-                                <label for="medium">
-                                    M
-                                    <input type="radio" id="medium">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__size">
-                                <label for="small">
-                                    L
-                                    <input type="radio" id="small">
-                                </label>
-                            </div>
-                            <div class="sidebar__item__size">
-                                <label for="tiny">
-                                    XL
-                                    <input type="radio" id="tiny">
-                                </label>
-                            </div>
-                        </div>
+                            <button id="btn-ok"style=" padding: 5px 20px; border: none;outline: none; background-color: hotpink;border-radius: 5px;"><i class="bi bi-funnel-fill"></i>Filter</button>
                         
                     </div>
                     </div>
@@ -124,17 +69,16 @@
                     <div class="filter__item">
                         <div class="row">
                             <div class="col-lg-4 col-md-5">
-                                <div class="filter__sort">
-                                    <span>Sort By</span>
-                                    <select>
-                                        <option value="0">Default</option>
-                                        <option value="0">Default</option>
-                                    </select>
-                                </div>
+                                
+                                <select id="sort" >
+                                    <option value="-1">Select Sort</option>
+                                    <option value="1">Sort up</option>
+                                    <option value="0">Sort down</option>
+                                </select>
                             </div>
                             <div class="col-lg-4 col-md-4">
                                 <div class="filter__found">
-                                    <h6><span>16</span> Products found</h6>
+                                    <h6><span id="length">{{products.length}}</span> Products found</h6>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-3">
@@ -198,46 +142,116 @@
         </div>
     </section>
 <script>
+    const discont=(a,b)=>{
+        return (100-a/b*100).toFixed(0)
+    }
+    let allProduct;
+    const renderProduct=(allProduct)=>{
+        var html=allProduct.map(item=>
+            `<div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="product__item">
+                    <div class="product__item__pic set-bg" data-setbg="https://the-1-beauty-fashion-admin.herokuapp.com${item.imagesUrl[0]}" style="display: block;position: relative; background-image: url('https://the-1-beauty-fashion-admin.herokuapp.com${item.imagesUrl[0]}')"> 
+                        <div class="discount">-${discont(item.pricePromotion,item.price)}%</div>
+                        <ul class="product__item__pic__hover">
+                            <li><a href="/product/detail/${item.slug}"><i class="fa fa-heart"></i></a></li>
+                            <li><a href="/product/detail/${item.slug}"><i class="fa fa-retweet"></i></a></li>
+                            <li><a href="/product/detail/${item.slug}"><i class="fa fa-shopping-cart"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="product__item__text">
+                        <h6><a href="/product/detail/${item.slug}" style="font-weight:600;font-size:20px">${item.name}</a></h6>
+                        <h4 style="color: #d0011b; font-weight: 650; text-align: center;position: relative;">$${item.pricePromotion} <span style="color: #acacac;text-decoration: line-through;font-size: 16px;font-weight: 500;position: absolute; right: 35px;top: 3px;">$${item.price}</span></h4>
+                    </div>
+                </div>
+            </div>`
+        ).join(' ')
+        document.querySelector('#allProduct').innerHTML=html
+        document.querySelector('#length').innerText=allProduct.length
+    }
     document.addEventListener('DOMContentLoaded',()=>{
         document.querySelector('#btn-ok').addEventListener('click',(e)=>{
             const min=document.querySelector('#minamount').value
             const max=document.querySelector('#maxamount').value
+            const status=document.querySelector('.clicked')?.innerText 
+            console.log(status)
             fetch('http://localhost:3000/product',{
                 headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
                 },
                 method: "POST",
-                body: JSON.stringify({min,max})
+                body: JSON.stringify({min,max,status})
             })
             .then(res=>res.json())
             .then(res=>{
-                const discont=(a,b)=>{
-                    return (100-a/b*100).toFixed(0)
-                }
                 console.log(res.allProduct)
                 if(res.success){
-                    var html=res.allProduct.map(item=>
-                        `<div class="col-lg-4 col-md-6 col-sm-6">
-                            <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="https://the-1-beauty-fashion-admin.herokuapp.com${item.imagesUrl[0]}" style="display: block;position: relative; background-image: url('https://the-1-beauty-fashion-admin.herokuapp.com${item.imagesUrl}')"> 
-                                    <div class="discount">-${discont(item.pricePromotion,item.price)}%</div>
-                                    <ul class="product__item__pic__hover">
-                                        <li><a href="/product/detail/${item.slug}"><i class="fa fa-heart"></i></a></li>
-                                        <li><a href="/product/detail/${item.slug}"><i class="fa fa-retweet"></i></a></li>
-                                        <li><a href="/product/detail/${item.slug}"><i class="fa fa-shopping-cart"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="product__item__text">
-                                    <h6><a href="/product/detail/${item.slug}" style="font-weight:600;font-size:20px">${item.name}</a></h6>
-                                    <h4 style="color: #d0011b; font-weight: 650; text-align: center;position: relative;">$${item.pricePromotion} <span style="color: #acacac;text-decoration: line-through;font-size: 16px;font-weight: 500;position: absolute; right: 35px;top: 3px;">$${item.price}</span></h4>
-                                </div>
-                            </div>
-                        </div>`
-                    ).join(' ')
-                    console.log(html)
-                    document.querySelector('#allProduct').innerHTML=html
+                    allProduct=res.allProduct
+                    renderProduct(allProduct)
                 }
+            })
+        })
+        const eleBtnFilter=document.querySelectorAll('.btn-filter')
+        eleBtnFilter.forEach(item=>{
+            item.addEventListener('click',(e,index)=>{
+                console.log('da click')
+                let iEle = document.createElement("i")
+                iEle.classList.add('bi')
+                iEle.classList.add('bi-check-lg')
+                eleBtnFilter.forEach((ii,idd)=>{
+                    if(ii.querySelector('i')){
+                        ii.querySelector('i').remove()
+                    }
+                })
+                item.appendChild(iEle)
+                const min=document.querySelector('#minamount').value
+                const max=document.querySelector('#maxamount').value
+                const status=item.innnerText
+                item.classList.add('clicked')
+            })
+        })
+        const option=document.querySelectorAll('.option')
+        option.forEach(item=>{
+            item.addEventListener('click',()=>{
+                console.log(typeof item.dataset.value)
+                if (allProduct){
+                    if(item.dataset.value=='1'){
+                        console.log('vo day 1')
+                        let newProduct=allProduct.sort((a,b)=>{
+                            return a.pricePromotion-b.pricePromotion
+                        })
+                        renderProduct(newProduct)
+                    }
+                    else if (item.dataset.value=='0'){
+                        console.log('vo day 2')
+                        let newProduct=allProduct.sort((a,b)=>{
+                        return b.pricePromotion-a.pricePromotion
+                        })
+                        renderProduct(newProduct)
+                    }
+                }
+                else{
+                    const min=document.querySelector('#minamount').value
+                    const max=document.querySelector('#maxamount').value
+                    const status=document.querySelector('.clicked')?.innerText 
+                    fetch('http://localhost:3000/product',{
+                        headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                        },
+                        method: "POST",
+                        body: JSON.stringify({min,max,status})
+                    })
+                    .then(res=>res.json())
+                    .then(res=>{
+                        console.log(res.allProduct)
+                        if(res.success){
+                            allProduct=res.allProduct
+                            renderProduct(allProduct)
+                        }
+                    })
+                }
+                
             })
         })
     })

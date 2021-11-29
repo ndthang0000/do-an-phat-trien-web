@@ -80,5 +80,19 @@
     font-size: 18px;
     
 }
+.btn-filter{
+    position: relative;
+    border: 1px solid #2ecc71;
+    padding: 8px 15px;
+    width: 80px;
+    cursor: pointer;
+    .bi-check-lg{
+        color: #2ecc71;
+        position: absolute;
+        right: 8px;
+        top: 0px;
+    }
+}
+
 
 
