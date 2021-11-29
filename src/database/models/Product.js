@@ -1,6 +1,7 @@
 const slug = require('mongoose-slug-generator');
 const mongoose=require('mongoose')
 const Schema = mongoose.Schema;
+const mongoose_delete = require('mongoose-delete');
 const ObjectId = Schema.ObjectId;
 mongoose.plugin(slug);
 const Product=new Schema({
@@ -15,4 +16,7 @@ const Product=new Schema({
     rating:{point:Number,quantity:Number},
     slug:{type:String,slug:"name",unique:true},
 },{timestamps:true})
+
+
+Product.plugin(mongoose_delete,{ overrideMethods: 'all' });
 module.exports=mongoose.model('Product',Product)
