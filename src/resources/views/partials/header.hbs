@@ -96,8 +96,8 @@
                 <div class="col-lg-6">
                     <nav class="header__menu">
                         <ul>
-                            <li class="active"><a href="/">Home</a></li>
-                            <li><a href="/product">All Product</a>
+                            <li  class="li-active"><a href="/">Home</a></li>
+                            <li  class="li-active"><a href="/product">All Product</a>
                                 <ul class="header__menu__dropdown">                                  
                                     <li><a href="/product/tee">Tee</a></li>
                                     <li><a href="/product/jacket">Jacket</a></li>
@@ -112,9 +112,9 @@
                                 </ul>
                             </li>
                             
-                            <li><a href="/product/sale-off">Sale off</a></li>
-                            <li><a href="/blog">Blog</a></li>
-                            <li><a href="/contact">Contact</a></li>
+                            <li class="li-active"><a href="/product/sale-off">Sale off</a></li>
+                            <li class="li-active"><a href="/blog">Blog</a></li>
+                            <li class="li-active"><a href="/contact">Contact</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -132,3 +132,20 @@
             </div>
         </div>
     </header>
+<script>
+    document.addEventListener('DOMContentLoaded',()=>{
+    const liElement=document.querySelectorAll('.li-active')
+    liElement.forEach(item=>{
+        const arr=item.querySelector('a').href.split('/')
+        const path=arr[arr.length-1]
+        console.log(window.location.pathname.split('/')[1])
+        if(path===window.location.pathname.split('/')[1]){
+            item.classList.add('active')
+        }
+        if(window.location.pathname==='/product/sale-off'){
+            liElement[2].classList.add('active')
+            liElement[1].classList.remove('active')
+        }
+    })
+})
+</script>

@@ -54,7 +54,7 @@
                                     Hot</div>
                             </div>
                         </div>
-                            <button id="btn-ok"style=" padding: 5px 20px; border: none;outline: none; background-color: hotpink;border-radius: 5px;"><i class="bi bi-funnel-fill"></i>Filter</button>
+                            <button id="btn-ok"style=" padding: 5px 20px; border: none;outline: none; background-color: #2ecc71;border-radius: 5px;"><i class="bi bi-funnel-fill"></i>Filter</button>
                         
                     </div>
                     </div>
@@ -142,6 +142,7 @@
         </div>
     </section>
 <script>
+    const caterogy=window.location.pathname.split('/')[2]
     const discont=(a,b)=>{
         return (100-a/b*100).toFixed(0)
     }
@@ -173,17 +174,17 @@
             const min=document.querySelector('#minamount').value
             const max=document.querySelector('#maxamount').value
             const status=document.querySelector('.clicked')?.innerText 
-            console.log(status)
             fetch('https://the-1-beauty-fashion.herokuapp.com/product',{
                 headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
                 },
                 method: "POST",
-                body: JSON.stringify({min,max,status})
+                body: JSON.stringify({min,max,status,caterogy})
             })
             .then(res=>res.json())
             .then(res=>{
+                console.log(res)
                 console.log(res.allProduct)
                 if(res.success){
                     allProduct=res.allProduct
@@ -240,14 +241,27 @@
                         'Content-Type': 'application/json'
                         },
                         method: "POST",
-                        body: JSON.stringify({min,max,status})
+                        body: JSON.stringify({min,max,status,caterogy})
                     })
                     .then(res=>res.json())
                     .then(res=>{
                         console.log(res.allProduct)
                         if(res.success){
                             allProduct=res.allProduct
-                            renderProduct(allProduct)
+                            if(item.dataset.value=='1'){
+                                console.log('vo day 1')
+                                let newProduct=allProduct.sort((a,b)=>{
+                                    return a.pricePromotion-b.pricePromotion
+                                })
+                                renderProduct(newProduct)
+                            }
+                            else if (item.dataset.value=='0'){
+                                console.log('vo day 2')
+                                let newProduct=allProduct.sort((a,b)=>{
+                                return b.pricePromotion-a.pricePromotion
+                                })
+                                renderProduct(newProduct)
+                            }
                         }
                     })
                 }

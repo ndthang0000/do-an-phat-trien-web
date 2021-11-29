@@ -6,5 +6,5 @@ const productController=require('../controllers/ProductController')
 route.get('/detail/:slug',productController.detail)
 route.get('/:caterology',productController.caterology)
 route.get('/',productController.index)
-route.post('/',productController.filer)
+route.post('/',productController.filter)
 module.exports=route
