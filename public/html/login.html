@@ -26,7 +26,7 @@
 				<div class="col-md-6 col-lg-4">
 					<div class="login-wrap p-0">
 					<h3 class="mb-4 text-center" style="font-size: 28px;font-weight: 600;">Login Now</h3>
-				<form  class="signin-form" >
+				<form  class="signin-form" method="post">
 					<div class="form-group">
 						<input type="text" class="form-control" placeholder="Username" required name="username">
 						<span class="info-err" style="color: rgb(200 35 35); font-size: 14px;font-weight: 550;"></span>
@@ -37,7 +37,7 @@
 					<span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
 				</div>
 				<div class="form-group">
-					<div style="display: flex;align-items: center;justify-content: center;" class="form-control btn btn-primary submit px-3">Log In</div>
+					<button type="submit" style="display: flex;align-items: center;justify-content: center;" class="form-control btn btn-primary submit px-3">Log In</button>
 				</div>
 				<div class="form-group d-md-flex">
 					<div class="w-50">
@@ -70,38 +70,38 @@
 	<script>
 		document.addEventListener('DOMContentLoaded',()=>{
 			
-			document.querySelector('.submit').addEventListener('click',()=>{
-				const dataEle=document.querySelectorAll('input[name]')
-				dataEle.forEach(item=>{
-					item.addEventListener('input',(e)=>{
-						e.target.nextElementSibling.textContent=''
-					})
-				})
-				data={[dataEle[0].name]:dataEle[0].value,[dataEle[1].name]:dataEle[1].value,[dataEle[2].name]:dataEle[2].value}
-				fetch("http://localhost:3000/login",
-				{
-					headers: {
-					'Accept': 'application/json',
-					'Content-Type': 'application/json'
-					},
-					method: "POST",
-					body: JSON.stringify(data)
-				})
-				.then(res=>res.json())
-				.then(res=>{
-					console.log(res)
-					if(res.success){
-						window.location.replace("http://localhost:3000");
-					}else{
-						if(res.type==='username'){
-							document.querySelectorAll('.info-err')[0].innerHTML=`<i class="bi bi-exclamation-triangle-fill"> ${res.message}</i>`
-						}
-						else{
-							document.querySelectorAll('.info-err')[1].innerHTML=`<i class="bi bi-exclamation-triangle-fill"> ${res.message}</i>`
-						}
-					}
-				})
-			})
+			// document.querySelector('.submit').addEventListener('click',()=>{
+			// 	const dataEle=document.querySelectorAll('input[name]')
+			// 	dataEle.forEach(item=>{
+			// 		item.addEventListener('input',(e)=>{
+			// 			e.target.nextElementSibling.textContent=''
+			// 		})
+			// 	})
+			// 	data={[dataEle[0].name]:dataEle[0].value,[dataEle[1].name]:dataEle[1].value,[dataEle[2].name]:dataEle[2].value}
+			// 	fetch("http://localhost:3000/login",
+			// 	{
+			// 		headers: {
+			// 		'Accept': 'application/json',
+			// 		'Content-Type': 'application/json'
+			// 		},
+			// 		method: "POST",
+			// 		body: JSON.stringify(data)
+			// 	})
+			// 	.then(res=>res.json())
+			// 	.then(res=>{
+			// 		console.log(res)
+			// 		if(res.success){
+			// 			window.location.replace("http://localhost:3000");
+			// 		}else{
+			// 			if(res.type==='username'){
+			// 				document.querySelectorAll('.info-err')[0].innerHTML=`<i class="bi bi-exclamation-triangle-fill"> ${res.message}</i>`
+			// 			}
+			// 			else{
+			// 				document.querySelectorAll('.info-err')[1].innerHTML=`<i class="bi bi-exclamation-triangle-fill"> ${res.message}</i>`
+			// 			}
+			// 		}
+			// 	})
+			// })
 		})	
 	</script>
 	</body>

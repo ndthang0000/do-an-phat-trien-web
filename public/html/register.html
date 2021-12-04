@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<title>1Beauty | Login</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon.png">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+	<link rel="icon" href="/img/favicon.ico" type="image/x-icon" />
+	<link rel="stylesheet" href="css/login.css">
+
+	</head>
+	<body class="img js-fullheight" style="background-image: url(img/breadcrumb.jpg);">
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-6 text-center mb-5">
+					<h1 class="heading-section" style="font-size: 40px;font-weight: 600;">Welcom To <strong style="color: #4de98e;">1Beauty</strong> </h1>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-md-6 col-lg-4">
+					<div class="login-wrap p-0">
+					<h3 class="mb-4 text-center" style="font-size: 28px;font-weight: 600;">Login Now</h3>
+				<form  class="signin-form" method="post">
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Username" required name="username">
+						<span class="info-err" style="color: rgb(200 35 35); font-size: 14px;font-weight: 550;"></span>
+					</div>
+				<div class="form-group">
+					<input id="password-field" type="password" class="form-control" placeholder="Password" required name="password">
+					<span class="info-err" style="color: rgb(200 35 35); font-size: 14px;font-weight: 550;"></span>
+					<span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+				</div>
+				<div class="form-group">
+					<button type="submit" style="display: flex;align-items: center;justify-content: center;" class="form-control btn btn-primary submit px-3">Log In</button>
+				</div>
+				<div class="form-group d-md-flex">
+					<div class="w-50">
+						<label class="checkbox-wrap checkbox-primary">Remember Me
+							<input type="checkbox" checked name="isRemember">
+							<span class="checkmark"></span>
+						</label>
+								</div>
+								<div class="w-50 text-md-right">
+									<a href="#" style="color: #fff">Forgot Password</a>
+								</div>
+				</div>
+				</form>
+				<p class="w-100 text-center">&mdash; Or Sign In With &mdash;</p>
+				<div class="social d-flex text-center">
+				<a href="#" class="px-2 py-2 mr-md-1 rounded"><span class="ion-logo-facebook mr-2"></span> Facebook</a>
+				<a href="#" class="px-2 py-2 ml-md-1 rounded"><span class="ion-logo-twitter mr-2"></span> Google</a>
+				</div>
+				<a class="register" style="color:#37e780;;">Create a new account?</a>
+				</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<script src="js/jquery-3.3.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/login.js"></script>
+	<script>
+		document.addEventListener('DOMContentLoaded',()=>{
+			
+			// document.querySelector('.submit').addEventListener('click',()=>{
+			// 	const dataEle=document.querySelectorAll('input[name]')
+			// 	dataEle.forEach(item=>{
+			// 		item.addEventListener('input',(e)=>{
+			// 			e.target.nextElementSibling.textContent=''
+			// 		})
+			// 	})
+			// 	data={[dataEle[0].name]:dataEle[0].value,[dataEle[1].name]:dataEle[1].value,[dataEle[2].name]:dataEle[2].value}
+			// 	fetch("http://localhost:3000/login",
+			// 	{
+			// 		headers: {
+			// 		'Accept': 'application/json',
+			// 		'Content-Type': 'application/json'
+			// 		},
+			// 		method: "POST",
+			// 		body: JSON.stringify(data)
+			// 	})
+			// 	.then(res=>res.json())
+			// 	.then(res=>{
+			// 		console.log(res)
+			// 		if(res.success){
+			// 			window.location.replace("http://localhost:3000");
+			// 		}else{
+			// 			if(res.type==='username'){
+			// 				document.querySelectorAll('.info-err')[0].innerHTML=`<i class="bi bi-exclamation-triangle-fill"> ${res.message}</i>`
+			// 			}
+			// 			else{
+			// 				document.querySelectorAll('.info-err')[1].innerHTML=`<i class="bi bi-exclamation-triangle-fill"> ${res.message}</i>`
+			// 			}
+			// 		}
+			// 	})
+			// })
+		})	
+	</script>
+	</body>
+</html>
+
