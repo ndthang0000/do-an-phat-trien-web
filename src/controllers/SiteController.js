@@ -1,7 +1,7 @@
 const caterology=require('../ultil/caterology')
 const Product=require('../database/models/Product')
 const {MongooseToObject,MultipleMongooseToObject}=require('../ultil/mongoose')
-const formatProduct=require('./helper/formatProduct')
+
 class SiteController{
     async index(req,res){
         try{

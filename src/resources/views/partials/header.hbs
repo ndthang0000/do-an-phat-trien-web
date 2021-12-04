@@ -31,7 +31,6 @@
                         <li><a href="/product/pant">Pant</a></li>
                         
                         <li><a href="/product/short">Short</a></li>
-                       
                         <li><a href="/product/hoodie">Hoodie</a></li>
                         <li><a href="/product/accessory">Accessory</a></li>
                         <li><a href="/product/bag">Bag</a></li>
@@ -79,7 +78,22 @@
                                 <a href="https://www.youtube.com/channel/UCb3eal9CwlWRAEFcSymv57A"><i class="fa fa-linkedin"></i></a>
                             </div>
                             <div class="header__top__right__auth">
+                                {{#if user.success}}
                                 <a href="/login"><i class="fa fa-user" style="font-size:30px;color: #34b86b;"></i> Login</a>
+                                {{else}}
+                                <div class="area-user" >
+                                    <p style="margin-bottom: 0px;margin-right: 20px;">Hello, {{user.name}}</p>
+                                    <div id="img-avatar">
+                                        <img  src="{{user.avatarUrl}}" alt="">
+                                    </div>
+                                    <ul class="hidden-menu-img">
+                                        <li> <a href="/me" style="font-size: 18px;">View my Info</a> </li>
+                                        <li> <a href="/me/edit" style="font-size: 18px;">Edit my Infor</a> </li>
+                                        <li> <a href="" style="font-size: 18px;">Help...</a> </li>
+                                        <li> <a href="/logout" style="font-size: 18px;">Log out</a> </li>
+                                    </ul>
+                                </div>
+                                {{/if}}
                             </div>
                         </div>
                     </div>
@@ -134,18 +148,26 @@
     </header>
 <script>
     document.addEventListener('DOMContentLoaded',()=>{
-    const liElement=document.querySelectorAll('.li-active')
-    liElement.forEach(item=>{
-        const arr=item.querySelector('a').href.split('/')
-        const path=arr[arr.length-1]
-        console.log(window.location.pathname.split('/')[1])
-        if(path===window.location.pathname.split('/')[1]){
-            item.classList.add('active')
-        }
-        if(window.location.pathname==='/product/sale-off'){
-            liElement[2].classList.add('active')
-            liElement[1].classList.remove('active')
-        }
-    })
+        const liElement=document.querySelectorAll('.li-active')
+        liElement.forEach(item=>{
+            const arr=item.querySelector('a').href.split('/')
+            const path=arr[arr.length-1]
+            console.log(window.location.pathname.split('/')[1])
+            if(path===window.location.pathname.split('/')[1]){
+                item.classList.add('active')
+            }
+            if(window.location.pathname==='/product/sale-off'){
+                liElement[2].classList.add('active')
+                liElement[1].classList.remove('active')
+            }
+        })
+        const menu=document.querySelector('#img-avatar');
+        menu.addEventListener('click',()=>{
+            document.querySelector('.hidden-menu-img').classList.toggle('non-hidden')
+        })
+        document.querySelector('body').addEventListener('click',(e)=>{
+            console.log([e.target])
+        })
+
 })
 </script>
