@@ -126,16 +126,15 @@
 
 .area-user .hidden-menu-img {
   position: absolute;
-  top: -50px;
-  left: 0px;
+  top: -150px;
+  width: 300px;
   right: 0;
   display: none;
-  -webkit-transition: 0.2s;
-  transition: 0.2s;
   z-index: 100;
   background-color: #ecf0f1;
   color: #333;
-  padding: 20px 25px;
+  padding: 15px 20px;
+  padding-top: 25px;
   border-radius: 5px;
   border: 0.5px solid #d6d3d3;
 }
@@ -145,7 +144,7 @@
   padding: 8px 12px;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .area-user .hidden-menu-img li:hover {
@@ -170,5 +169,50 @@
 .non-hidden {
   top: 53px !important;
   display: block !important;
+}
+
+.form-group {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.form-group label {
+  font-size: 18px;
+}
+
+.form-group input {
+  height: 40px;
+  padding: 5px 10px;
+  width: 300px;
+  border-radius: 5px;
+  border-color: #876ff0;
+  border: 0.5px solid #33df58;
+}
+
+button#type-pass {
+  margin-top: 40px;
+  padding: 15px 20px;
+  border: none;
+  outline: none;
+  background-color: #555;
+  color: white;
+  font-size: 22px;
+  font-weight: 650;
+  height: 70px;
+}
+
+button#type-pass:hover {
+  font-size: 24px;
+}
+
+.icon-person {
+  padding: 10px;
+  border-radius: 50%;
+  background-color: #e0dddd;
 }
 /*# sourceMappingURL=custom_thang.css.map */

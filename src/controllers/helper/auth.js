@@ -12,7 +12,7 @@ passport.use(new LocalStrategy(
             if (!user) { return done(null, false,{message:'Username does not exist ! '}); }
             let isSuccess=await argon2.verify(user.password,password)
             if(!isSuccess) { return done(null, false,{message:'Password is wrong ! '});}
-            return done(null, {name:user.name,imageUrl:user.imageUrl,_id:user._id,success:true});
+            return done(null, {name:user.name,imageUrl:user.imageUrl,_id:user._id,success:false});
         }catch(e){
             return done(e);
         }

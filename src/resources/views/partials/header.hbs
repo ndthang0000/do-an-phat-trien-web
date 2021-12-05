@@ -18,7 +18,16 @@
         </div>
         <div class="humberger__menu__widget">
             <div class="header__top__right__auth">
-                <a href="/login"><i class="fa fa-user"></i> Login</a>
+                {{#if user.username}}
+                <div class="area-user" >
+                    <div id="img-avatar">
+                        <a href="/me/{{user._id}}"><img  src="{{user.avatarUrl}}" alt=""></a>
+                    </div>
+                </div>
+                {{else}}
+                <a href="/login"><i class="fa fa-user" style="font-size:30px;color: #34b86b;"></i> Login</a>
+                {{/if}}
+                
             </div>
         </div>
         <nav class="humberger__menu__nav mobile-menu">
@@ -77,22 +86,46 @@
                                 <a href="https://www.instagram.com/nguyet.chuot/?fbclid=IwAR0902kxCUFz3vIV0iOpo1u-Od6g5BuohBYN8a2AXzDFU5iTGF1wi_7f-MQ"><i class="fa fa-instagram"></i></a>
                                 <a href="https://www.youtube.com/channel/UCb3eal9CwlWRAEFcSymv57A"><i class="fa fa-linkedin"></i></a>
                             </div>
-                            <div class="header__top__right__auth">
-                                {{#if user.success}}
-                                <a href="/login"><i class="fa fa-user" style="font-size:30px;color: #34b86b;"></i> Login</a>
-                                {{else}}
+                            <div class="header__top__right__auth" style="position: relative;">
+                                {{#if user.username}}
                                 <div class="area-user" >
-                                    <p style="margin-bottom: 0px;margin-right: 20px;">Hello, {{user.name}}</p>
-                                    <div id="img-avatar">
+                                    <p style="margin-bottom: 0px;margin-right: 10px;">Hello, <h5 style="margin-right: 20px;font-weight: 550;">{{nameDisplay user.name}}</h5> </p>
+                                    <div id="img-avatar" class="img-avatar">
                                         <img  src="{{user.avatarUrl}}" alt="">
                                     </div>
                                     <ul class="hidden-menu-img">
-                                        <li> <a href="/me" style="font-size: 18px;">View my Info</a> </li>
-                                        <li> <a href="/me/edit" style="font-size: 18px;">Edit my Infor</a> </li>
-                                        <li> <a href="" style="font-size: 18px;">Help...</a> </li>
-                                        <li> <a href="/logout" style="font-size: 18px;">Log out</a> </li>
+                                        <li style="display: flex; justify-content: space-between;align-items: center;position: relative;">
+                                            <div style="width: 40px;height: 40px; border-radius: 50%;overflow: hidden;">
+                                                <a href="/me/{{user._id}}"><img src="{{user.avatarUrl}}" alt=""></a>
+                                            </div>
+                                            <h4>{{user.name}}</h4>
+                                            <a href="/me/{{user._id}}" style="position: absolute;top: 0;left: 0;right: 0;bottom:0;opacity: 0;"></a>
+
+                                        </li>
+                                        <li style="display: flex; align-items: center;justify-content: space-between; position: relative;"> 
+                                            <i class="bi bi-person" style="font-size: 20px; padding:6px 10px;border-radius: 50%;background-color: rgb(216, 211, 211);"></i>
+                                            <a href="/me/{{user._id}}" style="font-size: 18px;">View my Info</a> 
+                                            <a href="/me/{{user._id}}" style="position: absolute;top: 0;left: 0;right: 0;bottom:0;opacity: 0;"></a>
+                                        </li>
+                                        <li style="display: flex; align-items: center;justify-content: space-between;position: relative;">
+                                            <i class="bi bi-pencil" style="font-size: 20px; padding:6px 10px;border-radius: 50%;background-color: rgb(216, 211, 211);"></i>
+                                            <a href="/me/{{user._id}}/edit/password" style="font-size: 18px;">Change password</a> 
+                                            <a href="/me/{{user._id}}/edit/password" style="position: absolute;top: 0;left: 0;right: 0;bottom:0;opacity: 0;"></a>
+                                        </li>
+                                        <li style="display: flex; align-items: center;justify-content: space-between;position: relative;">                              
+                                            <i class="bi bi-question-circle" style="font-size: 20px; padding:6px 10px;border-radius: 50%;background-color: rgb(216, 211, 211);"></i>
+                                            <a href="" style="font-size: 18px;">Help...</a> 
+                                        </li>
+                                        <li style="display: flex; align-items: center;justify-content: space-between;position: relative;"> 
+                                                
+                                            <i class="bi bi-box-arrow-in-right" style="font-size: 20px; padding:6px 10px;border-radius: 50%;background-color: rgb(216, 211, 211);"></i>
+                                            <a href="/logout" style="font-size: 18px;">Log out</a> 
+                                            <a href="/logout" style="position: absolute;top: 0;left: 0;right: 0;bottom:0;opacity: 0;"></a>
+                                        </li>
                                     </ul>
                                 </div>
+                                {{else}}
+                                <a href="/login"><i class="fa fa-user" style="font-size:30px;color: #34b86b;"></i> Login</a>
                                 {{/if}}
                             </div>
                         </div>
@@ -161,13 +194,11 @@
                 liElement[1].classList.remove('active')
             }
         })
-        const menu=document.querySelector('#img-avatar');
+        const menu=document.querySelector('.img-avatar');
         menu.addEventListener('click',()=>{
             document.querySelector('.hidden-menu-img').classList.toggle('non-hidden')
         })
-        document.querySelector('body').addEventListener('click',(e)=>{
-            console.log([e.target])
-        })
+        
 
 })
 </script>
