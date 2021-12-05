@@ -23,42 +23,74 @@
 				</div>
 			</div>
 			<div class="row justify-content-center">
-				<div class="col-md-6 col-lg-4">
+				<div class="col-md-6 col-lg-8">
 					<div class="login-wrap p-0">
-					<h3 class="mb-4 text-center" style="font-size: 28px;font-weight: 600;">Login Now</h3>
-				<form  class="signin-form" method="post">
-					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Username" required name="username">
-						<span class="info-err" style="color: rgb(200 35 35); font-size: 14px;font-weight: 550;"></span>
+						<h3 class="mb-4 text-center" style="font-size: 28px;font-weight: 600;">Register</h3>
+						<div  class="signin-form" style="margin-bottom: 100px;">
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<input type="text" class="form-control" placeholder="Full name" required="true" name="name">
+										<span class="info-err" style="color: rgb(200 35 35); font-size: 14px;font-weight: 550;"></span>
+									</div>
+									<div class="form-group">
+										<input type="text" class="form-control" placeholder="Address" required="true" name="address">
+										<span class="info-err" style="color: rgb(200 35 35); font-size: 14px;font-weight: 550;"></span>
+									</div>
+									<div class="form-group">
+										<input type="text" class="form-control" placeholder="Gmail" required="true" name="gmail">
+										<span class="info-err-gmail" style="color: rgb(200 35 35); font-size: 14px;font-weight: 550;"></span>
+									</div>
+									<div class="form-group" style="display: flex;flex-direction: row;">
+										<label for="mail" style="width: 80px; color: black;font-weight: 600; background-color: whitesmoke; text-align: center; margin-right: 10px; border-radius: 5px;">Mail</label>
+										<input type="radio" class="form-control" value="male" id="mail" name="gender" style="width: 20px;height: 30px;" required>
+										
+										
+									</div>
+									<div class="form-group" style="display: flex;flex-direction: row;">
+										<label for="femail" style="width: 80px; color: black;font-weight: 600; background-color: whitesmoke; text-align: center; margin-right: 10px; border-radius: 5px;">Femail</label>
+										<input type="radio" class="form-control" value="female" name="gender" style="width: 20px;height: 30px;" required="true"> 
+										
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<input type="text" class="form-control" placeholder="Ussername" required name="username">
+										<span class="info-err-username" style="color: rgb(200 35 35); font-size: 14px;font-weight: 550;"></span>
+									</div>
+									<div class="form-group">
+										<input id="password-field" type="password" class="form-control" placeholder="Your password" required="true" name="password">
+										<span class="info-err" style="color: rgb(200 35 35); font-size: 14px;font-weight: 550;"></span>
+										<span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+									</div>
+									<div class="form-group">
+										<input id="password-field" type="password" class="form-control" placeholder="Retype your Password" required="true" name="retypePassword">
+										<span class="info-errr" style="color: rgb(200 35 35); font-size: 14px;font-weight: 550;"></span>
+										<span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+									</div>
+									<div class="form-group">
+										<button id="type-pass" type="submit" style="display: flex;align-items: center;justify-content: center;" class="form-control btn btn-primary submit px-3">Register</button>
+									</div>
+								</div>
+							</div>
+							
+							
+							
+						</div>
+						<p class="w-100 text-center">&mdash; Or Sign In With &mdash;</p>
+						<div class="social d-flex text-center">
+							<a href="#" class="px-2 py-2 mr-md-1 rounded"><span class="ion-logo-facebook mr-2"></span> Facebook</a>
+							<a href="#" class="px-2 py-2 ml-md-1 rounded"><span class="ion-logo-twitter mr-2"></span> Google</a>
+						</div>
+						<a class="register" style="color:#37e780;font-size: 20px;" href="/login">You have a account ? </a>
 					</div>
-				<div class="form-group">
-					<input id="password-field" type="password" class="form-control" placeholder="Password" required name="password">
-					<span class="info-err" style="color: rgb(200 35 35); font-size: 14px;font-weight: 550;"></span>
-					<span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
 				</div>
-				<div class="form-group">
-					<button type="submit" style="display: flex;align-items: center;justify-content: center;" class="form-control btn btn-primary submit px-3">Log In</button>
-				</div>
-				<div class="form-group d-md-flex">
-					<div class="w-50">
-						<label class="checkbox-wrap checkbox-primary">Remember Me
-							<input type="checkbox" checked name="isRemember">
-							<span class="checkmark"></span>
-						</label>
-								</div>
-								<div class="w-50 text-md-right">
-									<a href="#" style="color: #fff">Forgot Password</a>
-								</div>
-				</div>
-				</form>
-				<p class="w-100 text-center">&mdash; Or Sign In With &mdash;</p>
-				<div class="social d-flex text-center">
-				<a href="#" class="px-2 py-2 mr-md-1 rounded"><span class="ion-logo-facebook mr-2"></span> Facebook</a>
-				<a href="#" class="px-2 py-2 ml-md-1 rounded"><span class="ion-logo-twitter mr-2"></span> Google</a>
-				</div>
-				<a class="register" style="color:#37e780;;">Create a new account?</a>
-				</div>
-				</div>
+			</div>
+		</div>
+		<div  id="succes-info"style="position: fixed; top: -300px; left: 50%;transform: translateX(-50%); transition: 0.4s;">
+			<div style="display: flex; background-color: aliceblue;border-radius: 10px;">
+				<i class="bi bi-hand-thumbs-up" style="font-size: 30px ;color: #37e780;padding: 30px; padding-right: 0px;"></i>
+				<h2 style="padding: 30px;color: #37e780">Register Successfull !! </h2>
 			</div>
 		</div>
 	</section>
@@ -67,6 +99,72 @@
 	<script src="js/jquery-3.3.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/login.js"></script>
+	<script>
+        document.addEventListener('DOMContentLoaded',()=>{
+			
+            const retype=document.querySelector('input[name="retypePassword"]')
+            retype.addEventListener('input',(e)=>{
+                let password=document.querySelector('input[name="password"]').value
+                if(e.target.value!==password){
+                    document.querySelector('.info-errr').innerText="Don't match with your password"
+                }
+                else{
+                    document.querySelector('.info-errr').innerText=''
+                }
+            })
+
+			const gmailEle=document.querySelector('input[name="gmail"]')
+			gmailEle.addEventListener('blur',(e)=>{
+				if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(e.target.value)==false){
+					document.querySelector('.info-err-gmail').innerText='Email not invalid'
+				}
+			})
+			gmailEle.addEventListener('input',()=>{
+				document.querySelector('.info-err-gmail').innerText=''
+			})
+
+			const btnSubmit=document.querySelector('button[type="submit"]')
+			btnSubmit.addEventListener('click',(e)=>{
+				e.preventDefault()
+				const inputEle=document.querySelectorAll('input[name]')
+				let DATA={}
+				inputEle.forEach(item=>{
+					DATA[item.name]=item.value
+				})
+				console.log(DATA)
+				let isEmail=/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(gmailEle.value)
+				if (retype.value===document.querySelector('input[name="password"]').value && isEmail){
+					console.log('vo day')
+					console.log(retype.value)
+					console.log(document.querySelector('input[name="password"]'))
+					fetch("http://localhost:3000/register",
+					{
+						headers: {
+						'Accept': 'application/json',
+						'Content-Type': 'application/json'
+						},
+						method: "POST",
+						body: JSON.stringify(DATA)
+					})
+					.then(res=>res.json())
+					.then(res=>{
+						if(!res.success){
+							if(res.err==='username'){
+								document.querySelector('.info-err-username').innerText='This username has been existed, please choose another username'
+							}
+						}
+						else{
+							document.querySelector('#succes-info').style.top='200px'
+							setTimeout(()=>{
+								window.location.href=window.location.origin+'/login'
+							},800)
+						}
+					})
+				}
+				
+			})
+        })
+    </script>
 	<script>
 		document.addEventListener('DOMContentLoaded',()=>{
 			

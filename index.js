@@ -4,6 +4,7 @@ const exphbs  = require('express-handlebars');
 const path=require('path')
 const app = express()
 const passport=require('passport')
+const moment =require('moment')
 require('dotenv').config()
 
 const route=require('./src/routes/index')
@@ -25,7 +26,10 @@ app.engine('hbs', exphbs({
         increase(a,i){return a+i},
         quantity(item){return item.reduce((total,i)=>{return total+i.quantity},0) },
         newLine(a){if(a) return a.replace(/\n/g, "<br />");},
-        discount(a,b) {return (100-a/b*100).toFixed(0)}
+        discount(a,b) {return (100-a/b*100).toFixed(0)},
+        nameDisplay(a){ if(!a) {return null;} let arr=a.split(' '); return arr[arr.length-1]},
+        hidden(a){return a.charAt(0)+a.charAt(1)+'****'+a.slice(6);},
+        momentFormat(a){ return moment(a).format('LL');}
     }
 }));         //set view engine
 app.set('view engine', 'hbs');          //set view engine
@@ -33,14 +37,11 @@ app.set('views',path.join(__dirname,'src/resources/views'))         //set view e
 
 
 app.use((req,res,next)=>{
-    if(!req.isAuthenticated()){
-        if(req.path!=='/login'){
-            res.redirect('/login')
-            return
-        }
+    if(req.isAuthenticated()){
+        res.locals.user=req.user
     }
     else{
-        res.locals.user=req.user
+        res.locals.user=true;
     }
     next()
 })
