@@ -114,7 +114,8 @@
                                         </li>
                                         <li style="display: flex; align-items: center;justify-content: space-between;position: relative;">                              
                                             <i class="bi bi-question-circle" style="font-size: 20px; padding:6px 10px;border-radius: 50%;background-color: rgb(216, 211, 211);"></i>
-                                            <a href="" style="font-size: 18px;">Help...</a> 
+                                            <a href="/me/{{user._id}}/edit/avatar" style="font-size: 18px;">Change avatar</a> 
+                                            <a href="/me/{{user._id}}/edit/avatar" style="position: absolute;top: 0;left: 0;right: 0;bottom:0;opacity: 0;"></a>
                                         </li>
                                         <li style="display: flex; align-items: center;justify-content: space-between;position: relative;"> 
                                                 
@@ -197,6 +198,11 @@
         const menu=document.querySelector('.img-avatar');
         menu.addEventListener('click',()=>{
             document.querySelector('.hidden-menu-img').classList.toggle('non-hidden')
+        })
+        document.querySelector('body').addEventListener('click',(e)=>{
+            if(e.target!=menu){
+                document.querySelector('.hidden-menu-img').classList.toggle('non-hidden')
+            }
         })
         
 

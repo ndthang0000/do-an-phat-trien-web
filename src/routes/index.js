@@ -8,8 +8,10 @@ const AuthRouter=require('./auth')
 const MeRouter=require('./me')
 const Register=require('./register')
 
+const {meMiddleWare}=require('../middlewares/meMiddleware')
+
 function route(app){
-    app.use('/me',MeRouter)
+    app.use('/me',meMiddleWare,MeRouter)
     app.use('/cart',CartRouter)
     app.use('/product',ProductRouter)
     app.use('/check-out',CheckoutRouter)

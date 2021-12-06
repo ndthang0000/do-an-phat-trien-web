@@ -28,20 +28,20 @@
             <div class="row" style="gap: 10px;">
                 <div class="col-lg-4 col-md-5" >
                     <div style="width: 250px; height: 250px;overflow: hidden; border-radius: 50%;text-align: center;margin:auto; border:5px solid rgb(228, 222, 222)">
-                        <a href="/me/{{user._id}}"><img style="width: 100%;height: auto;" src="{{user.avatarUrl}}" alt=""></a>
+                        <a href="/me/{{user._id}}"><img style="width: 100%;height: auto;" src="{{user.avatarUrl}}" alt="" id="image"></a>
                     </div>
                     <h3 style="text-align: center;margin-top: 10px;"><a href="/me/{{user._id}}">{{user.name}}</a></h3>
                 </div>
-                <div class="col-lg-5 col-md-7">
-                    <div class="row" style="flex-direction: column; padding: 10px;">
-                        <h3 style="margin-bottom: 30px;">Account Information</h3>
-                        <p><strong>Username : </strong>{{user.username}} </p>
-                        <p><strong>Full name : </strong>{{user.name}} </p>
-                        <p><strong>Address : </strong>{{user.location}} </p>
-                        <p><strong>Gmail : </strong>{{ hidden user.gmail}} </p>
-                        <p><strong>Create Time : </strong>{{momentFormat user.createdAt}}</p>
-                        <h2 style="color: #2ecc71; font-weight: 600;">{{message}}</h2>
-                    </div>
+                <div class="col-lg-5 col-md-7" >
+                    <form method="post" enctype="multipart/form-data" >
+                        <div style="align-items: center;display: flex;justify-content: center; gap: 15px;">
+                            <i class="bi bi-cloud-plus" style="font-size: 100px;color:#2ecc71;position: relative; padding: 30px;border: 3px dashed #2ecc71;cursor: pointer;">
+                                <input type="file" name="avatar" id="" style="position: absolute;opacity: 0;top: 0;left: 0;width: 100%;height: 100%; cursor: pointer;" required="true">
+                            </i>
+                            <h5 style="font-weight: 600;">Choose new avatar from your device</h5>
+                        </div>
+                        <button type="submit" style="border: none;outline: none;color: whitesmoke;background-color: #2ecc71;padding: 12px 25px;border-radius: 5px;margin-top: 40px;width: 200px;font-size: 20px;">Ok</button>
+                    </form>
                 </div>
                 <div class="col-lg-3 col-md-12" style="flex: 1;padding: 10px;">
                     <h3 style="margin-bottom: 30px;">Setting</h3>
@@ -57,3 +57,19 @@
             </div>
         </div>
     </section>
+    <script>
+        document.addEventListener('DOMContentLoaded',()=>{
+            const imgEle=document.querySelector('#image')
+            const inputFile=document.querySelector('input[name="avatar"]')
+            console.log(imgEle)
+            console.log(inputFile)
+            let imageURL;
+            inputFile.addEventListener('change',(e)=>{
+                if(imageURL){
+                    URL.revokeObjectURL(imageURL)
+                }
+                imageURL = URL.createObjectURL(e.target.files[0])
+                imgEle.src=imageURL
+            })
+        })
+    </script>
