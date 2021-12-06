@@ -1,5 +1,5 @@
 
-const upload=require('../controllers/helper/multer')
+const upload=require('../middlewares/multer')
 const express=require('express')
 
 const route=express.Router()

@@ -10,10 +10,13 @@ class Register
     }
     async create(req,res){
         const {name,username,password,gender,address,gmail}=req.body
+
         const existUser=await User.findOne({username:username})
+
         if(existUser){
             return res.status(400).json({success:false,err:'username'})
         }
+        
         let newPassword=await argon2.hash(password)
         const newUser=new User({
             name,

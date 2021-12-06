@@ -8,7 +8,7 @@ const AuthRouter=require('./auth')
 const MeRouter=require('./me')
 const Register=require('./register')
 
-const {meMiddleWare}=require('../middlewares/meMiddleware')
+const {meMiddleWare,prventLoginMiddleWare}=require('../middlewares/customMiddleWare')
 
 function route(app){
     app.use('/me',meMiddleWare,MeRouter)
@@ -17,8 +17,8 @@ function route(app){
     app.use('/check-out',CheckoutRouter)
     app.use('/contact',ContactRouter)
     app.use('/blog',BlogRouter)
-    app.use('/login',AuthRouter)
-    app.use('/register',Register)
+    app.use('/login',prventLoginMiddleWare,AuthRouter)
+    app.use('/register',prventLoginMiddleWare,Register)
     app.get('/logout', function(req, res){
         req.logout();
         res.redirect('/login');

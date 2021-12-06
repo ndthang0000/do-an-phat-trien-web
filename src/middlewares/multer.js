@@ -1,4 +1,4 @@
-const publicURL=require('../../../public/url')
+const publicURL=require('../../public/url')
 const multer = require('multer');
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {

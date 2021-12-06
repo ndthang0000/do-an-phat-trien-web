@@ -22,6 +22,7 @@ class ProductController{
         try{
             const allProduct=await Product.findOne({slug:req.params.slug})
             const relateProduct=await Product.find({}).limit(3).skip(1).sort({updatedAt:-1})
+
             if(allProduct){
                 res.render('product-detail',{product:MongooseToObject(allProduct),relateProduct:MultipleMongooseToObject(relateProduct)})
             }
@@ -34,15 +35,17 @@ class ProductController{
         }
     }
     async caterology(req,res){
+
         const slug=req.params
+
         if(!listCaterology.includes(slug.caterology)){
-            console.log('vo 404')
             res.render('404')
         }
         else{
             try{
                 const allProduct=await Product.find({type:slug.caterology})
                 const relatedProduct=await Product.find({}).limit(3).sort({pricePromotion:1})
+
                 res.render('products',{products:MultipleMongooseToObject(allProduct),caterologyName:slug.caterology.toUpperCase(),caterology:listCaterology,relateProduct:MultipleMongooseToObject(relatedProduct)})
             }
             catch(e){
@@ -55,6 +58,7 @@ class ProductController{
         try{
             const min =parseInt(req.body.min.split('$')[1])
             const max =parseInt(req.body.max.split('$')[1])
+            
             if(!req.body.caterogy){
                 if(req.body.status==='Hot'){
                     var allProduct=await Product.find({pricePromotion:{$lt:max,},price:{$gt:min}}).skip(5)
