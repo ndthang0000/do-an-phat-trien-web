@@ -16,7 +16,9 @@ class MeController{
             let isValidPassword=await argon2.verify(req.user.password,currentPassword)
             if(isValidPassword){
                 const user=await User.findById(req.user._id)
+
                 user.password=await argon2.hash(newPassword)
+                
                 await user.save()
                 return res.render('profile',{message:'Change password successfully'})
             }

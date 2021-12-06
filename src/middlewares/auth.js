@@ -1,6 +1,6 @@
 const passport=require('passport')
-const User=require('../../database/models/User')
-const {MongooseToObject}=require('../../ultil/mongoose')
+const User=require('../database/models/User')
+const {MongooseToObject}=require('../ultil/mongoose')
 const argon2 =require('argon2')
 const LocalStrategy=require('passport-local')
 
