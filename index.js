@@ -28,7 +28,7 @@ app.engine('hbs', exphbs({
         newLine(a){if(a) return a.replace(/\n/g, "<br />");},
         discount(a,b) {return (100-a/b*100).toFixed(0)},
         nameDisplay(a){ if(!a) {return null;} let arr=a.split(' '); return arr[arr.length-1]},
-        hidden(a){return a.charAt(0)+a.charAt(1)+'****'+a.slice(6);},
+        hidden(a){if(!a) {return ''} return a.charAt(0)+a.charAt(1)+'****'+a.slice(6);},
         momentFormat(a){ return moment(a).format('LL');}
     }
 }));         //set view engine
@@ -41,7 +41,7 @@ app.use((req,res,next)=>{
         res.locals.user=req.user
     }
     else{
-        res.locals.user=true;
+        res.locals.user=false
     }
     next()
 })
