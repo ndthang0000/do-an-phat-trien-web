@@ -1,5 +1,7 @@
 const User=require('../database/models/User')
+const {MongooseToObject}=require('../ultil/mongoose')
 const argon2=require('argon2')
+
 class MeController{
     async index(req,res){
         res.render('profile')
@@ -14,7 +16,9 @@ class MeController{
             let isValidPassword=await argon2.verify(req.user.password,currentPassword)
             if(isValidPassword){
                 const user=await User.findById(req.user._id)
+
                 user.password=await argon2.hash(newPassword)
+                
                 await user.save()
                 return res.render('profile',{message:'Change password successfully'})
             }
@@ -26,7 +30,17 @@ class MeController{
             console.log(e)
             res.render('404')
         }
-        
+    }
+    async editAvatar(req,res){
+        res.render('edit-avatar')
+    }
+    async saveEditAvatar(req,res){
+        const user=await User.findById(req.params.id)
+        if(user){
+            user.avatarUrl='/uploads/'+req.file.filename
+        }
+        await user.save()
+        res.render('profile',{user:MongooseToObject(user)})
     }
 }
 module.exports=new MeController
