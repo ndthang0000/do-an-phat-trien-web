@@ -20,8 +20,8 @@
                         <div class="sidebar__item">
                             <h4>Caterology</h4>
                             <ul>
-                                {{#each caterology}}
-                                <li><a href="/product/{{this}}">{{upperCase this}}</a></li>
+                                {{#each category}}
+                                <li><a href="/product/{{this.tittle}}">{{upperCase this.tittle}}</a></li>
                                 {{/each}}
                             </ul>
                         </div>

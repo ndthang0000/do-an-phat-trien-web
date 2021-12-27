@@ -14,6 +14,7 @@ const Product=new Schema({
     gender:[{type:String}],
     imagesUrl:[{type:String}],
     rating:{point:Number,quantity:Number},
+    categoryId:[{type:Schema.Types.ObjectId,ref:'Category'}],
     slug:{type:String,slug:"name",unique:true},
 },{timestamps:true})
 
