@@ -2,6 +2,7 @@ const Product=require('../database/models/Product')
 const {MultipleMongooseToObject}=require('../ultil/mongoose')
 const {MongooseToObject}=require('../ultil/mongoose')
 const listCaterology=require('../ultil/caterology')
+const Category=require('../database/models/Category')
 
 
 
@@ -11,7 +12,13 @@ class ProductController{
         try{
             const allProduct=await Product.find({})
             const relatedProduct=await Product.find({}).limit(3).sort({updatedAt:-1})
-            res.render('products',{caterology:listCaterology,caterologyName:'All Product',products:MultipleMongooseToObject(allProduct),relateProduct:MultipleMongooseToObject(relatedProduct)})
+            const category=await Category.find({})
+
+            res.render('products',{
+                caterologyName:'All Product',
+                category:MultipleMongooseToObject(category),
+                products:MultipleMongooseToObject(allProduct),
+                relateProduct:MultipleMongooseToObject(relatedProduct)})
         }
         catch(e){
             console.log(e)
@@ -22,9 +29,11 @@ class ProductController{
         try{
             const allProduct=await Product.findOne({slug:req.params.slug})
             const relateProduct=await Product.find({}).limit(3).skip(1).sort({updatedAt:-1})
-
             if(allProduct){
-                res.render('product-detail',{product:MongooseToObject(allProduct),relateProduct:MultipleMongooseToObject(relateProduct)})
+
+                res.render('product-detail',{
+                    product:MongooseToObject(allProduct),
+                    relateProduct:MultipleMongooseToObject(relateProduct)})
             }
             else{
                 res.render('404')
@@ -35,18 +44,31 @@ class ProductController{
         }
     }
     async caterology(req,res){
-
-        const slug=req.params
-
-        if(!listCaterology.includes(slug.caterology)){
+        const slug=req.params.category
+        const category=await Category.find({})
+        let checkCate=false
+        category.forEach(item=>{
+            if(item.tittle===slug){
+                checkCate=true
+            }
+        })
+        if(!checkCate){
             res.render('404')
         }
         else{
             try{
-                const allProduct=await Product.find({type:slug.caterology})
+                const categoryItem=await Category.findOne({tittle:slug})
+                let id=categoryItem._id
+                console.log(id)
+                const allProduct=await Product.find({categoryId:id})
+                console.log(allProduct)
                 const relatedProduct=await Product.find({}).limit(3).sort({pricePromotion:1})
 
-                res.render('products',{products:MultipleMongooseToObject(allProduct),caterologyName:slug.caterology.toUpperCase(),caterology:listCaterology,relateProduct:MultipleMongooseToObject(relatedProduct)})
+                res.render('products',{
+                    products:MultipleMongooseToObject(allProduct),
+                    caterologyName:slug.toUpperCase(),
+                    category:MultipleMongooseToObject(category),
+                    relateProduct:MultipleMongooseToObject(relatedProduct)})
             }
             catch(e){
                 res.render('404')

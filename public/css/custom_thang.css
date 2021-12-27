@@ -97,10 +97,13 @@
 
 .btn-filter {
   position: relative;
-  border: 1px solid #2ecc71;
-  padding: 8px 15px;
+  padding: 7px 12px;
   width: 80px;
   cursor: pointer;
+  border-radius: 20px;
+  text-align: center;
+  color: rgb(0, 113, 240);
+  background-color: rgb(221, 234, 255);
 }
 
 .btn-filter .bi-check-lg {
@@ -215,4 +218,4 @@ button#type-pass:hover {
   border-radius: 50%;
   background-color: #e0dddd;
 }
-/*# sourceMappingURL=custom_thang.css.map */
+/*# sourceMappingURL=custom_thang.css.map *

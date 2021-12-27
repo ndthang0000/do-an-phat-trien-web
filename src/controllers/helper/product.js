@@ -1,8 +1,19 @@
 const Product=require('../../database/models/Product')
 const {MongooseToObject}=require('../../ultil/mongoose')
-
+const Category=require('../../database/models/Category')
 
 const homeProduct=async ()=>{
+    // const category=await Category.find({})
+    // let listResult=[]
+    // category.forEach(async item=>{
+    //     while(true){
+    //         let product=await Product.findOne({categoryId:item._id})
+    //     }
+    // })
+
+    // for(let i=0;i<category.length;i++){
+    //     for(let )
+    // }
     var caterologyProduct=[]
     var tee=await Product.findOne({type:'tee'})
     tee=MongooseToObject(tee)
@@ -25,6 +36,7 @@ const homeProduct=async ()=>{
     caterologyProduct.push(pant)
     caterologyProduct.push(bag)
     return caterologyProduct
+    return []
 }
 
 module.exports=homeProduct

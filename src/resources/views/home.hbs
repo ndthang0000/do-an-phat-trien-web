@@ -8,8 +8,8 @@
                             <span>All Production</span>
                         </div>
                         <ul>
-                            {{#each caterology}}
-                            <li><a href="/product/{{this}}">{{upperCase this}}</a></li>
+                            {{#each category}}
+                            <li><a href="/product/{{tittle}}">{{upperCase this.tittle}}</a></li>
                             {{/each}}
                         </ul>
                     </div>
@@ -49,10 +49,10 @@
     <div class="container">
         <div class="row">
             <div class="categories__slider owl-carousel">
-                {{#each caterologyProducts}}
+                {{#each category}}
                 <div class="col-lg-3">
-                    <div class="categories__item set-bg" data-setbg="https://the-1-beauty-fashion-admin.herokuapp.com{{imagesUrl.[0]}}">
-                        <h5 style="background-color: #f5f6fa;";"><a href="/product/{{caterology}}">{{caterology}}</a></h5>
+                    <div class="categories__item set-bg" data-setbg="https://the-1-beauty-fashion-admin.herokuapp.com{{imageUrl}}">
+                        <h5 style="background-color: #f5f6fa;";"><a href="/product/{{tittle}}">{{tittle}}</a></h5>
                     </div>
                 </div>
                 {{/each}}
@@ -73,8 +73,8 @@
                 <div class="featured__controls">
                     <ul>
                         <li class="active" data-filter="*">All</li>
-                        {{#each caterology}}
-                        <li data-filter=".{{this}}">{{upperCase this}}</li>
+                        {{#each category}}
+                        <li data-filter=".{{tittle}}">{{upperCase this.tittle}}</li>
                         {{/each}}
                     </ul>
                 </div>

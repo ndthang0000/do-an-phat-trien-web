@@ -196,10 +196,12 @@
             }
         })
         const menu=document.querySelector('.img-avatar');
-        
-        menu.addEventListener('click',()=>{
+        if(menu){
+            menu.addEventListener('click',()=>{
             document.querySelector('.hidden-menu-img').classList.toggle('non-hidden')
-        })
+            })
+        }
+        
         
 
 })
