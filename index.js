@@ -29,7 +29,8 @@ app.engine('hbs', exphbs({
         discount(a,b) {return (100-a/b*100).toFixed(0)},
         nameDisplay(a){ if(!a) {return null;} let arr=a.split(' '); return arr[arr.length-1]},
         hidden(a){if(!a) {return ''} return a.charAt(0)+a.charAt(1)+'****'+a.slice(6);},
-        momentFormat(a){ return moment(a).format('LL');}
+        momentFormat(a){ return moment(a).format('LL');},
+        checkedBox(a,b){ if(a.includes(b)) {return 'checked' } }
     }
 }));         //set view engine
 app.set('view engine', 'hbs');          //set view engine

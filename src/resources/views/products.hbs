@@ -15,13 +15,13 @@
         <div class="container">
             <div class="row" style="position: relative;">  
                 <div class="col-lg-3 col-md-5 ">
-                    <div style="position: relative; width: 100%;">
+                    <form id="form-search-type" style="position: relative; width: 100%;">
                         <div class="sidebar">
                         <div class="sidebar__item">
                             <h4>Caterology</h4>
                             <ul>
                                 {{#each category}}
-                                <li><a href="/product/{{this.tittle}}">{{upperCase this.tittle}}</a></li>
+                                <li class="categoryLi"><a href="/product/{{this.tittle}}">{{upperCase this.tittle}}</a></li>
                                 {{/each}}
                             </ul>
                         </div>
@@ -29,7 +29,7 @@
                             <h4>Price</h4>
                             <div class="price-range-wrap">
                                 <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
-                                    data-min="2" data-max="40">
+                                    data-min="2" data-max="50">
                                     <div class="ui-slider-range ui-corner-all ui-widget-header"></div>
                                     <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
                                     <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
@@ -43,21 +43,39 @@
                             </div>
 
                         </div>
-                        <div class="sidebar__item sidebar__item__color--option">
+                        {{!-- <div class="sidebar__item sidebar__item__color--option">
                             <h4>Status</h4>
                             <div style="display: flex;justify-content: space-around;padding: 5px 10px; ">
-                                <div class="btn-filter new-btn">New
-                                    
+                                <div class="btn-filter new-btn">
+                                    New
                                 </div>
                                 <div class="btn-filter hot-btn">
-                                    
-                                    Hot</div>
+                                    Hot
+                                </div>
+                            </div>
+                        </div> --}}
+                        <div  class="sidebar__item sidebar__item__color--option">
+                            <h4 class="heading-sidebar">Status</h4>
+                            <div class="browse-form">
+                                
+                                <label for="newest" style="font-size: 20px;">
+                                    <input {{checkedBox type 'newest'}} type="checkbox" id="newest" name="type" value="newest" style="margin-right: 30px;width:18px;height:18px">Newest
+                                </label>
+                                <br>
+                                <label for="bestseller" style="font-size: 20px;">
+                                    <input {{checkedBox type 'bestseller'}} type="checkbox" id="bestseller" name="type" value="bestseller" style="margin-right: 30px;width:18px;height:18px">BestSeller
+                                </label>
+                                <br>
+                                <label for="5 stars" style="font-size: 20px;">
+                                    <input {{checkedBox type '5-stars'}} type="checkbox" id="5-stars" name="type" value="5-stars" style="margin-right: 30px;width:18px;height:18px">Favourite
+                                </label>
+                                <br>
                             </div>
                         </div>
-                            <button id="btn-ok"style=" padding: 5px 20px; border: none;outline: none; background-color: #2ecc71;border-radius: 5px;"><i class="bi bi-funnel-fill"></i>Filter</button>
+                        <button id="btn-ok" type="submit" style=" padding: 5px 20px; border: none;outline: none; background-color: #2ecc71;border-radius: 5px;"><i class="bi bi-funnel-fill"></i>Filter</button>
                         
                     </div>
-                    </div>
+                    </form>
                     
                 </div>
                 <div class="col-lg-9 col-md-7">
@@ -68,17 +86,16 @@
                     </div>
                     <div class="filter__item">
                         <div class="row">
-                            <div class="col-lg-4 col-md-5">
-                                
+                            <div class="col-lg-4 col-md-5">                             
                                 <select id="sort" >
-                                    <option value="-1">Select Sort</option>
-                                    <option value="1">Sort up</option>
-                                    <option value="0">Sort down</option>
+                                    <option value="">Select Sort</option>
+                                    <option value="increase" data-value="increase">Sort up</option>
+                                    <option value="decrease" data-value="decrease">Sort down</option>
                                 </select>
                             </div>
                             <div class="col-lg-4 col-md-4">
                                 <div class="filter__found">
-                                    <h6><span id="length">{{products.length}}</span> Products found</h6>
+                                    <h6><span id="length">{{quantityProduct}}</span> Products found</h6>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-3">
@@ -108,6 +125,9 @@
                             </div>
                         </div>
                         {{/each}}
+                    </div>
+                    <div class="product__pagination">
+                        
                     </div>
                     <div class="product__discount">
                         <div class="section-title product__discount__title">
@@ -141,7 +161,13 @@
             </div>
         </div>
     </section>
+    <input type="text" style="display: none;" name="min-range" value="{{min}}">
+    <input type="text" style="display: none;" name="max-range" value="{{max}}">
+    <input type="text" style="display: none;" name="quantityPage" value={{quantityPage}}>
+    <input type="text" style="display: none;" name="currentPage" value={{currentPage}}>
+    <input type="text" style="display: none;" name="categoryId" value={{categoryId}}>
 <script>
+    let sort=''
     const caterogy=window.location.pathname.split('/')[2]
     const discont=(a,b)=>{
         return (100-a/b*100).toFixed(0)
@@ -170,103 +196,92 @@
         document.querySelector('#length').innerText=allProduct.length
     }
     document.addEventListener('DOMContentLoaded',()=>{
-        document.querySelector('#btn-ok').addEventListener('click',(e)=>{
-            const min=document.querySelector('#minamount').value
-            const max=document.querySelector('#maxamount').value
-            const status=document.querySelector('.clicked')?.innerText 
-            fetch('http://localhost:3000/product',{
-                headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-                },
-                method: "POST",
-                body: JSON.stringify({min,max,status,caterogy})
-            })
-            .then(res=>res.json())
-            .then(res=>{
-                console.log(res)
-                console.log(res.allProduct)
-                if(res.success){
-                    allProduct=res.allProduct
-                    renderProduct(allProduct)
-                }
-            })
-        })
-        const eleBtnFilter=document.querySelectorAll('.btn-filter')
-        eleBtnFilter.forEach(item=>{
-            item.addEventListener('click',(e,index)=>{
-                console.log('da click')
-                let iEle = document.createElement("i")
-                iEle.classList.add('bi')
-                iEle.classList.add('bi-check-lg')
-                eleBtnFilter.forEach((ii,idd)=>{
-                    if(ii.querySelector('i')){
-                        ii.querySelector('i').remove()
-                    }
-                })
-                item.appendChild(iEle)
-                const min=document.querySelector('#minamount').value
-                const max=document.querySelector('#maxamount').value
-                const status=item.innnerText
-                item.classList.add('clicked')
-            })
+
+        
+        let minRange=parseInt(document.querySelector('input[name="min-range"]').value)
+        let maxRange=parseInt(document.querySelector('input[name="max-range"]').value)
+        console.log(minRange)
+        console.log(maxRange)
+        var rangeSlider = $(".price-range"),
+        minamount = $("#minamount"),
+        maxamount = $("#maxamount"),
+        minPrice = rangeSlider.data('min'),
+        maxPrice = rangeSlider.data('max');
+        rangeSlider.slider({
+            range: true,
+            min: minPrice,
+            max: maxPrice,
+            values: [minRange, maxRange],
+            slide: function (event, ui) {
+                minamount.val('$' + ui.values[0]);
+                maxamount.val('$' + ui.values[1]);
+            }
+        });
+        minamount.val('$' + rangeSlider.slider("values", 0));
+        maxamount.val('$' + rangeSlider.slider("values", 1));
+
+
+        const linkCategoryEl=document.querySelectorAll('.categoryLi a')
+        linkCategoryEl.forEach(item=>{
+            if(item.innerText.toLowerCase()===location.pathname.split('/')[2]){
+                item.style.color='#2ecc71'
+                item.style.fontSize="20px"
+                item.style.fontWeight="550"
+            }
         })
         const option=document.querySelectorAll('.option')
+        
         option.forEach(item=>{
-            item.addEventListener('click',()=>{
-                console.log(typeof item.dataset.value)
-                if (allProduct){
-                    if(item.dataset.value=='1'){
-                        console.log('vo day 1')
-                        let newProduct=allProduct.sort((a,b)=>{
-                            return a.pricePromotion-b.pricePromotion
-                        })
-                        renderProduct(newProduct)
-                    }
-                    else if (item.dataset.value=='0'){
-                        console.log('vo day 2')
-                        let newProduct=allProduct.sort((a,b)=>{
-                        return b.pricePromotion-a.pricePromotion
-                        })
-                        renderProduct(newProduct)
-                    }
-                }
-                else{
-                    const min=document.querySelector('#minamount').value
-                    const max=document.querySelector('#maxamount').value
-                    const status=document.querySelector('.clicked')?.innerText 
-                    fetch('http://localhost:3000/product',{
-                        headers: {
+            item.addEventListener('click',(e)=>{
+                console.log('vo day')
+                sort=e.target.dataset.value
+                fetch(`${window.location.href}`,{
+                    headers: {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json'
-                        },
-                        method: "POST",
-                        body: JSON.stringify({min,max,status,caterogy})
-                    })
-                    .then(res=>res.json())
-                    .then(res=>{
-                        console.log(res.allProduct)
-                        if(res.success){
-                            allProduct=res.allProduct
-                            if(item.dataset.value=='1'){
-                                console.log('vo day 1')
-                                let newProduct=allProduct.sort((a,b)=>{
-                                    return a.pricePromotion-b.pricePromotion
-                                })
-                                renderProduct(newProduct)
-                            }
-                            else if (item.dataset.value=='0'){
-                                console.log('vo day 2')
-                                let newProduct=allProduct.sort((a,b)=>{
-                                return b.pricePromotion-a.pricePromotion
-                                })
-                                renderProduct(newProduct)
-                            }
-                        }
-                    })
-                }
-                
+                    },
+                    method: "POST",
+                    body: JSON.stringify({sort:sort})
+                })
+                .then(res=>res.json())
+                .then(res=>{
+                    if(res.success){
+                        renderProduct(res.allProduct)
+                    }
+                    console.log(res)
+                })
             })
         })
+
+        let searchUrl='?'
+        if(location.search){
+            if(location.search.indexOf('page')>=0){
+                searchUrl=location.search.split('page')[0]
+            }
+            else{
+                searchUrl=location.search+'&'
+
+            }
+        }
+        const paginationEl=document.querySelector('.product__pagination')
+        const currentPage=parseInt(document.querySelector('input[name="currentPage"]').value)
+        const quantityPage=parseInt(document.querySelector('input[name="quantityPage"]').value)
+        const categoryId=document.querySelector('input[name="categoryId"]').value
+
+        console.log(location)
+        let previeousPage=currentPage>1?currentPage-1:1
+
+        let htmlPagination=`<a href="${searchUrl}page=${previeousPage}"><i class="fa fa-long-arrow-left"></i></a>`
+        for(let i=1;i<=quantityPage;i++){
+            if(i===currentPage){
+                htmlPagination+=`<a class="active-pagi" href="${searchUrl}page=${i}">${i}</a>`
+            }
+            else{
+                htmlPagination+=`<a href="${searchUrl}page=${i}">${i}</a>`
+            }
+        }
+        let nextPage=currentPage<quantityPage?currentPage+1:quantityPage
+        htmlPagination+=`<a href="${searchUrl}page=${nextPage}"><i class="fa fa-long-arrow-right"></i></a>`
+        paginationEl.innerHTML=htmlPagination
     })
 </script>
