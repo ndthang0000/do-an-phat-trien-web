@@ -218,4 +218,8 @@ button#type-pass:hover {
   border-radius: 50%;
   background-color: #e0dddd;
 }
+.active-pagi{
+  background-color: #15dfa2;
+  color:rgb(29, 7, 7) !important;
+}
 /*# sourceMappingURL=custom_thang.css.map *
