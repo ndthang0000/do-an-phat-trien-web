@@ -222,4 +222,57 @@ button#type-pass:hover {
   background-color: #15dfa2;
   color:rgb(29, 7, 7) !important;
 }
+.info-product-size-header{
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.info-product-size{
+  display: flex;
+}
+.info-product-size-item{
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgb(201, 199, 199);
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+.info-product-size-item.none{
+  pointer-events: none;
+  position: relative;
+}
+.info-product-size-item.none::before{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 127%;
+  width: 1px;
+  color: #777;
+  border-radius: 1;
+  transform: rotate(-45deg);
+  transform-origin: 0% 0%;
+  background-color: rgb(184, 181, 181);
+}
+.info-product-size-item.none::after{
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 127%;
+  width: 1px;
+  color: #777;
+  border-radius: 2px;
+  transform: rotate(45deg);
+  transform-origin: 0% 0%;
+  background-color: rgb(184, 181, 181);
+}
+.info-product-size-item.active{
+  border-color: #2ecc71 !important;
+  color: #2ecc71 !important;
+}
 /*# sourceMappingURL=custom_thang.css.map *

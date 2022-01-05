@@ -35,7 +35,11 @@
                             <span>(18 reviews)</span>
                         </div>
                         <div class="product__details__price">${{product.pricePromotion}} <span class="promotion">${{product.price}}</span></div>
-                        <p>{{{newLine product.des}}}</p>
+                        <div class="info-product-size-header">Size {{product.info.[0].size}} : {{product.info.[0].quantity}} sản phẩm sẵn có</div>
+                        <div class="info-product-size">
+                            
+                        </div>
+                        <p style="margin-top: 30px;">{{{newLine product.des}}}</p>
                         <div class="product__details__quantity">
                             <div class="quantity">
                                 <div class="pro-qty">
@@ -146,4 +150,34 @@
                 </div>
             </div>
         </div>
+        <div style="display: none;" id="JSONproduct">{{productJson}}</div>
 </section>
+<script>
+    document.addEventListener('DOMContentLoaded',()=>{
+        let product=JSON.parse(document.querySelector('#JSONproduct').innerText)
+        const sizeEl=document.querySelector('.info-product-size')
+        const sizeHeaderEl=document.querySelector('.info-product-size-header')
+
+        let htmlSize=product.info.map((item,index)=>{
+            return`
+                <div class="info-product-size-item ${index===0?'active':''}" data-size="${item.size}" data-quantity="${item.quantity}">
+                    ${item.size}
+                </div>
+            `
+        }).join('')
+        sizeEl.innerHTML=htmlSize
+        const sizeItemEl=document.querySelectorAll('.info-product-size-item')
+        function removeActive(){
+            sizeItemEl.forEach(item=>{
+                item.classList.remove('active')
+            })
+        }
+        sizeItemEl.forEach(item=>{
+            item.addEventListener('click',(e)=>{
+                removeActive()
+                item.classList.add('active')
+                sizeHeaderEl.innerText=`Size ${e.target.dataset.size} : ${e.target.dataset.quantity} sản phẩm sẵn có`
+            })
+        })
+    })
+</script>

@@ -21,7 +21,7 @@
                 {{#if user.username}}
                 <div class="area-user" >
                     <div id="img-avatar">
-                        <a href="/me/{{user._id}}"><img  src="{{user.avatarUrl}}" alt=""></a>
+                        <a href="/me/{{user._id}}"><img =  src="{{user.avatarUrl}}" alt=""></a>
                     </div>
                 </div>
                 {{else}}
@@ -34,15 +34,10 @@
             <ul>
                 <li class="active"><a href="/">Home</a></li>
                 <li><a href="/product">All Product</a>
-                    <ul class="header__menu__dropdown">                                  
-                        <li><a href="/product/tee">Tee</a></li>
-                        <li><a href="/product/jacket">Jacket</a></li>
-                        <li><a href="/product/pant">Pant</a></li>
-                        
-                        <li><a href="/product/short">Short</a></li>
-                        <li><a href="/product/hoodie">Hoodie</a></li>
-                        <li><a href="/product/accessory">Accessory</a></li>
-                        <li><a href="/product/bag">Bag</a></li>
+                    <ul class="header__menu__dropdown">
+                        {{#each category}}
+                        <li><a href="/product/{{tittle}}">{{upperCase tittle}}</a></li> 
+                        {{/each}}                                  
                     </ul>
                 </li>
                 <li><a href="/product/sale-off">Sale off</a></li>
@@ -138,7 +133,7 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo" style="dislay:flex;justify-content:center">
-                        <a href="/"><img src="/img/logo.jpg" alt="" width="168px" height="116px" style="margin-bottom: 10px;"></a>
+                        <a href="/"><img = src="/img/logo.jpg" alt="" width="168px" height="116px" style="margin-bottom: 10px;"></a>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -146,17 +141,10 @@
                         <ul>
                             <li  class="li-active"><a href="/">Home</a></li>
                             <li  class="li-active"><a href="/product">All Product</a>
-                                <ul class="header__menu__dropdown">                                  
-                                    <li><a href="/product/tee">Tee</a></li>
-                                    <li><a href="/product/jacket">Jacket</a></li>
-                                    <li><a href="/product/pant">Pant</a></li>
-                                    
-                                    <li><a href="/product/short">Short</a></li>
-                                
-                                    <li><a href="/product/hoodie">Hoodie</a></li>
-                                    <li><a href="/product/accessory">Accessory</a></li>
-                                    <li><a href="/product/bag">Bag</a></li>
-
+                                <ul class="header__menu__dropdown">
+                                    {{#each category}}
+                                    <li><a href="/product/{{tittle}}">{{upperCase tittle}}</a></li>
+                                    {{/each}}                                  
                                 </ul>
                             </li>
                             
@@ -186,7 +174,6 @@
         liElement.forEach(item=>{
             const arr=item.querySelector('a').href.split('/')
             const path=arr[arr.length-1]
-            console.log(window.location.pathname.split('/')[1])
             if(path===window.location.pathname.split('/')[1]){
                 item.classList.add('active')
             }
@@ -195,12 +182,19 @@
                 liElement[1].classList.remove('active')
             }
         })
-        const menu=document.querySelector('.img-avatar');
-        if(menu){
-            menu.addEventListener('click',()=>{
-            document.querySelector('.hidden-menu-img').classList.toggle('non-hidden')
+        const menuHiddent=document.querySelector('.hidden-menu-img')
+        if(menuHiddent){
+            document.addEventListener('click',(e)=>{
+                if(e.target.closest('.img-avatar')){
+                    menuHiddent.classList.toggle('non-hidden')
+                }
+                else{
+                    menuHiddent.classList.remove('non-hidden')
+                }
             })
         }
+        
+
         
         
 

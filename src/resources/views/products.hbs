@@ -200,8 +200,6 @@
         
         let minRange=parseInt(document.querySelector('input[name="min-range"]').value)
         let maxRange=parseInt(document.querySelector('input[name="max-range"]').value)
-        console.log(minRange)
-        console.log(maxRange)
         var rangeSlider = $(".price-range"),
         minamount = $("#minamount"),
         maxamount = $("#maxamount"),
@@ -248,7 +246,6 @@
                     if(res.success){
                         renderProduct(res.allProduct)
                     }
-                    console.log(res)
                 })
             })
         })
@@ -268,7 +265,6 @@
         const quantityPage=parseInt(document.querySelector('input[name="quantityPage"]').value)
         const categoryId=document.querySelector('input[name="categoryId"]').value
 
-        console.log(location)
         let previeousPage=currentPage>1?currentPage-1:1
 
         let htmlPagination=`<a href="${searchUrl}page=${previeousPage}"><i class="fa fa-long-arrow-left"></i></a>`

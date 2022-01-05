@@ -1,10 +1,14 @@
 const User=require('../database/models/User')
-const {MongooseToObject}=require('../ultil/mongoose')
+const Category=require('../database/models/Category')
+const {MongooseToObject, MultipleMongooseToObject}=require('../ultil/mongoose')
 const argon2=require('argon2')
 
 class MeController{
     async index(req,res){
-        res.render('profile')
+        const category=await Category.find({})
+        res.render('profile',{
+            category:MultipleMongooseToObject(category)
+        })
     }
     async editPassword(req,res){
         res.render('profile-edit-password')

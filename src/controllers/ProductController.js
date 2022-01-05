@@ -8,13 +8,10 @@ const {findProductList}=require('../controllers/helper/product')
 
 class ProductController{
     async index(req,res){  // get all product
-
         try{
             const result=await findProductList(req)
-
             const relatedProduct=await Product.find({}).limit(3).sort({updatedAt:-1})
             const category=await Category.find({})
-            console.log(result.type)
             res.render('products',{
                 caterologyName:'All Product',
                 category:MultipleMongooseToObject(category),
@@ -38,10 +35,13 @@ class ProductController{
         try{
             const allProduct=await Product.findOne({slug:req.params.slug})
             const relateProduct=await Product.find({}).limit(3).skip(1).sort({updatedAt:-1})
+            const category=await Category.find({})
             if(allProduct){
                 res.render('product-detail',{
                     product:MongooseToObject(allProduct),
-                    relateProduct:MultipleMongooseToObject(relateProduct)
+                    relateProduct:MultipleMongooseToObject(relateProduct),
+                    productJson:JSON.stringify(MongooseToObject(allProduct)),
+                    category:MultipleMongooseToObject(category)
                 })
             }
             else{
@@ -58,7 +58,6 @@ class ProductController{
             const result=await findProductList(req)
             const relatedProduct=await Product.find({}).limit(3).sort({updatedAt:-1})
             const category=await Category.find({})
-            console.log(result.type)
             res.render('products',{
                 caterologyName:req.params.category.toUpperCase(),
                 category:MultipleMongooseToObject(category),
