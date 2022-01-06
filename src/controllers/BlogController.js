@@ -1,7 +1,10 @@
-class BlogController{
-    async index(req,res){
-        res.render('blog')
-    }
-    
+
+
+const index=async(req,res)=>{
+    res.render('blog')
 }
-module.exports=new BlogController
+    
+
+module.exports={
+    index
+}

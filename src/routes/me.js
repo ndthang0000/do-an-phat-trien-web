@@ -4,13 +4,13 @@ const express=require('express')
 
 const route=express.Router()
 
-const meController=require('../controllers/MeController')
+const {MeController}=require('../controllers')
 
-route.get('/:id',meController.index)
-route.get('/:id/edit/password',meController.editPassword)
-route.post('/:id/edit/password',meController.saveEditPassword)
-route.get('/:id/edit/avatar',meController.editAvatar)
-route.post('/:id/edit/avatar',upload.single('avatar'),meController.saveEditAvatar)
-route.get('/:id/edit/info',meController.index)
-route.post('/:id/edit/info',meController.index)
+route.get('/:id',MeController.index)
+route.get('/:id/edit/password',MeController.editPassword)
+route.post('/:id/edit/password',MeController.saveEditPassword)
+route.get('/:id/edit/avatar',MeController.editAvatar)
+route.post('/:id/edit/avatar',upload.single('avatar'),MeController.saveEditAvatar)
+route.get('/:id/edit/info',MeController.index)
+route.post('/:id/edit/info',MeController.index)
 module.exports=route

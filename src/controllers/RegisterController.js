@@ -3,13 +3,11 @@ const publicFolder=require('../../public/url')
 const User=require('../database/models/User')
 
 
-class Register
-{
-    async index(req,res){
-        res.sendFile(publicFolder+'/html/register.html')
-    }
-    async create(req,res){
-        const {name,username,password,gender,address,gmail}=req.body
+const index=async(req,res)=>{
+    res.sendFile(publicFolder+'/html/register.html')
+}
+const create=async(req,res)=>{
+    const {name,username,password,gender,address,gmail}=req.body
 
         const existUser=await User.findOne({username:username})
 
@@ -28,7 +26,8 @@ class Register
         })
         await newUser.save()
         res.status(200).json({success:true,err:null,id:newUser._id})
-
-    }
 }
-module.exports=new Register
+module.exports={
+    index,
+    create
+}

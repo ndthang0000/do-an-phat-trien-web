@@ -1,8 +1,9 @@
 
-class CheckOutController{
-    async index(req,res){
-        res.render('check-out')
-    }
-    
+
+const index=async(req,res)=>{
+    res.render('check-out')
 }
-module.exports=new CheckOutController
+    
+module.exports={
+    index
+}

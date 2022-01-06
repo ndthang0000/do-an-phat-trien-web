@@ -1,7 +1,7 @@
 const express=require('express')
 const route=express.Router()
 
-const checkoutController=require('../controllers/CheckOutController')
+const {CheckOutController}=require('../controllers/')
 
-route.get('/',checkoutController.index)
+route.get('/',CheckOutController.index)
 module.exports=route

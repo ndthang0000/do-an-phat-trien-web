@@ -1,8 +1,8 @@
 const express=require('express')
 const route=express.Router()
 
-const registerController=require('../controllers/RegisterController')
+const {RegisterController}=require('../controllers')
 
-route.get('/',registerController.index)
-route.post('/',registerController.create)
+route.get('/',RegisterController.index)
+route.post('/',RegisterController.create)
 module.exports=route
