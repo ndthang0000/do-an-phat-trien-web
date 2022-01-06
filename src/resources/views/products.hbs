@@ -113,9 +113,8 @@
                                 <div class="product__item__pic set-bg" data-setbg="https://the-1-beauty-fashion-admin.herokuapp.com{{imagesUrl.[0]}}" style="display: block;position: relative;"> 
                                     <div class="discount">-{{discount pricePromotion price}}%</div>
                                     <ul class="product__item__pic__hover">
-                                        <li><a href="/product/detail/{{slug}}"><i class="fa fa-heart"></i></a></li>
                                         <li><a href="/product/detail/{{slug}}"><i class="fa fa-retweet"></i></a></li>
-                                        <li><a href="/product/detail/{{slug}}"><i class="fa fa-shopping-cart"></i></a></li>
+                                        <li><a href="/product/detail/{{slug}}"><i class="fa fa-shopping-cart" data-id={{_id}} data-size={{info.[0].size}}></i></a></li>
                                     </ul>
                                 </div>
                                 <div class="product__item__text">
@@ -143,9 +142,8 @@
                                         data-setbg="https://the-1-beauty-fashion-admin.herokuapp.com{{imagesUrl.[0]}}">
                                         <div class="product__discount__percent">-{{discount pricePromotion price}}%</div>
                                         <ul class="product__item__pic__hover">
-                                            <li><a href="/product/detail/{{slug}}"><i class="fa fa-heart"></i></a></li>
                                             <li><a href="/product/detail/{{slug}}"><i class="fa fa-retweet"></i></a></li>
-                                            <li><a href="/product/detail/{{slug}}"><i class="fa fa-shopping-cart"></i></a></li>
+                                            <li><a href="/product/detail/{{slug}}"><i class="fa fa-shopping-cart" data-id={{_id}} data-size={{info.[0].size}}></i></a></li>
                                         </ul>
                                     </div>
                                     <div class="product__discount__item__text">
@@ -161,12 +159,15 @@
             </div>
         </div>
     </section>
+    <input type="text" style="display: none;" name="user" value="{{user._id}}">
     <input type="text" style="display: none;" name="min-range" value="{{min}}">
     <input type="text" style="display: none;" name="max-range" value="{{max}}">
     <input type="text" style="display: none;" name="quantityPage" value={{quantityPage}}>
     <input type="text" style="display: none;" name="currentPage" value={{currentPage}}>
     <input type="text" style="display: none;" name="categoryId" value={{categoryId}}>
 <script>
+
+    const user=document.querySelector('input[name="user"]').value||false
     let sort=''
     const caterogy=window.location.pathname.split('/')[2]
     const discont=(a,b)=>{
@@ -180,9 +181,8 @@
                     <div class="product__item__pic set-bg" data-setbg="https://the-1-beauty-fashion-admin.herokuapp.com${item.imagesUrl[0]}" style="display: block;position: relative; background-image: url('https://the-1-beauty-fashion-admin.herokuapp.com${item.imagesUrl[0]}')"> 
                         <div class="discount">-${discont(item.pricePromotion,item.price)}%</div>
                         <ul class="product__item__pic__hover">
-                            <li><a href="/product/detail/${item.slug}"><i class="fa fa-heart"></i></a></li>
                             <li><a href="/product/detail/${item.slug}"><i class="fa fa-retweet"></i></a></li>
-                            <li><a href="/product/detail/${item.slug}"><i class="fa fa-shopping-cart"></i></a></li>
+                            <li><a href="/product/detail/${item.slug}"><i class="fa fa-shopping-cart" data-id="${item._id}" data-size="${item.info[0].size}"></i></a></li>
                         </ul>
                     </div>
                     <div class="product__item__text">
@@ -279,5 +279,32 @@
         let nextPage=currentPage<quantityPage?currentPage+1:quantityPage
         htmlPagination+=`<a href="${searchUrl}page=${nextPage}"><i class="fa fa-long-arrow-right"></i></a>`
         paginationEl.innerHTML=htmlPagination
+
+
+
+
+        const addCartBtn=document.querySelectorAll('.fa-shopping-cart')
+        console.log(addCartBtn)
+        addCartBtn.forEach(item=>{
+            item.addEventListener('click',(e)=>{
+                e.preventDefault()
+                if(user){
+                    console.log(e.target.dataset.id)
+                    fetch(`${window.location.origin}/cart/add`,{
+                        headers:{
+                            'Accept':'application/json',
+                            'Content-Type':'application/json'
+                        },
+                        method:'POST',
+                        body:JSON.stringify({id:e.target.dataset.id,user:user,quantity:1,size:e.target.dataset})
+                    })
+                    .then(res=>res.json())
+                    .then(res=>{
+                        console.log(res)
+                    })
+                }
+                
+            })
+        })
     })
 </script>

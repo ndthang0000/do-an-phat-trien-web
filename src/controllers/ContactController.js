@@ -1,7 +1,9 @@
-class ContactController{
-    async index(req,res){
-        res.render('contact')
-    }
-    
+
+const index=async(req,res)=>{
+    res.render('contact')
 }
-module.exports=new ContactController
+    
+
+module.exports={
+    index
+}

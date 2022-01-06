@@ -9,7 +9,7 @@ require('dotenv').config()
 
 const route=require('./src/routes/index')
 
-const db=require('./src/database/index') // connect database
+const db=require('./src/database/connectDB') // connect database
 
 app.use(express.static(path.join(__dirname,'/public'))) // public 
 

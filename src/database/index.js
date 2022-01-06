@@ -1,13 +1,13 @@
-const mongoose = require('mongoose');
-connect=async()=>{
-    try{
-        await mongoose.connect(process.env.DB_URL,{
-            
-        })
-        console.log('connect database successfully')
-    }catch(err){
-        console.log(err)
-    }
+const Cart=require('./models/Cart')
+const Category=require('./models/Category')
+const Order=require('./models/Order')
+const User=require('./models/User')
+const Product=require('./models/Product')
 
+module.exports={
+    Cart,
+    Category,
+    Order,
+    User,
+    Product
 }
-module.exports={connect}
