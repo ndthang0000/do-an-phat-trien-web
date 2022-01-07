@@ -275,4 +275,15 @@ button#type-pass:hover {
   border-color: #2ecc71 !important;
   color: #2ecc71 !important;
 }
+.toastify-custom img{
+  width: 50px;
+  height: auto;
+}
+.bi-dash, .bi-plus{
+  cursor: pointer;
+  padding: 5px 6px;
+}
+.bi-dash:hover, .bi-plus:hover{
+  background-color: rgb(228, 223, 223);
+}
 /*# sourceMappingURL=custom_thang.css.map *

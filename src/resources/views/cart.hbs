@@ -27,80 +27,14 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <th class="shoping__product">Products</th>
-                                    <th>Price</th>
+                                    <th class="shoping__product" style="text-align: center;">Products</th>
+                                    <th style="padding-left: 30px;padding-right: 30px;">Infor</th>
                                     <th>Quantity</th>
                                     <th>Total</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="shoping__cart__item">
-                                        <img src="/img/cart/cart-1.jpg" alt="">
-                                        <h5>Vegetable’s Package</h5>
-                                    </td>
-                                    <td class="shoping__cart__price">
-                                        $55.00
-                                    </td>
-                                    <td class="shoping__cart__quantity">
-                                        <div class="quantity">
-                                            <div class="pro-qty">
-                                                <input type="text" value="1">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="shoping__cart__total">
-                                        $110.00
-                                    </td>
-                                    <td class="shoping__cart__item__close">
-                                        <span class="icon_close"></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shoping__cart__item">
-                                        <img src="/img/cart/cart-2.jpg" alt="">
-                                        <h5>Fresh Garden Vegetable</h5>
-                                    </td>
-                                    <td class="shoping__cart__price">
-                                        $39.00
-                                    </td>
-                                    <td class="shoping__cart__quantity">
-                                        <div class="quantity">
-                                            <div class="pro-qty">
-                                                <input type="text" value="1">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="shoping__cart__total">
-                                        $39.99
-                                    </td>
-                                    <td class="shoping__cart__item__close">
-                                        <span class="icon_close"></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="shoping__cart__item">
-                                        <img src="/img/cart/cart-3.jpg" alt="">
-                                        <h5>Organic Bananas</h5>
-                                    </td>
-                                    <td class="shoping__cart__price">
-                                        $69.00
-                                    </td>
-                                    <td class="shoping__cart__quantity">
-                                        <div class="quantity">
-                                            <div class="pro-qty">
-                                                <input type="text" value="1">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="shoping__cart__total">
-                                        $69.99
-                                    </td>
-                                    <td class="shoping__cart__item__close">
-                                        <span class="icon_close"></span>
-                                    </td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -109,9 +43,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="shoping__cart__btns">
-                        <a href="/" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
-                        <a href="/" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
-                            Upadate Cart</a>
+                        <a href="/product" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
+                        
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -129,12 +62,110 @@
                     <div class="shoping__checkout">
                         <h5>Cart Total</h5>
                         <ul>
-                            <li>Subtotal <span>$454.98</span></li>
-                            <li>Total <span>$454.98</span></li>
+                            <li>Shipping fee<span>$3</span></li>
+                            <li>Total <span id="sub-total"></span></li>
                         </ul>
                         <a href="/" class="primary-btn">PROCEED TO CHECKOUT</a>
                     </div>
                 </div>
             </div>
         </div>
+        <a href="/product/detail"></a>
     </section>
+    <div style="display: none;" id="cartData">{{cart}}</div>
+    <script>
+        const sum=(item)=>{
+            return item.reduce((total,i)=>{
+                return total+i.quantity
+            },0)
+        }
+        const renderTotal=(cart,subTotal)=>{
+            let total=cart.cart.reduce((tot,ii)=>{
+                return tot+ii.product.pricePromotion*sum(ii.infor)
+            },0)
+            total+=3
+            subTotal.innerText='$'+total
+        }
+        const renderCart=(cart,bodyTable)=>{
+            let htmlCart=cart.cart.map(item=>{
+                return item.infor.map(it=>{
+                    return `
+                        <tr>
+                            <td class="shoping__cart__item" style="text-align: center;">
+                                <a href="/product/detail/${item.product.slug}">
+                                    <img src="https://the-1-beauty-fashion-admin.herokuapp.com${item.product.imagesUrl[0]}" alt="" style="width: 70px;">
+                                </a>
+                                
+                                <h5>${item.product.name}</h5>
+                            </td>
+                            <td class="shoping__cart__price" style="color: red;display:flex;flex-direction:column;align-items:center;margin:0 auto">
+                                $${item.product.pricePromotion}
+                                <span style="font-weight:650;color:#777">Size: <span style="font-weight:650;color:#777">${it.size}</span></span>
+                            </td>
+                            <td class="shoping__cart__quantity">
+                                <div class="quantity">
+                                    <div class="pro-qty">
+                                        <i class="bi bi-dash" data-id="${item._id}" data-size="${it.size}"></i>
+                                        <input type="text" name="quantity-item" value="${it.quantity}">
+                                        <i class="bi bi-plus" data-id="${item._id}" data-size="${it.size}"></i>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="shoping__cart__total" style="color:red">
+                                $${it.quantity*item.product.pricePromotion}
+                            </td>
+                            <td class="shoping__cart__item__close">
+                                <span class="icon_close" data-id="${item._id}" data-size="${it.size}"></span>
+                            </td>
+                        </tr>
+                    `
+                }).join('')
+            }).join('')
+            bodyTable.innerHTML=htmlCart
+            
+        }
+        
+        document.addEventListener('DOMContentLoaded',()=>{
+            fetchCart2()
+            const subTotal=document.querySelector('#sub-total')
+            if(user){
+                let cart=JSON.parse(document.querySelector('#cartData').innerText)
+                const bodyTable=document.querySelector('tbody')
+                console.log(cart)
+                renderCart(cart,bodyTable)
+                renderTotal(cart,subTotal)
+            }
+            const subBtn=document.querySelectorAll('.bi-dash')
+            const addBtn=document.querySelectorAll('.bi-plus')
+            const closeBtn=document.querySelectorAll('.icon_close')
+            const quantityItem=document.querySelectorAll('input[name="quantity-item"]')
+
+            subBtn.forEach((item,index)=>{
+                item.addEventListener('click',(e)=>{
+                    if(parseInt(quantityItem[index].value)>1){
+                        quantityItem[index].value=parseInt(quantityItem[index].value)-1
+                        if(user){
+                            fetchCart({id:e.target.dataset.id,size:e.target.dataset.size,type:'SUB'})
+                        }
+                    }
+                    
+                })
+            })
+            addBtn.forEach((item,index)=>{
+                item.addEventListener('click',(e)=>{
+                    quantityItem[index].value=parseInt(quantityItem[index].value)+1
+                    fetchCart({id:e.target.dataset.id,size:e.target.dataset.size,type:'ADD'})
+                })
+            })
+            closeBtn.forEach(item=>{
+                item.addEventListener('click',(e)=>{
+                    item.parentElement.parentElement.remove()
+                    fetchCart({id:e.target.dataset.id,size:e.target.dataset.size,type:'DEL'})
+                    let data=JSON.parse(localStorage.getItem('length'))
+                    localStorage.setItem('length',JSON.stringify({length:data.length-1}))
+                    document.querySelector('.cart-length').innerHTML=data.length-1
+                })
+            })
+            
+        })
+    </script>

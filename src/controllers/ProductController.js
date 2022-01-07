@@ -93,9 +93,10 @@ const sort=async(req,res)=>{
     }
 }
 
+
 module.exports={
     sort,
     caterology,
     detail,
-    index
+    index,
 }
