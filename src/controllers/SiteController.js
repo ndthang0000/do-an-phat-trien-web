@@ -1,6 +1,6 @@
 
 const {Category,Product}=require('../database')
-const {MultipleMongooseToObject,MongooseToObject}=require('../ultil/mongoose')
+const {MultipleMongooseToObject}=require('../ultil/mongoose')
 
 const index=async(req,res)=>{
     try{

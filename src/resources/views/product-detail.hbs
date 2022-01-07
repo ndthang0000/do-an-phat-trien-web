@@ -47,7 +47,7 @@
                                 </div>
                             </div>
                         </div>
-                        <span  class="primary-btn btn-add-cart" data-id={{product._id}}>ADD TO CARD</span>
+                        <span  class="primary-btn btn-add-cart" style="cursor: pointer;" data-id={{product._id}} data-image="https://the-1-beauty-fashion-admin.herokuapp.com{{product.imagesUrl.[0]}}">ADD TO CARD</span>
                         <ul>
                             <li><b>Availability</b> <span> <strong>{{quantity product.info}} </strong> item in Warehouse</span></li>
                             <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li>
@@ -112,7 +112,6 @@
                 </div>
             </div>
         </div>
-        <input type="text" style="display: none;" name="user" value="{{user._id}}">
 </section>
     <!-- Product Details Section End -->
 
@@ -135,9 +134,9 @@
                                 data-setbg="https://the-1-beauty-fashion-admin.herokuapp.com{{this.imagesUrl.[0]}}">
                                 <div class="product__discount__percent">-{{discount this.pricePromotion this.price}}%</div>
                                 <ul class="product__item__pic__hover">
-                                    <li><a href="/product/detail/{{this.slug}}"><i class="fa fa-heart"></i></a></li>
                                     <li><a href="/product/detail/{{this.slug}}"><i class="fa fa-retweet"></i></a></li>
-                                    <li><a href="/product/detail/{{this.slug}}"><i class="fa fa-shopping-cart"></i></a></li>
+                                    <li><a href="/product/detail/{{this.slug}}" class="shopping-cart" data-id={{_id}} data-size={{info.[0].size}} data-image="https://the-1-beauty-fashion-admin.herokuapp.com{{imagesUrl.[0]}}">
+                                    <i class="fa fa-shopping-cart" data-id={{_id}} data-size={{info.[0].size}} data-image="https://the-1-beauty-fashion-admin.herokuapp.com{{imagesUrl.[0]}}"></i></a></li>
                                 </ul>
                             </div>
                             <div class="product__discount__item__text">
@@ -153,7 +152,6 @@
         <div style="display: none;" id="JSONproduct">{{productJson}}</div>
 </section>
 <script>
-    const user=document.querySelector('input[name="user"]').value||false
     document.addEventListener('DOMContentLoaded',()=>{
         let product=JSON.parse(document.querySelector('#JSONproduct').innerText)
         const sizeEl=document.querySelector('.info-product-size')
@@ -201,6 +199,23 @@
                 .then(res=>res.json())
                 .then(res=>{
                     console.log(res)
+                    if(res.success){
+                        Toastify({
+                            className:'toastify-custom',
+                            text: "Thêm vào giỏ hàng thành công",
+                            avatar:e.target.dataset.image,
+                            duration: 2500,
+                            newWindow: true,
+                            close: true,
+                            gravity: "bottom", // `top` or `bottom`
+                            position: "right", // `left`, `center` or `right`
+                            stopOnFocus: true, // Prevents dismissing of toast on hover
+                            style: {
+                                background: "linear-gradient(to right, #00b09b, #96c93d)",
+                            },
+                        }).showToast();
+                        fetchCart()
+                    }
                 })
             }
         })
