@@ -24,10 +24,12 @@
     <link rel="stylesheet" href="/css/style.css" type="text/css">
     <link rel="icon" href="/img/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="/css/custom_thang.css">
+    <script src="/js/header.js"></script>
 </head>
     {{> header}}
     {{{body}}}
     {{> footer}}
+    <input type="text" style="display: none;" name="user" value="{{user._id}}">
     <script src="/js/jquery-3.3.1.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/jquery.nice-select.min.js"></script>

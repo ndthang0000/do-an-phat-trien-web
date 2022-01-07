@@ -5,6 +5,7 @@ const path=require('path')
 const app = express()
 const passport=require('passport')
 const moment =require('moment')
+const logger = require('morgan')
 require('dotenv').config()
 
 const route=require('./src/routes/index')
@@ -16,7 +17,7 @@ app.use(express.static(path.join(__dirname,'/public'))) // public
 app.use(require('express-session')({ secret: process.env.COOKIE_SECURET, resave: true, saveUninitialized: true}));
 app.use(passport.initialize());
 app.use(passport.session());
-
+app.use(logger('dev'))
 
 
 app.engine('hbs', exphbs({
@@ -42,7 +43,9 @@ app.use((req,res,next)=>{
         res.locals.user=req.user
     }
     else{
-        res.locals.user=false
+        res.locals.user={
+            _id:false
+        }
     }
     next()
 })
