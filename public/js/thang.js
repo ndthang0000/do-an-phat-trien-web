@@ -1,7 +1,24 @@
 
     const user=document.querySelector('input[name="user"]').value
     const addCartBtn=document.querySelectorAll('.shopping-cart')
-    const fetchCart=(data)=>{
+
+    const getToast=(e)=>{  // get Toast message
+        Toastify({
+            className:'toastify-custom',
+            text: "Thêm vào giỏ hàng thành công",
+            avatar:e.target.dataset.image,
+            duration: 2500,
+            newWindow: true,
+            close: true,
+            gravity: "bottom", // `top` or `bottom`
+            position: "right", // `left`, `center` or `right`
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+            style: {
+                background: "linear-gradient(to right, #00b09b, #96c93d)",
+            },
+        }).showToast();
+    }
+    const fetchCart=(data)=>{ // update cart item edit (sub , add , delete)
         fetch(`${window.location.origin}/cart/update`,{
             headers:{
                 'Accept':'application/json',
@@ -11,7 +28,7 @@
             body:JSON.stringify(data)
         })
     }
-    const fetchCart2=()=>{
+    const fetchCart2=()=>{ //update length cart (fetch api)
         console.log('fetch cart')
         fetch(`${window.location.origin}/cart/length`)
         .then(res=>res.json())
@@ -20,8 +37,8 @@
             document.querySelector('.cart-length').innerHTML=res.length
         })
     }
-    const updateCartLength2=()=>{
-        if(user){
+    const updateCartLength2=()=>{  // update length cart user
+        if(user!=='false'){
             let item=JSON.parse(localStorage.getItem('length'))
             if(item){
                 document.querySelector('.cart-length').innerText=item.length
@@ -30,7 +47,15 @@
                 fetchCart2()
             }
         }
-        
+        else{
+            let item=JSON.parse(localStorage.getItem('cart'))
+            if(!item){
+                document.querySelector('.cart-length').innerText=0
+            }
+            else{
+                document.querySelector('.cart-length').innerText=item.cart.length
+            }
+        }
     }
     updateCartLength2()
     addCartBtn.forEach(item=>{
@@ -49,62 +74,49 @@
                 .then(res=>{
                     console.log(res)
                     if(res.success){
-                        Toastify({
-                            className:'toastify-custom',
-                            text: "Thêm vào giỏ hàng thành công",
-                            avatar:e.target.dataset.image,
-                            duration: 2500,
-                            newWindow: true,
-                            close: true,
-                            gravity: "bottom", // `top` or `bottom`
-                            position: "right", // `left`, `center` or `right`
-                            stopOnFocus: true, // Prevents dismissing of toast on hover
-                            style: {
-                                background: "linear-gradient(to right, #00b09b, #96c93d)",
-                            },
-                        }).showToast();
-                        let item=JSON.parse(localStorage.getItem('length'))
-                        localStorage.setItem('length',JSON.stringify({length:item.length+1}))
-                        document.querySelector('.cart-length').innerHTML=item.length+1
+                        getToast(e)
+                        fetchCart2()
                     }
                 })
             }
             else{
-                console.log(' vod ay')
                 let cart=JSON.parse(localStorage.getItem('cart'))
-                if(!cart){
-                    let newCart=[{
-                        product:e.target.id,
-                        infor:{
-                            size:e.target.dataset.size,
-                            quantity:e.target.dataset.quantity
-                        }
-                    }]
-                    localStorage.setItem('cart',JSON.stringify({cart:newCart}))
-                }
-                else{
-                    let checkExist=false
-                    cart.forEach(item=>{
-                        if(item.product===e.target.dataset.id){
-                            checkExist=true
-                            item.infor.forEach(it=>{
-
-                            })
-                        }
-                    })
-                    if(!checkExist){
-                        cart.push({
-                            product:{
-                                _id:e.target.dataset.id,
-                                imagesUrl:[]
-                            },
-                            infor:{
-                                size:e.target.dataset.size,
-                                quantity:e.target.dataset.quantity
-                            }
-                        })
+                let newCartItem={
+                    product:e.target.dataset.id,
+                    infor:{
+                        size:e.target.dataset.size,
+                        quantity:1
                     }
                 }
+                if(!cart){
+                    console.log('vo day')
+                    let newCart=[newCartItem]
+                    let cart={
+                        cart:newCart
+                    }
+                    localStorage.setItem('cart',JSON.stringify(cart))
+                    document.querySelector('.cart-length').innerHTML=1
+                }
+                else{
+                    let check=false;
+                    for(let i=0;i<cart.cart.length;i++){
+                        if(cart.cart[i].product===e.target.dataset.product){
+                            if(cart.cart[i].infor.size===e.target.dataset.size){
+                                cart.cart[i].infor.quantity+=1
+                            }
+                            else{
+                                cart.cart=cart.cart.splice(i+1,0,newCartItem)
+                            }
+                            check=true
+                        }
+                    }
+                    if(!check){
+                        cart.cart.push(newCartItem)
+                    }
+                    localStorage.setItem('cart',JSON.stringify(cart))
+                    document.querySelector('.cart-length').innerHTML=cart.cart.length
+                }
+                getToast(e)
             }
             
         })
