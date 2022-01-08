@@ -181,13 +181,13 @@
 
 
         
-        const btnAddCart=document.querySelector('.btn-add-cart')
+        const btnAddCartt=document.querySelector('.btn-add-cart')
         const quantity=document.querySelector('input[name="quantity-product"]')
 
 
-        btnAddCart.addEventListener('click',(e)=>{
+        btnAddCartt.addEventListener('click',(e)=>{
+            let activeSize=document.querySelector('.info-product-size-item.active')
             if(user!=='false'){
-                const activeSize=document.querySelector('.info-product-size-item.active')
                 fetch(`${window.location.origin}/cart/add`,{
                     headers:{
                         'Accept':'application/json',
@@ -204,6 +204,47 @@
                         fetchCart2()
                     }
                 })
+            }
+            else{
+                console.log(JSON.parse(localStorage.getItem('cart')))
+                const cart2=JSON.parse(localStorage.getItem('cart'))
+                console.log(cart2)
+                let newCartItem={
+                    product:e.target.dataset.id,
+                    infor:{
+                        size:activeSize.dataset.size,
+                        quantity:parseInt(quantity.value)
+                    }
+                }
+                if(!cart2){
+                    console.log(' udsfds fsdfklds fsd')
+                    let newCart=[newCartItem]
+                    let cartt={
+                        cart:newCart
+                    }
+                    localStorage.setItem('cart',JSON.stringify(cartt))
+                    document.querySelector('.cart-length').innerHTML=1
+                }
+                else{
+                    let check=false;
+                    for(let i=0;i<cart2.cart.length;i++){
+                        if(cart2.cart[i].product===e.target.dataset.id)
+                        {
+                            if(cart2.cart[i].infor.size===activeSize.dataset.size){
+                                cart2.cart[i].infor.quantity+=parseInt(quantity.value)
+                                check=true;
+                                break;
+                            }
+                            
+                        } 
+                    }
+                    if(!check){
+                        cart2.cart.push(newCartItem)
+                    }
+                    localStorage.setItem('cart',JSON.stringify(cart2))
+                    document.querySelector('.cart-length').innerHTML=cart2.cart.length
+                }
+                getToast(e)
             }
         })
 
