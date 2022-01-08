@@ -81,6 +81,7 @@
             }
             else{
                 let cart=JSON.parse(localStorage.getItem('cart'))
+                console.log(cart)
                 let newCartItem={
                     product:e.target.dataset.id,
                     infor:{
@@ -89,7 +90,6 @@
                     }
                 }
                 if(!cart){
-                    console.log('vo day')
                     let newCart=[newCartItem]
                     let cart={
                         cart:newCart
@@ -100,14 +100,18 @@
                 else{
                     let check=false;
                     for(let i=0;i<cart.cart.length;i++){
-                        if(cart.cart[i].product===e.target.dataset.product){
+                        if(cart.cart[i].product===e.target.dataset.id){
+                            console.log(' co vo day hong')
                             if(cart.cart[i].infor.size===e.target.dataset.size){
                                 cart.cart[i].infor.quantity+=1
+                                console.log('vo day 1')
                             }
                             else{
+                                console.log('vo day')
                                 cart.cart=cart.cart.splice(i+1,0,newCartItem)
                             }
                             check=true
+                            break
                         }
                     }
                     if(!check){
