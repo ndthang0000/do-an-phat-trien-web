@@ -126,9 +126,11 @@
         }
         
         document.addEventListener('DOMContentLoaded',()=>{
-            fetchCart2()
+            if(user!=='false'){
+                fetchCart2()
+            }
             const subTotal=document.querySelector('#sub-total')
-            if(user){
+            if(user!=='false'){
                 let cart=JSON.parse(document.querySelector('#cartData').innerText)
                 const bodyTable=document.querySelector('tbody')
                 console.log(cart)
