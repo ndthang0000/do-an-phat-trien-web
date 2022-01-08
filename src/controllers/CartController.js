@@ -8,6 +8,7 @@ const index=async(req,res)=>{
     if(req.user){
         cart=await Cart.find({user:req.user._id}).populate('product')
     }
+    console.log(cart)
     res.render('cart',{
         cart:JSON.stringify({cart}),
         category:MultipleMongooseToObject(category)
@@ -32,7 +33,8 @@ const add=async(req,res)=>{
             existCart.infor.push({size,quantity})
         }
         await existCart.save()
-        return res.json({success:true})
+        console.log('vo day')
+        return res.status(200).json({success:true})
     }
     else{
         const newCart=new Cart({
@@ -41,7 +43,8 @@ const add=async(req,res)=>{
             infor:[{size,quantity}]
         })
         await newCart.save()
-        return res.json({success:true})
+        console.log('vo day 2')
+        return res.status(200).json({success:true})
     }
 }
 const getLength=async(req,res)=>{
@@ -80,12 +83,19 @@ const update=async(req,res)=>{
             res.status(200).json({success:true})
             break
         case 'DEL':
-            cart.infor=cart.infor.filter(item=>{
-                return item.size!==size
-            })
-            await cart.save()
+            if(cart.infor.length===1){
+                await Cart.deleteOne({_id:id})
+            }
+            else{
+                cart.infor=cart.infor.filter(item=>{
+                    return item.size!==size
+                })
+                await cart.save()
+            }
             res.status(200).json({success:true})
             break
+        default:
+            res.status(400).json({success:false})
     }
 }
 
