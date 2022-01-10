@@ -115,6 +115,8 @@
 
 .nice-select {
   border: 1px solid #2ecc71 !important;
+  width: 100%;
+  margin: 5px;
 }
 
 .area-user {
