@@ -1,5 +1,5 @@
 
-const {Cart,Category}=require('../database')
+const {Cart,Category,Product}=require('../database')
 const {MultipleMongooseToObject}=require('../ultil/mongoose')
 
 const index=async(req,res)=>{
@@ -98,10 +98,19 @@ const update=async(req,res)=>{
             res.status(400).json({success:false})
     }
 }
+const getProduct=async(req,res)=>{
+    let {product}=req.body
+    console.log(product)
+    const allProduct=await Product.find({_id:product})
+    console.log(allProduct)
+    res.status(200).json({allProduct,success:true})
+}
+
 
 module.exports={
     index,
     add,
     getLength,
-    update
+    update,
+    getProduct
 }
