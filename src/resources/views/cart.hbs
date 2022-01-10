@@ -62,10 +62,9 @@
                     <div class="shoping__checkout">
                         <h5>Cart Total</h5>
                         <ul>
-                            <li>Shipping fee<span>$3</span></li>
                             <li>Total <span id="sub-total"></span></li>
                         </ul>
-                        <a href="/" class="primary-btn">PROCEED TO CHECKOUT</a>
+                        <a href="/check-out" class="primary-btn">PROCEED TO CHECKOUT</a>
                     </div>
                 </div>
             </div>
@@ -83,7 +82,6 @@
             let total=cart.cart.reduce((tot,ii)=>{
                 return tot+ii.product.pricePromotion*sum(ii.infor)
             },0)
-            total+=3
             subTotal.innerText='$'+total
         }
         const renderCart=(cart,bodyTable)=>{
@@ -105,9 +103,9 @@
                             <td class="shoping__cart__quantity">
                                 <div class="quantity">
                                     <div class="pro-qty">
-                                        <i class="bi bi-dash" data-id="${item._id}" data-size="${it.size}"></i>
+                                        <i class="bi bi-dash" data-id="${item._id}" data-size="${it.size}" data-price="${item.product.pricePromotion}"></i>
                                         <input type="text" name="quantity-item" value="${it.quantity}">
-                                        <i class="bi bi-plus" data-id="${item._id}" data-size="${it.size}"></i>
+                                        <i class="bi bi-plus" data-id="${item._id}" data-size="${it.size}" data-price="${item.product.pricePromotion}"></i>
                                     </div>
                                 </div>
                             </td>
@@ -115,7 +113,7 @@
                                 $${it.quantity*item.product.pricePromotion}
                             </td>
                             <td class="shoping__cart__item__close">
-                                <span class="icon_close" data-id="${item._id}" data-size="${it.size}"></span>
+                                <span class="icon_close" data-id="${item._id}" data-size="${it.size}" data-price="${item.product.pricePromotion}"></span>
                             </td>
                         </tr>
                     `
@@ -126,46 +124,127 @@
         }
         
         document.addEventListener('DOMContentLoaded',()=>{
+            const bodyTable=document.querySelector('tbody')
+            const subTotal=document.querySelector('#sub-total')
             if(user!=='false'){
                 fetchCart2()
             }
-            const subTotal=document.querySelector('#sub-total')
             if(user!=='false'){
                 let cart=JSON.parse(document.querySelector('#cartData').innerText)
-                const bodyTable=document.querySelector('tbody')
-                console.log(cart)
                 renderCart(cart,bodyTable)
                 renderTotal(cart,subTotal)
+            }
+            else{
+                let cartNoneUser=JSON.parse(localStorage.getItem('cart'))
+                let idProduct=[]
+                cartNoneUser.cart.forEach((item,index)=>{
+                    if(idProduct.indexOf(item.product)===-1){
+                        idProduct.push(item.product)
+                    }
+                })
+                fetch(`${location.origin}/cart/get-product`,{
+                    headers:{
+                        'Accept':'application/json',
+                        'Content-Type':'application/json'
+                    },
+                    method:'POST',
+                    body:JSON.stringify({product:idProduct})
+                })
+                .then(res=>res.json())
+                .then(res=>{
+                    if(res.success){
+                        let newCartProduct=res.allProduct.map(item=>{
+                            return {
+                                _id:item._id,
+                                product:item,
+                                infor:[]
+                            }
+                        })
+                        cartNoneUser.cart.forEach((item,index)=>{
+                            for(let j=0;j<newCartProduct.length;j++){
+                                if(item.product===newCartProduct[j].product._id){
+                                    newCartProduct[j].infor.push(item.infor)
+                                    break
+                                }
+                            }
+                        })
+                        renderCart({cart:newCartProduct},bodyTable)
+                        renderTotal({cart:newCartProduct},subTotal)
+                    }
+                })
             }
             const subBtn=document.querySelectorAll('.bi-dash')
             const addBtn=document.querySelectorAll('.bi-plus')
             const closeBtn=document.querySelectorAll('.icon_close')
             const quantityItem=document.querySelectorAll('input[name="quantity-item"]')
 
+            bodyTable.addEventListener('click',(e)=>{
+                if(user==='false'){
+                    let getCart=JSON.parse(localStorage.getItem('cart'))
+                    if(e.target.closest('.bi-plus')){
+                        for(let k=0;k<getCart.cart.length;k++){
+                            if(getCart.cart[k].product===e.target.dataset.id
+                            &&getCart.cart[k].infor.size===e.target.dataset.size){
+                                getCart.cart[k].infor.quantity+=1
+                                e.target.previousElementSibling.value=parseInt(e.target.previousElementSibling.value)+1
+                                break
+                            }
+                        }
+                        subTotal.innerHTML='$'+(parseInt(subTotal.innerHTML.split('$')[1])+parseInt(e.target.dataset.price))
+                        localStorage.setItem('cart',JSON.stringify(getCart))
+                        
+                    }
+                    if(e.target.closest('.bi-dash')){
+                        for(let k=0;k<getCart.cart.length;k++){
+                            if(getCart.cart[k].product===e.target.dataset.id
+                            &&getCart.cart[k].infor.size===e.target.dataset.size){
+                                if(parseInt(e.target.nextElementSibling.value)>1){
+                                    getCart.cart[k].infor.quantity-=1
+                                    e.target.nextElementSibling.value=parseInt(e.target.nextElementSibling.value)-1
+                                    break
+                                }
+                            }
+                        }
+                        subTotal.innerHTML='$'+(parseInt(subTotal.innerHTML.split('$')[1])-parseInt(e.target.dataset.price))
+                        localStorage.setItem('cart',JSON.stringify(getCart))
+                        
+                    }
+                    if(e.target.closest('.icon_close')){
+                        e.target.parentElement.parentElement.remove()
+                        let newnewCart=getCart.cart.filter(item=>{
+                            return item.product!==e.target.dataset.id || item.infor.size!==e.target.dataset.size
+                        })
+                        document.querySelector('.cart-length').innerHTML=getCart.cart.length-1
+                        localStorage.setItem('cart',JSON.stringify({cart:newnewCart}))
+                        subTotal.innerHTML='$'+(parseInt(subTotal.innerHTML.split('$')[1])-parseInt(e.target.dataset.price)*parseInt(e.target.parentElement.parentElement.querySelector('input').value))
+                    }
+                }
+            })
             subBtn.forEach((item,index)=>{
                 item.addEventListener('click',(e)=>{
                     if(parseInt(quantityItem[index].value)>1){
                         quantityItem[index].value=parseInt(quantityItem[index].value)-1
-                        if(user){
-                            fetchCart({id:e.target.dataset.id,size:e.target.dataset.size,type:'SUB'})
-                        }
+                        fetchCart({id:e.target.dataset.id,size:e.target.dataset.size,type:'SUB'})
+                        subTotal.innerHTML='$'+(parseInt(subTotal.innerHTML.split('$')[1])-parseInt(e.target.dataset.price))
                     }
-                    
                 })
             })
             addBtn.forEach((item,index)=>{
                 item.addEventListener('click',(e)=>{
                     quantityItem[index].value=parseInt(quantityItem[index].value)+1
                     fetchCart({id:e.target.dataset.id,size:e.target.dataset.size,type:'ADD'})
+                    subTotal.innerHTML='$'+(parseInt(subTotal.innerHTML.split('$')[1])+parseInt(e.target.dataset.price))
                 })
             })
             closeBtn.forEach(item=>{
                 item.addEventListener('click',(e)=>{
+
                     item.parentElement.parentElement.remove()
                     fetchCart({id:e.target.dataset.id,size:e.target.dataset.size,type:'DEL'})
                     let data=JSON.parse(localStorage.getItem('length'))
                     localStorage.setItem('length',JSON.stringify({length:data.length-1}))
                     document.querySelector('.cart-length').innerHTML=data.length-1
+                    subTotal.innerHTML='$'+(parseInt(subTotal.innerHTML.split('$')[1])-parseInt(e.target.dataset.price)*parseInt(e.target.parentElement.parentElement.querySelector('input').value))
                 })
             })
             
