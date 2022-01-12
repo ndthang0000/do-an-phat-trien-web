@@ -23,54 +23,52 @@
                                 <div class="col-lg-12">
                                     <div class="checkout__input">
                                         <p>Name<span>*</span></p>
-                                        <input type="text" style="width:100%">
+                                        <input type="text" style="width:100%" name="name">
+                                        <span id="error-name" style="color: red;display: block;"></span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-lg-4">
-                                    <select class="form-select" style="width: 100%;">
-                                        <option selected>Province</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                            <div class="row" style="padding: 10px;">
+                                <div class="col-lg-4" style="padding: 0px 5px;">
+                                    <select class="form-select"  id="province" style="display:block">
+                                        <option selected style="width: 100%;"> Select Province</option>
+                                        
                                     </select>
                                 </div>
-                                <div class="col-lg-4">
-                                    <select class="form-select" style="width: 100%;">
-                                        <option selected>District</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                <div class="col-lg-4" style="padding: 0px 5px;">
+                                    <select id="district" disabled style="display:block">
+                                        <option value="-1" selected> Select District</option>
+                                        
                                     </select>
                                 </div>
-                                <div class="col-lg-4">
-                                    <select class="form-select" style="width: 100%;">
-                                        <option selected>Town</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                <div class="col-lg-4" style="padding: 0px 5px;">
+                                    <select id="town" disabled style="display:block">
+                                        <option value="-1" selected> Select Town</option>
+                                        
                                     </select>
                                 </div>
+                                <span style="color: red;margin-left: 20px;" id="error-address"></span>
                             </div>
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
                                         <p>Phone<span>*</span></p>
-                                        <input type="text">
+                                        <input type="text" name="phone">
+                                        <span id="error-phone" style="color: red;display: block;"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
                                         <p>Email<span>*</span></p>
-                                        <input type="text">
+                                        <input type="text" name="email">
+                                        <span id="error-email" style="color: red;display: block;"></span>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="checkout__input">
                                 <p>Order notes<span>*</span></p>
-                                <input type="text"
+                                <input type="text" name="infor">
                                     placeholder="Notes about your order, e.g. special notes for delivery.">
                             </div>
                         </div>
@@ -78,48 +76,321 @@
                             <div class="checkout__order">
                                 <h4>Your Order</h4>
                                 <div class="checkout__order__products">Products <span>Total</span></div>
-                                <ul>
-                                    <li>Tee <span>$75.99</span></li>
-                                    <li>T-shirt <span>$151.99</span></li>
-                                    <li>Jacket <span>$53.99</span></li>
+                                <ul id="orders">
+
                                 </ul>
-                                <div class="checkout__order__subtotal">Subtotal <span>$750.99</span></div>
-                                <div class="checkout__order__total">Total <span>$750.99</span></div>
-                                <div class="checkout__input__checkbox">
-                                    <label for="acc-or">
-                                        Create an account?
-                                        <input type="checkbox" id="acc-or">
-                                        <span class="checkmark"></span>
-                                    </label>
+                                <div style="font-size: 650;padding: 10px;padding-bottom: 0px;margin-bottom: 15px;">
+                                    <h5 style="margin: 0px;padding: 0;font-weight: 650;"><i class="bi bi-credit-card-2-back"></i>
+                                    Payment</h5>
+                                    <div style="border: 1px solid rgb(184, 183, 183);border-radius: 4px;padding: 8px;text-align: center;position: relative;">
+                                        Pay on receipt 
+                                        <i class="bi bi-cash-coin" style="position: absolute;top: 25%;right: 5px; color:#2ecc71"></i>
+                                    </div>
                                 </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adip elit, sed do eiusmod tempor incididunt
-                                    ut labore et dolore magna aliqua.</p>
-                                <div class="checkout__input__checkbox">
-                                    <label for="payment">
-                                        Check Payment
-                                        <input type="checkbox" id="payment">
-                                        <span class="checkmark"></span>
-                                    </label>
+                                <div style="font-size: 650;padding: 10px;padding-bottom: 0px;margin-bottom: 15px;">
+                                    <h5 style="margin: 0px;padding: 0;font-weight: 650;"><i class="bi bi-credit-card-2-back"></i>
+                                    Delivery</h5>
+                                    <div style="border: 1px solid rgb(184, 183, 183);border-radius: 4px;padding: 8px;text-align: center;position: relative;">
+                                        Nomarl Delivery 
+                                        <i class="bi bi-truck" style="position: absolute;top: 25%;right: 5px; color:#2ecc71"></i>
+                                    </div>
                                 </div>
-                                <div class="checkout__input__checkbox">
-                                    <label for="paypal">
-                                        Paypal
-                                        <input type="checkbox" id="paypal">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </div>
-                                <button type="submit" class="site-btn">PLACE ORDER</button>
+                                <div class="checkout__order__subtotal">Shipping fee <span>$2</span></div>
+                                <div class="checkout__order__total" style="margin-bottom: 15px;">SubTotal <span></span></div>
+                                <div class="checkout__order__subtotal sumnene">SubTotal <span style="color: red;">$</span></div>
+                                
+                                <button type="submit" class="site-btn place-oder">PLACE ORDER</button>
                             </div>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
+        <div style="display: none;" id="cartData">{{cart}}</div>
     </section>
+    <button type="button" class="btn btn-primary btn-show-modal" data-bs-toggle="modal" data-bs-target="#exampleModal" style="display: none;">
+        Launch demo modal
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: rgb(236, 232, 232);">
+                    <h5 class="modal-title" id="exampleModalLabel" style="display: flex;align-items: center;">
+                        <div style="border-radius: 50%;height: 30px;width: 30px;border:3px solid #2ecc71;display: flex;align-items: center;justify-content: center;">
+                            <i class="bi bi-check-lg" style="color: #2ecc71;font-weight: 750;"></i>
+
+                        </div>
+                        <div style="color: #2ecc71;margin-left: 15px;">
+                            Đặt hàng thành công
+                        </div>
+                    </h5>
+                    <i class="bi bi-x-lg btn-close" data-bs-dismiss="modal" aria-label="Close" style="cursor: pointer;"></i>
+                </div>
+                <div class="modal-body">
+                    <p><i class="bi bi-check-lg" style="margin-right: 8px;color:#2ecc71"></i>Your Bill is order successfully !!</p> 
+                    <p><i class="bi bi-telephone" style="margin-right: 8px;color:#2ecc71"></i>We will call you soon !! </p>
+                    <p><i class="bi bi-envelope" style="margin-right: 8px;color:#2ecc71"></i>You can check mail to recive new information about your order</p>
+                </div>
+                <div class="modal-footer" style="justify-content: space-between;">
+                    <div class="model-total" style="font-weight: 600;">Total</div>
+                    <a href="/" class="btn btn-primary finish-order" data-bs-dismiss="modal">Thank you <3</a>
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script>
+    function validateEmail(mail) 
+    {
+        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
+        {
+            return true
+        }
+        return false
+    }
+    function validatePhone(phone) 
+    {
+        if (/^0[0-9]{9}$/.test(phone))
+        {
+            return true
+        }
+        return false
+    }
+    const sum=(item)=>{
+        return item.reduce((total,i)=>{
+            return total+i.quantity
+        },0)
+    }
+    const renderTotal=(cart,subTotal)=>{
+        let total=cart.cart.reduce((tot,ii)=>{
+            return tot+ii.product.pricePromotion*sum(ii.infor)
+        },0)
+        subTotal.innerText='$'+total
+        total+=2
+        document.querySelector('.sumnene span').innerText='$'+total
+        document.querySelector('.model-total').innerText='Total : $'+total
+    }
+    const renderCart=(cart,orderEl)=>{
+        let htmlCart=cart.cart.map(item=>{
+            return item.infor.map(it=>{
+                return `
+                    <li style="display:flex;justify-content:space-between;align-items:center">
+                        <span style="display:flex;flex-direction:column;align-items:center;flex:3;text-align:center">
+                            <img src="https://the-1-beauty-fashion-admin.herokuapp.com${item.product.imagesUrl[0]}" alt="" style="width:40px">
+                            ${item.product.name}
+                        </span> 
+                        <span style="flex:1;text-align:center">int: ${it.size}, ${it.quantity}</span>
+                        <span style="flex:1;text-align:center;color:red">$${item.product.pricePromotion*it.quantity}</span>
+                    </li>
+                `
+            }).join('')
+        }).join('')
+        orderEl.innerHTML=htmlCart
+    }
     document.addEventListener('DOMContentLoaded',()=>{
-        fetch('https://provinces.open-api.vn/api/')
+        const provinceEl=document.querySelector('#province')
+        const districteEl=document.querySelector('#district')
+        const townEl=document.querySelector('#town')
+        const placeOderEl=document.querySelector('.place-oder')
+        const ordersEl=document.querySelector('#orders')
+        const totalEl=document.querySelector('.checkout__order__total span')
+        const phoneEl=document.querySelector('input[name="phone"]')
+        const emailEl=document.querySelector('input[name="email"]')
+        const nameEl=document.querySelector('input[name="name"]')
+        const inforEl=document.querySelector('input[name="infor"]')
+        const errorAddressEl=document.querySelector('#error-address')
+        const errorPhoneEl=document.querySelector('#error-phone')
+        const errorEmailEl=document.querySelector('#error-email')
+        const errorNameEl=document.querySelector('#error-name')
+        let provinceData;
+        let districtData;
+        let townData;
+        let checkPlaceHolder=false
+        if(user!=='false'){
+            let cart=JSON.parse(document.querySelector('#cartData').innerText)
+            if(cart.cart.length>0){
+                checkPlaceHolder=true
+            }
+            renderCart(cart,ordersEl)
+            renderTotal(cart,totalEl)
+        }
+        else{
+            let cartNoneUser=JSON.parse(localStorage.getItem('cart'))
+            let idProduct=[]
+            if(cartNoneUser){
+                checkPlaceHolder=true
+            }
+            cartNoneUser?.cart.forEach((item,index)=>{
+                if(idProduct.indexOf(item.product)===-1){
+                    idProduct.push(item.product)
+                }
+            })
+            fetch(`${location.origin}/cart/get-product`,{
+                headers:{
+                    'Accept':'application/json',
+                    'Content-Type':'application/json'
+                },
+                method:'POST',
+                body:JSON.stringify({product:idProduct})
+            })
+            .then(res=>res.json())
+            .then(res=>{
+                if(res.success){
+                    let newCartProduct=res?.allProduct.map(item=>{
+                        return {
+                            _id:item._id,
+                            product:item,
+                            infor:[]
+                        }
+                    })
+                    cartNoneUser?.cart.forEach((item,index)=>{
+                        for(let j=0;j<newCartProduct.length;j++){
+                            if(item.product===newCartProduct[j].product._id){
+                                newCartProduct[j].infor.push(item.infor)
+                                break
+                            }
+                        }
+                    })
+                    renderCart({cart:newCartProduct},ordersEl)
+                    renderTotal({cart:newCartProduct},totalEl)
+                }
+            })
+        }
+        
+        fetch('https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json') // api location
         .then(res=>res.json())
-        .then(res=>console.log(res))
+        .then(res=>{
+            provinceData=res
+            let htmlProvince=provinceData.map(item=>{
+                return `<option value="${item.Id}" data-name="${item.Name}">${item.Name}</option>`
+            }).join(' ')
+            provinceEl.innerHTML=`<option value="-1">Select Province---</option>`+htmlProvince
+        })
+
+        provinceEl.addEventListener('change',(e)=>{
+            districteEl.removeAttribute('disabled')
+            for(let i=0;i<provinceData.length;i++){
+                if(provinceData[i].Id===e.target.value){
+                    districtData=provinceData[i]
+                    break
+                }
+            }
+            let htmlDistrict=districtData.Districts.map(item=>{
+                return `<option value="${item.Id}" data-name="${item.Name}">${item.Name}</option>`
+            }).join(' ')
+            districteEl.innerHTML=`<option value="-1">Select Disctrict</option>`+htmlDistrict
+        })
+        districteEl.addEventListener('change',(e)=>{
+            if(!e.target.hasAttribute('disabled')){
+                townEl.removeAttribute('disabled')
+                for(let i=0;i<districtData.Districts.length;i++){
+                    if(districtData.Districts[i].Id===e.target.value){
+                        townData=districtData.Districts[i]
+                        break
+                    }
+                }
+                let htmlTown=townData.Wards.map(item=>{
+                    return `<option value="${item.Id}" data-name="${item.Name}" >${item.Name}</option>`
+                }).join(' ')
+                townEl.innerHTML=htmlTown
+                errorAddressEl.innerText=''
+            }
+        })
+        
+        placeOderEl.addEventListener('click',(e)=>{
+            e.preventDefault()
+            errorPhoneEl.innerText=''
+            errorEmailEl.innerText=''
+            errorNameEl.innerText=''
+            if(!checkPlaceHolder){
+                Toastify({
+                    className:'toastify-custom',
+                    text: "Bạn chưa có sản phẩm nào ",
+                    duration: 2500,
+                    newWindow: true,
+                    close: true,
+                    gravity: "bottom", // `top` or `bottom`
+                    position: "right", // `left`, `center` or `right`
+                    stopOnFocus: true, // Prevents dismissing of toast on hover
+                    style: {
+                        background: "linear-gradient(to right, #00b09b, #96c93d)",
+                    },
+                }).showToast();
+                return
+            }
+            
+            if(!nameEl.value){
+                errorNameEl.innerText='Invalid name'
+            }
+            if(provinceEl.value==-1||districteEl.value==-1||townEl.value==-1){
+                errorAddressEl.innerText='Invalid address'
+                return
+            }
+            if(!validatePhone(phoneEl.value)){
+                errorPhoneEl.innerText='Invalid Phone Number'
+                return 
+            }
+            if(!validateEmail(emailEl.value)){
+                errorEmailEl.innerText='Invalid Email'
+                return 
+            }
+            let addresss=document.querySelector(`option[value="${townEl.value}"]`).dataset.name+', '+document.querySelector(`option[value="${districteEl.value}"]`).dataset.name+', '+document.querySelector(`option[value="${provinceEl.value}"]`).dataset.name
+            if(user!=='false'){
+                fetch(`${location.origin}/check-out/new-order`,{
+                    headers:{
+                        'Accept':'application/json',
+                        'Content-Type':'application/json'
+                    },
+                    method:'POST',
+                    body:JSON.stringify({
+                        name:nameEl.value,
+                        tel:phoneEl.value,
+                        address:addresss,
+                        email:emailEl.value,
+                        paymentInfor:inforEl.value
+                    })
+                })
+                .then(res=>res.json())
+                .then(res=>{
+                    if(res.success){
+                        document.querySelector('.btn-show-modal').click()
+                        document.querySelector('.finish-order').addEventListener('click',(e)=>{
+                            window.location.href=window.location.origin+'/me/history'
+                        })
+                    }
+                })
+            }
+            else{
+                let cartNoneUser=JSON.parse(localStorage.getItem('cart'))
+                fetch(`${location.origin}/check-out/new-order`,{
+                    headers:{
+                        'Accept':'application/json',
+                        'Content-Type':'application/json'
+                    },
+                    method:'POST',
+                    body:JSON.stringify({
+                        name:nameEl.value,
+                        tel:phoneEl.value,
+                        address:addresss,
+                        email:emailEl.value,
+                        paymentInfor:inforEl.value,
+                        cart:cartNoneUser
+                    })
+                })
+                .then(res=>res.json())
+                .then(res=>{
+                    if(res.success){
+                        localStorage.removeItem('cart')
+                        document.querySelector('.btn-show-modal').click()
+                        document.querySelector('.finish-order').addEventListener('click',(e)=>{
+                            window.location.href=window.location.origin
+                        })
+                    }
+                })
+            }
+        })
+
     })
 </script>

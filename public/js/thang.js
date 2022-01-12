@@ -29,7 +29,6 @@
         })
     }
     const fetchCart2=()=>{ //update length cart (fetch api)
-        console.log('fetch cart')
         fetch(`${window.location.origin}/cart/length`)
         .then(res=>res.json())
         .then(res=>{

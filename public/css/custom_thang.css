@@ -288,4 +288,13 @@ button#type-pass:hover {
 .bi-dash:hover, .bi-plus:hover{
   background-color: rgb(228, 223, 223);
 }
+select{
+  width: 100%;
+  padding: 5px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+select:hover{
+  border: 1px solid #2ecc71;
+}
 /*# sourceMappingURL=custom_thang.css.map *
