@@ -7,8 +7,9 @@
             className:'toastify-custom',
             text: "Thêm vào giỏ hàng thành công",
             avatar:e.target.dataset.image,
+            destination:`${window.location.origin}/cart`,
             duration: 2500,
-            newWindow: true,
+            newWindow: false,
             close: true,
             gravity: "bottom", // `top` or `bottom`
             position: "right", // `left`, `center` or `right`
