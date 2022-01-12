@@ -1,6 +1,6 @@
 const {Category, Cart,Order,OrderDetail, Product}=require('../database')
 const {MultipleMongooseToObject}=require('../ultil/mongoose')
-const {sendMail}=require('../ultil')
+const {sendMailOrder}=require('../ultil')
 
 const index=async(req,res)=>{
     const category=await Category.find({})
@@ -51,7 +51,7 @@ const newOrder=async(req,res)=>{
         await Cart.deleteMany({user:req.user._id})
         let allDetailOrder=await OrderDetail.find({orderId:newOrder._id}).populate('productId')
         newOrder['product']=allDetailOrder
-        await sendMail(newOrder)
+        await sendMailOrder(newOrder)
         res.status(200).json({success:true})
     }
     else{
@@ -90,7 +90,7 @@ const newOrder=async(req,res)=>{
             console.log(allDetailOrder)
             newOrder['product']=allDetailOrder
             console.log(newOrder)
-            await sendMail(newOrder)
+            await sendMailOrder(newOrder)
             res.status(200).json({success:true})
         }catch(e){
             res.status(400).json({success:false})

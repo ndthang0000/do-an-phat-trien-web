@@ -18,7 +18,7 @@ function route(app){
     app.use('/contact',ContactRouter)
     app.use('/blog',BlogRouter)
     app.use('/login',preventLoginMiddleWare,AuthRouter)
-    app.use('/register',preventLoginMiddleWare,Register)
+    app.use('/register',Register)
     app.get('/logout', function(req, res){
         req.logout();
         res.redirect('/login');
