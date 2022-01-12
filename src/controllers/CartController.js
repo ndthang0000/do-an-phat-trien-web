@@ -16,7 +16,6 @@ const index=async(req,res)=>{
 }
 const add=async(req,res)=>{
     let {id,user,quantity,size}=req.body
-    console.log(req.body)
     if(!id||!user){
         return res.status(400).json({success:false,message:'Invalid Id'})
     }
@@ -33,7 +32,6 @@ const add=async(req,res)=>{
             existCart.infor.push({size,quantity})
         }
         await existCart.save()
-        console.log('vo day')
         return res.status(200).json({success:true})
     }
     else{
@@ -43,12 +41,10 @@ const add=async(req,res)=>{
             infor:[{size,quantity}]
         })
         await newCart.save()
-        console.log('vo day 2')
         return res.status(200).json({success:true})
     }
 }
 const getLength=async(req,res)=>{
-    console.log(req.user)
     if(!req.user){
         return res.status(200).json({cartlength:0})
     }
@@ -100,9 +96,7 @@ const update=async(req,res)=>{
 }
 const getProduct=async(req,res)=>{
     let {product}=req.body
-    console.log(product)
     const allProduct=await Product.find({_id:product})
-    console.log(allProduct)
     res.status(200).json({allProduct,success:true})
 }
 

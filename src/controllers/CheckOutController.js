@@ -27,7 +27,7 @@ const newOrder=async(req,res)=>{
                 sum+=cart[i].infor[j].quantity*cart[i].product.pricePromotion;
             }
         }
-        const newOrder=new Order({
+        let newOrder=new Order({
             ...req.body,
             user:req.user._id,
             sum,
@@ -47,12 +47,11 @@ const newOrder=async(req,res)=>{
                 await newOrderDetail.save()
             }
         }
+        newOrder=newOrder.toObject()
         await Cart.deleteMany({user:req.user._id})
         let allDetailOrder=await OrderDetail.find({orderId:newOrder._id}).populate('productId')
-        console.log(allDetailOrder)
-        newOrder.product=allDetailOrder
-        console.log(newOrder)
-        //sendMail(newOrder)
+        newOrder['product']=allDetailOrder
+        await sendMail(newOrder)
         res.status(200).json({success:true})
     }
     else{
@@ -61,31 +60,37 @@ const newOrder=async(req,res)=>{
             for(let i=0;i<req.body.cart.cart.length;i++){
                 let findProduct=await Product.findOne({_id:req.body.cart.cart[i].product})
                 if(findProduct){  
-                    console.log('vo day')
                     sum+=findProduct.pricePromotion*req.body.cart.cart[i].infor.quantity
                 }
             }
-            console.log(sum)
-            const newOrder=new Order({
+            let newOrder=new Order({
                 ...req.body,
                 sum,
                 quantity:req.body.cart.cart.length
             })
             await newOrder.save()
-            req.body.cart.cart.forEach(async(item)=>{
-                let findProduct=await Product.findOne({_id:item.product})
+            for(let i=0;i<req.body.cart.cart.length;i++){
+                let findProduct=await Product.findOne({_id:req.body.cart.cart[i].product})
                 if(findProduct){
                     const newDetailOrder=new OrderDetail({
                         orderId:newOrder._id,
-                        productId:item.product,
+                        productId:req.body.cart.cart[i].product,
                         infor:{
-                            quantity:item.infor.quantity,
-                            size:item.infor.size
+                            quantity:req.body.cart.cart[i].infor.quantity,
+                            size:req.body.cart.cart[i].infor.size
                         }
                     })  
+                    console.log(' vo day')
+                    console.log(newDetailOrder)
                     await newDetailOrder.save()
                 }
-            })
+            }
+            newOrder=newOrder.toObject()
+            let allDetailOrder=await OrderDetail.find({orderId:newOrder._id}).populate('productId')
+            console.log(allDetailOrder)
+            newOrder['product']=allDetailOrder
+            console.log(newOrder)
+            await sendMail(newOrder)
             res.status(200).json({success:true})
         }catch(e){
             res.status(400).json({success:false})
