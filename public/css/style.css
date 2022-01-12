@@ -521,8 +521,13 @@ ol {
 }
 
 .header__cart ul li a span {
+<<<<<<< HEAD:public/css/style.css
 	height: 17px;
 	width: 17px;
+=======
+	height: 15px;
+	width: 15px;
+>>>>>>> 61d1adb02013374a74fc2406e9581efcffbb8e17:src/public/css/style.css
 	background: #2ecc71;
 	font-size: 12px;
 	color: #ffffff;
@@ -532,7 +537,11 @@ ol {
 	display: inline-block;
 	border-radius: 50%;
 	position: absolute;
+<<<<<<< HEAD:public/css/style.css
 	top: -10px;
+=======
+	top: -4px;
+>>>>>>> 61d1adb02013374a74fc2406e9581efcffbb8e17:src/public/css/style.css
 	right: -14px;
 }
 

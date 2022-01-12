@@ -10,6 +10,10 @@ const Product=new Schema({
     pricePromotion:{type:Number},
     des:{type:String},
     info:[{color:{type:String},size:{type:String},quantity:{type:Number},_id:false}],
+<<<<<<< HEAD
+=======
+    type:[{type:String}],
+>>>>>>> 61d1adb02013374a74fc2406e9581efcffbb8e17
     gender:[{type:String}],
     imagesUrl:[{type:String}],
     rating:{point:Number,quantity:Number},

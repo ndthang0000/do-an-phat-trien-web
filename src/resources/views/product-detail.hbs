@@ -47,7 +47,11 @@
                                 </div>
                             </div>
                         </div>
+<<<<<<< HEAD
                         <span  class="primary-btn btn-add-cart" style="cursor: pointer;" data-id={{product._id}} data-image="https://the-1-beauty-fashion-admin.herokuapp.com{{product.imagesUrl.[0]}}">ADD TO CARD</span>
+=======
+                        <span  class="primary-btn btn-add-cart" data-id={{product._id}}>ADD TO CARD</span>
+>>>>>>> 61d1adb02013374a74fc2406e9581efcffbb8e17
                         <ul>
                             <li><b>Availability</b> <span> <strong>{{quantity product.info}} </strong> item in Warehouse</span></li>
                             <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li>
@@ -112,6 +116,10 @@
                 </div>
             </div>
         </div>
+<<<<<<< HEAD
+=======
+        <input type="text" style="display: none;" name="user" value="{{user._id}}">
+>>>>>>> 61d1adb02013374a74fc2406e9581efcffbb8e17
 </section>
     <!-- Product Details Section End -->
 
@@ -134,9 +142,15 @@
                                 data-setbg="https://the-1-beauty-fashion-admin.herokuapp.com{{this.imagesUrl.[0]}}">
                                 <div class="product__discount__percent">-{{discount this.pricePromotion this.price}}%</div>
                                 <ul class="product__item__pic__hover">
+<<<<<<< HEAD
                                     <li><a href="/product/detail/{{this.slug}}"><i class="fa fa-retweet"></i></a></li>
                                     <li><a href="/product/detail/{{this.slug}}" class="shopping-cart" data-id={{_id}} data-size={{info.[0].size}} data-image="https://the-1-beauty-fashion-admin.herokuapp.com{{imagesUrl.[0]}}">
                                     <i class="fa fa-shopping-cart" data-id={{_id}} data-size={{info.[0].size}} data-image="https://the-1-beauty-fashion-admin.herokuapp.com{{imagesUrl.[0]}}"></i></a></li>
+=======
+                                    <li><a href="/product/detail/{{this.slug}}"><i class="fa fa-heart"></i></a></li>
+                                    <li><a href="/product/detail/{{this.slug}}"><i class="fa fa-retweet"></i></a></li>
+                                    <li><a href="/product/detail/{{this.slug}}"><i class="fa fa-shopping-cart"></i></a></li>
+>>>>>>> 61d1adb02013374a74fc2406e9581efcffbb8e17
                                 </ul>
                             </div>
                             <div class="product__discount__item__text">
@@ -152,6 +166,10 @@
         <div style="display: none;" id="JSONproduct">{{productJson}}</div>
 </section>
 <script>
+<<<<<<< HEAD
+=======
+    const user=document.querySelector('input[name="user"]').value||false
+>>>>>>> 61d1adb02013374a74fc2406e9581efcffbb8e17
     document.addEventListener('DOMContentLoaded',()=>{
         let product=JSON.parse(document.querySelector('#JSONproduct').innerText)
         const sizeEl=document.querySelector('.info-product-size')
@@ -181,6 +199,7 @@
 
 
         
+<<<<<<< HEAD
         const btnAddCartt=document.querySelector('.btn-add-cart')
         const quantity=document.querySelector('input[name="quantity-product"]')
 
@@ -188,6 +207,15 @@
         btnAddCartt.addEventListener('click',(e)=>{
             let activeSize=document.querySelector('.info-product-size-item.active')
             if(user!=='false'){
+=======
+        const btnAddCart=document.querySelector('.btn-add-cart')
+        const quantity=document.querySelector('input[name="quantity-product"]')
+
+
+        btnAddCart.addEventListener('click',(e)=>{
+            if(user){
+                const activeSize=document.querySelector('.info-product-size-item.active')
+>>>>>>> 61d1adb02013374a74fc2406e9581efcffbb8e17
                 fetch(`${window.location.origin}/cart/add`,{
                     headers:{
                         'Accept':'application/json',
@@ -199,6 +227,7 @@
                 .then(res=>res.json())
                 .then(res=>{
                     console.log(res)
+<<<<<<< HEAD
                     if(res.success){
                         getToast(e)
                         fetchCart2()
@@ -246,6 +275,10 @@
                 }
                 getToast(e)
             }
+=======
+                })
+            }
+>>>>>>> 61d1adb02013374a74fc2406e9581efcffbb8e17
         })
 
     })

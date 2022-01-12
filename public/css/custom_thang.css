@@ -115,8 +115,11 @@
 
 .nice-select {
   border: 1px solid #2ecc71 !important;
+<<<<<<< HEAD
   width: 100%;
   margin: 5px;
+=======
+>>>>>>> 61d1adb02013374a74fc2406e9581efcffbb8e17
 }
 
 .area-user {
@@ -277,6 +280,7 @@ button#type-pass:hover {
   border-color: #2ecc71 !important;
   color: #2ecc71 !important;
 }
+<<<<<<< HEAD
 .toastify-custom img{
   width: 50px;
   height: auto;
@@ -297,4 +301,6 @@ select{
 select:hover{
   border: 1px solid #2ecc71;
 }
+=======
+>>>>>>> 61d1adb02013374a74fc2406e9581efcffbb8e17
 /*# sourceMappingURL=custom_thang.css.map *
