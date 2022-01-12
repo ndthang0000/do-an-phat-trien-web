@@ -7,7 +7,7 @@ const CartRouter=require('./cart')
 const AuthRouter=require('./auth')
 const MeRouter=require('./me')
 const Register=require('./register')
-
+const Active=require('./active')
 const {meMiddleWare,preventLoginMiddleWare}=require('../middlewares/customMiddleWare')
 
 function route(app){
@@ -19,6 +19,7 @@ function route(app){
     app.use('/blog',BlogRouter)
     app.use('/login',preventLoginMiddleWare,AuthRouter)
     app.use('/register',Register)
+    app.use('/active',Active)
     app.get('/logout', function(req, res){
         req.logout();
         res.redirect('/login');
