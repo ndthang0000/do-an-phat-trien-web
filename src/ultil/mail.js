@@ -15,7 +15,7 @@ transporter.use('compile', hbs({
     viewPath:'views',
     extName:'hbs'
 }));
-let sendMail=async(data)=>{
+let sendMailOrder=async(data)=>{
   await transporter.sendMail({
       from: 'ndthang0000@gmail.com', // sender address
       to: data.email, // list of receivers
@@ -41,5 +41,22 @@ let sendMail=async(data)=>{
       `, 
   });
 }
-
-module.exports=sendMail
+let sendMailRegister=async(data)=>{
+  await transporter.sendMail({
+      from: 'ndthang0000@gmail.com', // sender address
+      to: data.gmail, // list of receivers
+      subject: "Kích hoạt tài khoản", // Subject line
+      html: `<h2>Xác thực tài khoản</h2>
+              <p>- Vào lúc <b>${moment(data.createdAt).format('LL')}</b>, bạn đã đăng ký tài khoản tại website của chúng tôi <3 </p>
+              <p>Để xác thực đây là bạn, vui lòng nhấn vào đường link bên dưới</p>
+              <p> <a href="${data.link}">Đây là tôi</a> </p>
+              <p><b>Lưu ý:</b> Đường dẫn trên chỉ tồn tài 24h</p>
+              <h3>From : 1Beauty</h3>
+              <p> <b>Xin chân thành cảm ơn<b></p>
+      `
+  })
+}
+module.exports={
+  sendMailOrder,
+  sendMailRegister
+}

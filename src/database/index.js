@@ -4,6 +4,7 @@ const Order=require('./models/Order')
 const User=require('./models/User')
 const Product=require('./models/Product')
 const OrderDetail=require('./models/Order_Detail')
+const ActiveRegister=require('./models/Active_Register')
 
 module.exports={
     Cart,
@@ -11,5 +12,6 @@ module.exports={
     Order,
     User,
     Product,
-    OrderDetail
+    OrderDetail,
+    ActiveRegister
 }

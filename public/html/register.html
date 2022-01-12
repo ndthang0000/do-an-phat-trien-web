@@ -71,6 +71,9 @@
 									</div>
 									<div class="form-group">
 										<button id="type-pass" type="submit" style="display: flex;align-items: center;justify-content: center;" class="form-control btn btn-primary submit px-3">Register</button>
+										<div class="spinner-border text-info" role="status" style="display: block;margin: 5px auto;visibility: hidden;">
+											<span class="visually-hidden"></span>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -103,6 +106,7 @@
 	<script>
         document.addEventListener('DOMContentLoaded',()=>{
 			
+			const spinerEl=document.querySelector('.spinner-border')
             const retype=document.querySelector('input[name="retypePassword"]')
             retype.addEventListener('input',(e)=>{
                 let password=document.querySelector('input[name="password"]').value
@@ -135,20 +139,24 @@
 				console.log(DATA)
 				let isEmail=/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(gmailEle.value)
 				if (retype.value===document.querySelector('input[name="password"]').value && isEmail){
-					console.log('vo day')
-					console.log(retype.value)
+					spinerEl.visibility='visible'
 					console.log(document.querySelector('input[name="password"]'))
-					fetch("http://localhost:3000/register",
+					btnSubmit.style.poiterEvents='none'
+					btnSubmit.style.opacity='0.7'
+					fetch(`${location.origin}/register`,
 					{
 						headers: {
-						'Accept': 'application/json',
-						'Content-Type': 'application/json'
+							'Accept': 'application/json',
+							'Content-Type': 'application/json'
 						},
 						method: "POST",
 						body: JSON.stringify(DATA)
 					})
 					.then(res=>res.json())
 					.then(res=>{
+						spinerEl.visibility='hidden'
+						btnSubmit.style.poiterEvents='auto'
+						btnSubmit.style.opacity='1'
 						if(!res.success){
 							if(res.err==='username'){
 								document.querySelector('.info-err-username').innerText='This username has been existed, please choose another username'
