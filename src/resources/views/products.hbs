@@ -227,26 +227,21 @@
                 item.style.fontWeight="550"
             }
         })
-        const option=document.querySelectorAll('.option')
-        
-        option.forEach(item=>{
-            item.addEventListener('click',(e)=>{
-                console.log('vo day')
-                sort=e.target.dataset.value
-                fetch(`${window.location.href}`,{
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    method: "POST",
-                    body: JSON.stringify({sort:sort})
-                })
-                .then(res=>res.json())
-                .then(res=>{
-                    if(res.success){
-                        renderProduct(res.allProduct)
-                    }
-                })
+        const selecEl=document.querySelector('#sort')
+        selecEl.addEventListener('change',(e)=>{
+            fetch(`${window.location.href}`,{
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                method: "POST",
+                body: JSON.stringify({sort:e.target.value})
+            })
+            .then(res=>res.json())
+            .then(res=>{
+                if(res.success){
+                    renderProduct(res.allProduct)
+                }
             })
         })
 
