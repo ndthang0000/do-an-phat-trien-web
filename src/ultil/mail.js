@@ -28,7 +28,7 @@ let sendMail=async(data)=>{
               </p>
               <ul>
                 ${data.product.map(item=>{
-                  return '<li>'+item.infor.quantity+ ' sản phẩm '+item.productId.name+' '+'size :'+item.infor.size;
+                  return `<li> <img src="https://the-1-beauty-fashion-admin.herokuapp.com${item.productId.imagesUrl[0]}" alt="" style="width:30px"> ${item.infor.quantity} sản phẩm <b>${item.productId.name}</b>, size : <b>${item.infor.size}</b>`
                 }).join(' ')}
               </ul>
               <p>- Tổng giá trị đơn hàng là :$${data.sum}</p>

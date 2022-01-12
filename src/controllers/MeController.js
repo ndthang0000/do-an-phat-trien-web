@@ -1,7 +1,8 @@
 
-const {User,Category}=require('../database')
+const {User,Category, Order,Product}=require('../database')
 const {MongooseToObject, MultipleMongooseToObject}=require('../ultil/mongoose')
 const argon2=require('argon2')
+
 const index=async(req,res)=>{
     const category=await Category.find({})
     res.render('profile',{
@@ -58,10 +59,40 @@ const saveEditAvatar=async(req,res)=>{
         category:MultipleMongooseToObject(category)
     })
 }
+const history=async(req,res)=>{
+    const category=await Category.find({})
+    const allOrder=await Order.aggregate([
+        {
+            $lookup: {
+                from: "order_details", // collection name in db
+                localField: "_id",
+                foreignField: "orderId",
+                as:'orderId'
+            },
+        },
+        {
+            $match:{
+            user:req.user._id
+            }
+        }
+    ])
+    for(let i=0;i<allOrder.length;i++){
+        for(let j=0;j<allOrder[i].orderId.length;j++){
+            let productInfor=await Product.findOne({_id:allOrder[i].orderId[j].productId}).sort({'createdAt':-1})
+            allOrder[i].orderId[j].product=productInfor.toObject()
+        }
+    }
+    res.render('history',{
+        category:MultipleMongooseToObject(category),
+        allOrder:allOrder,
+    })
+}
+
 module.exports={
     index,
     editPassword,
     saveEditPassword,
     editAvatar,
-    saveEditAvatar
+    saveEditAvatar,
+    history
 }
