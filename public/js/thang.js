@@ -71,7 +71,6 @@
                 })
                 .then(res=>res.json())
                 .then(res=>{
-                    console.log(res)
                     if(res.success){
                         getToast(e)
                         fetchCart2()
@@ -80,7 +79,6 @@
             }
             else{
                 let cart=JSON.parse(localStorage.getItem('cart'))
-                console.log(cart)
                 let newCartItem={
                     product:e.target.dataset.id,
                     infor:{
