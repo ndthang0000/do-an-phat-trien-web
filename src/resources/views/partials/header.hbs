@@ -21,7 +21,7 @@
                 {{#if user.username}}
                 <div class="area-user" >
                     <div id="img-avatar">
-                        <a href="/me/{{user._id}}"><img =  src="{{user.avatarUrl}}" alt=""></a>
+                        <a href="/me"><img =  src="{{user.avatarUrl}}" alt=""></a>
                     </div>
                 </div>
                 {{else}}
@@ -91,26 +91,26 @@
                                     <ul class="hidden-menu-img">
                                         <li style="display: flex; justify-content: space-between;align-items: center;position: relative;">
                                             <div style="width: 40px;height: 40px; border-radius: 50%;overflow: hidden;">
-                                                <a href="/me/{{user._id}}"><img src="{{user.avatarUrl}}" alt=""></a>
+                                                <a href="/me"><img src="{{user.avatarUrl}}" alt=""></a>
                                             </div>
                                             <h4>{{user.name}}</h4>
-                                            <a href="/me/{{user._id}}" style="position: absolute;top: 0;left: 0;right: 0;bottom:0;opacity: 0;"></a>
+                                            <a href="/me" style="position: absolute;top: 0;left: 0;right: 0;bottom:0;opacity: 0;"></a>
 
                                         </li>
                                         <li style="display: flex; align-items: center;justify-content: space-between; position: relative;"> 
                                             <i class="bi bi-person" style="font-size: 20px; padding:6px 10px;border-radius: 50%;background-color: rgb(216, 211, 211);"></i>
-                                            <a href="/me/{{user._id}}" style="font-size: 18px;">View my Info</a> 
-                                            <a href="/me/{{user._id}}" style="position: absolute;top: 0;left: 0;right: 0;bottom:0;opacity: 0;"></a>
+                                            <a href="/me" style="font-size: 18px;">View my Info</a> 
+                                            <a href="/me" style="position: absolute;top: 0;left: 0;right: 0;bottom:0;opacity: 0;"></a>
                                         </li>
                                         <li style="display: flex; align-items: center;justify-content: space-between;position: relative;">
                                             <i class="bi bi-pencil" style="font-size: 20px; padding:6px 10px;border-radius: 50%;background-color: rgb(216, 211, 211);"></i>
-                                            <a href="/me/{{user._id}}/edit/password" style="font-size: 18px;">Change password</a> 
-                                            <a href="/me/{{user._id}}/edit/password" style="position: absolute;top: 0;left: 0;right: 0;bottom:0;opacity: 0;"></a>
+                                            <a href="/me/edit/password" style="font-size: 18px;">Change password</a> 
+                                            <a href="/me/edit/password" style="position: absolute;top: 0;left: 0;right: 0;bottom:0;opacity: 0;"></a>
                                         </li>
                                         <li style="display: flex; align-items: center;justify-content: space-between;position: relative;">                              
                                             <i class="bi bi-question-circle" style="font-size: 20px; padding:6px 10px;border-radius: 50%;background-color: rgb(216, 211, 211);"></i>
-                                            <a href="/me/{{user._id}}/edit/avatar" style="font-size: 18px;">Change avatar</a> 
-                                            <a href="/me/{{user._id}}/edit/avatar" style="position: absolute;top: 0;left: 0;right: 0;bottom:0;opacity: 0;"></a>
+                                            <a href="/me/edit/avatar" style="font-size: 18px;">Change avatar</a> 
+                                            <a href="/me/edit/avatar" style="position: absolute;top: 0;left: 0;right: 0;bottom:0;opacity: 0;"></a>
                                         </li>
                                         <li style="display: flex; align-items: center;justify-content: space-between;position: relative;"> 
                                                 

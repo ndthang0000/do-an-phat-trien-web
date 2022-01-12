@@ -5,7 +5,7 @@ const meMiddleWare=(req,res,next)=>{
     }
     next()
 }
-const prventLoginMiddleWare=(req,res,next)=>{
+const preventLoginMiddleWare=(req,res,next)=>{
     if(req.user){
         res.redirect('/')
         return
@@ -13,4 +13,4 @@ const prventLoginMiddleWare=(req,res,next)=>{
     next()
 }
 
-module.exports={meMiddleWare,prventLoginMiddleWare}
+module.exports={meMiddleWare,preventLoginMiddleWare}
