@@ -107,6 +107,7 @@
         document.addEventListener('DOMContentLoaded',()=>{
 			
 			const spinerEl=document.querySelector('.spinner-border')
+			console.log(spinerEl)
             const retype=document.querySelector('input[name="retypePassword"]')
             retype.addEventListener('input',(e)=>{
                 let password=document.querySelector('input[name="password"]').value
@@ -139,10 +140,10 @@
 				console.log(DATA)
 				let isEmail=/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(gmailEle.value)
 				if (retype.value===document.querySelector('input[name="password"]').value && isEmail){
-					spinerEl.visibility='visible'
-					console.log(document.querySelector('input[name="password"]'))
-					btnSubmit.style.poiterEvents='none'
+					spinerEl.style.visibility='visible'
+					btnSubmit.style.pointerEvents='none'
 					btnSubmit.style.opacity='0.7'
+					console.log(' vo day')
 					fetch(`${location.origin}/register`,
 					{
 						headers: {
@@ -154,7 +155,7 @@
 					})
 					.then(res=>res.json())
 					.then(res=>{
-						spinerEl.visibility='hidden'
+						spinerEl.style.visibility='hidden'
 						btnSubmit.style.poiterEvents='auto'
 						btnSubmit.style.opacity='1'
 						if(!res.success){
@@ -165,7 +166,7 @@
 						else{
 							document.querySelector('#succes-info').style.top='200px'
 							setTimeout(()=>{
-								window.location.href=window.location.origin+'/login'
+								window.location.href=window.location.origin+'/active/'+gmailEle.value
 							},800)
 						}
 					})

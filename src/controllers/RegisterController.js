@@ -35,7 +35,8 @@ const create=async(req,res)=>{
         timeOut:date.setDate(date.getDate() + 1),
     })
     await newActive.save()
-    newUser.link='http://localhost:3000/register/active/'+newActive.token
+    console.log(req.hostname)
+    newUser.link=req.host+'/register/active/'+newActive.token
     await sendMailRegister(newUser)
     res.status(200).json({success:true,err:null,id:newUser._id})
 }
@@ -43,9 +44,13 @@ const active=async(req,res)=>{
     let {token}=req.params
     let findToken=await ActiveRegister.findOne({token:token})
     if(findToken){
-        await User.updateOne({_id:findToken._id},{isAuth:true})
+        await User.updateOne({_id:findToken.userId},{isAuth:true})
     }
-    res.redirect('/')
+    else{
+        res.render('404')
+    }
+    await ActiveRegister.deleteOne({_id:findToken._id})
+    res.render('active-success')
 }
 
 module.exports={
