@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
     const user=document.querySelector('input[name="user"]').value
     const addCartBtn=document.querySelectorAll('.shopping-cart')
 
@@ -123,6 +124,8 @@
         })
     })
 
+=======
+>>>>>>> 61d1adb02013374a74fc2406e9581efcffbb8e17
 
 
 

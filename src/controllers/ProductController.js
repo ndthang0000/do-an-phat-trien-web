@@ -93,10 +93,17 @@ const sort=async(req,res)=>{
     }
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 61d1adb02013374a74fc2406e9581efcffbb8e17
 module.exports={
     sort,
     caterology,
     detail,
+<<<<<<< HEAD
     index,
+=======
+    index
+>>>>>>> 61d1adb02013374a74fc2406e9581efcffbb8e17
 }

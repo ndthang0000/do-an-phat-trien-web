@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const {Category, Cart,Order,OrderDetail, Product}=require('../database')
 const {MultipleMongooseToObject}=require('../ultil/mongoose')
 const {sendMail}=require('../ultil')
@@ -102,4 +103,14 @@ const newOrder=async(req,res)=>{
 module.exports={
     index,
     newOrder
+=======
+
+
+const index=async(req,res)=>{
+    res.render('check-out')
+}
+    
+module.exports={
+    index
+>>>>>>> 61d1adb02013374a74fc2406e9581efcffbb8e17
 }
