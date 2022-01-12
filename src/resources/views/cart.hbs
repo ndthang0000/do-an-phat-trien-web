@@ -120,7 +120,6 @@
                 }).join('')
             }).join('')
             bodyTable.innerHTML=htmlCart
-            
         }
         
         document.addEventListener('DOMContentLoaded',()=>{
@@ -137,7 +136,7 @@
             else{
                 let cartNoneUser=JSON.parse(localStorage.getItem('cart'))
                 let idProduct=[]
-                cartNoneUser.cart.forEach((item,index)=>{
+                cartNoneUser?.cart.forEach((item,index)=>{
                     if(idProduct.indexOf(item.product)===-1){
                         idProduct.push(item.product)
                     }
@@ -160,7 +159,7 @@
                                 infor:[]
                             }
                         })
-                        cartNoneUser.cart.forEach((item,index)=>{
+                        cartNoneUser?.cart.forEach((item,index)=>{
                             for(let j=0;j<newCartProduct.length;j++){
                                 if(item.product===newCartProduct[j].product._id){
                                     newCartProduct[j].infor.push(item.infor)
@@ -187,6 +186,7 @@
                             &&getCart.cart[k].infor.size===e.target.dataset.size){
                                 getCart.cart[k].infor.quantity+=1
                                 e.target.previousElementSibling.value=parseInt(e.target.previousElementSibling.value)+1
+                                e.target.parentElement.parentElement.parentElement.parentElement.querySelector('.shoping__cart__total').innerText='$'+(parseInt(e.target.parentElement.parentElement.parentElement.parentElement.querySelector('.shoping__cart__total').innerText.split('$')[1])+parseInt(e.target.dataset.price))
                                 break
                             }
                         }
@@ -201,11 +201,12 @@
                                 if(parseInt(e.target.nextElementSibling.value)>1){
                                     getCart.cart[k].infor.quantity-=1
                                     e.target.nextElementSibling.value=parseInt(e.target.nextElementSibling.value)-1
+                                    e.target.parentElement.parentElement.parentElement.parentElement.querySelector('.shoping__cart__total').innerText='$'+(parseInt(e.target.parentElement.parentElement.parentElement.parentElement.querySelector('.shoping__cart__total').innerText.split('$')[1])-parseInt(e.target.dataset.price))
+                                    subTotal.innerHTML='$'+(parseInt(subTotal.innerHTML.split('$')[1])-parseInt(e.target.dataset.price))
                                     break
                                 }
                             }
                         }
-                        subTotal.innerHTML='$'+(parseInt(subTotal.innerHTML.split('$')[1])-parseInt(e.target.dataset.price))
                         localStorage.setItem('cart',JSON.stringify(getCart))
                         
                     }
@@ -226,6 +227,7 @@
                         quantityItem[index].value=parseInt(quantityItem[index].value)-1
                         fetchCart({id:e.target.dataset.id,size:e.target.dataset.size,type:'SUB'})
                         subTotal.innerHTML='$'+(parseInt(subTotal.innerHTML.split('$')[1])-parseInt(e.target.dataset.price))
+                        e.target.parentElement.parentElement.parentElement.parentElement.querySelector('.shoping__cart__total').innerText='$'+(parseInt(e.target.parentElement.parentElement.parentElement.parentElement.querySelector('.shoping__cart__total').innerText.split('$')[1])-parseInt(e.target.dataset.price))           
                     }
                 })
             })
@@ -234,6 +236,7 @@
                     quantityItem[index].value=parseInt(quantityItem[index].value)+1
                     fetchCart({id:e.target.dataset.id,size:e.target.dataset.size,type:'ADD'})
                     subTotal.innerHTML='$'+(parseInt(subTotal.innerHTML.split('$')[1])+parseInt(e.target.dataset.price))
+                    e.target.parentElement.parentElement.parentElement.parentElement.querySelector('.shoping__cart__total').innerText='$'+(parseInt(e.target.parentElement.parentElement.parentElement.parentElement.querySelector('.shoping__cart__total').innerText.split('$')[1])+parseInt(e.target.dataset.price))
                 })
             })
             closeBtn.forEach(item=>{
