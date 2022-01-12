@@ -13,6 +13,7 @@ route.get('/edit/avatar',MeController.editAvatar)
 route.post('/edit/avatar',upload.single('avatar'),MeController.saveEditAvatar)
 route.get('/edit/info',MeController.index)
 route.post('/edit/info',MeController.index)
+route.get('/history',MeController.history)
 route.get('/',MeController.index)
 =======
 route.get('/:id',MeController.index)
