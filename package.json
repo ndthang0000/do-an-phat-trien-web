@@ -13,9 +13,11 @@
   "license": "ISC",
   "dependencies": {
     "argon2": "^0.28.2",
+    "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-handlebars": "^5.3.4",
+    "express-jwt": "^6.1.0",
     "express-session": "^1.17.2",
     "moment": "^2.29.1",
     "mongoose": "^6.0.12",
@@ -32,8 +34,10 @@
     "node-sass": "^6.0.1",
 >>>>>>> 61d1adb02013374a74fc2406e9581efcffbb8e17
     "passport": "^0.5.0",
+    "passport-facebook": "^3.0.0",
     "passport-local": "^1.0.0",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.16.3",

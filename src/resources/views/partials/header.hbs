@@ -28,6 +28,7 @@
 >>>>>>> 61d1adb02013374a74fc2406e9581efcffbb8e17
                     </div>
                 </div>
+                <a href="/logout" style="font-weight: 650;margin:10px;padding: 5px 10px;background-color: #34b86b;color: aliceblue;border-radius:5px">Log out</a>
                 {{else}}
                 <a href="/login"><i class="fa fa-user" style="font-size:30px;color: #34b86b;"></i> Login</a>
                 {{/if}}
@@ -111,6 +112,11 @@
                                             <a href="/me/{{user._id}}" style="position: absolute;top: 0;left: 0;right: 0;bottom:0;opacity: 0;"></a>
 >>>>>>> 61d1adb02013374a74fc2406e9581efcffbb8e17
 
+                                        </li>
+                                        <li style="display: flex; align-items: center;justify-content: space-between; position: relative;"> 
+                                            <i class="bi bi-cash-stack" style="font-size: 20px; padding:6px 10px;border-radius: 50%;background-color: rgb(216, 211, 211);"></i>
+                                            <a href="/me/history" style="font-size: 18px;">Purchase History</a> 
+                                            <a href="/me/history" style="position: absolute;top: 0;left: 0;right: 0;bottom:0;opacity: 0;"></a>
                                         </li>
                                         <li style="display: flex; align-items: center;justify-content: space-between; position: relative;"> 
                                             <i class="bi bi-person" style="font-size: 20px; padding:6px 10px;border-radius: 50%;background-color: rgb(216, 211, 211);"></i>
