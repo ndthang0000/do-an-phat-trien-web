@@ -76,14 +76,16 @@
 		document.addEventListener('DOMContentLoaded',()=>{
 			const input =document.querySelectorAll('input[name]')
 			input.forEach(item=>{
-				item.addEventListener('input',()=>{
+				item.addEventListener('change',()=>{
 					document.querySelectorAll('.info-err')[1].innerHTML=''
 				})
 			})
 			if(window.location.search){
 				document.querySelectorAll('.info-err')[1].innerHTML='Wrong username or password'
-
+				console.log(document.querySelectorAll('.info-err')[1])
+				console.log(' vo daayy')
 			}
+			console.log(' sdsf')
 			// document.querySelector('.submit').addEventListener('click',()=>{
 			// 	const dataEle=document.querySelectorAll('input[name]')
 			// 	dataEle.forEach(item=>{
