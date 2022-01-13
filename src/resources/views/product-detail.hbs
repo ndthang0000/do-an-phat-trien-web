@@ -67,7 +67,7 @@
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab"
-                                    aria-selected="false">Reviews <span>(1)</span></a>
+                                    aria-selected="false">Reviews <span></span></a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab"
@@ -77,20 +77,49 @@
                         <div class="tab-content">
                             <div class="tab-pane active" id="tabs-1" role="tabpanel">
                                 <div class="product__details__tab__desc">
-                                    <h6>Products Review</h6>
-                                    <p>
-                                        <img src="/img/exchange.png" alt="">
-                                        Free exchange within 3 days
-                                    </p>
-                                    <p>
-                                        <img src="/img/geguine.png" alt="">
-                                        Genuine product
-                                    </p>
-                                    <P>
-                                        <img src="/img/freeship.png" alt="">
-                                        Freeship for orders over $99
-                                    </P>
+                                    {{#each comment}}
+                                    <div class="comment" >
+                                        <table>
+                                            <tr>
+                                                <td style="padding:20px;">
+                                                <img class="avatar-img" src="{{user.avatarUrl}}" alt="" style="width:50px; height:auto;">
+                                                </td>
+                                                <td>
+                                                    <div style="display:inline-block; margin-top:10px;"> 
+                                                        <div style="font-size:20px;font-weight:600;float:left;">{{user.name}}
+
+                                                        </div> 
+                                                        <div style="float:right; margin-top:3px; padding-left:7px; color:rgb(126, 122, 122);">{{timeCalendar createAt}} </div>
+                                                        </div>
+                                                    <p style="font-size: 17px; color:#000;">{{content}}</p>
+                                                </td>
+
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    {{/each}}
+                                    <div>
+                                        <table>
+                                            <tr>
+                                                <td style="padding:20px;">
+                                                <img class="avatar-img commentAvatar" src="/img/avatar.png" alt="" style="width:50px; height:auto;">
+                                                </td>
+                                                <td>
+                                                    <div style="font-size:20px;font-weight:600;">abc
+                                                    </div> 
+                                                    <div><input class="writeComment" type="type" style="border:none; " placeholder="Write a comment..."></div>
+                                                </td>
+
+                                            </tr>
+                                        </table>
+                                    </div>
                                 </div>
+                                <div class="custom-pagination">
+                                <span style="display: none;" id="quantityy">{{quantityPageComment}}</span>
+                                <ul class="pagination" style="margin-top:15px">
+                                <li class="page-item"><a class="page-link" href="?page=2"></a></li>
+                                 </ul>
+                    </div>
                             </div>
                             <div class="tab-pane" id="tabs-2" role="tabpanel">
                                 <div class="product__details__tab__desc">
@@ -115,6 +144,7 @@
                 </div>
             </div>
         </div>
+        <div style="display: none;" id="currentPage-hb">{{curPage}}</div>
 </section>
     <!-- Product Details Section End -->
 
@@ -159,6 +189,8 @@
         let product=JSON.parse(document.querySelector('#JSONproduct').innerText)
         const sizeEl=document.querySelector('.info-product-size')
         const sizeHeaderEl=document.querySelector('.info-product-size-header')
+        const writeComment=document.querySelector('.writeComment')
+        console.log(writeComment)
 
         let htmlSize=product.info.map((item,index)=>{
             return`
@@ -187,6 +219,9 @@
         const btnAddCartt=document.querySelector('.btn-add-cart')
         const quantity=document.querySelector('input[name="quantity-product"]')
 
+        {{!-- writeComment.addEventListener('click',(e)=>{
+            if()
+        }) --}}
 
         btnAddCartt.addEventListener('click',(e)=>{
             let activeSize=document.querySelector('.info-product-size-item.active')
@@ -250,6 +285,18 @@
                 getToast(e)
             }
         })
+        const paginaEl=document.querySelector('.pagination')
+        const currentPage=parseInt(document.querySelector('#currentPage-hb').innerText)
+        console.log(currentPage)
+        const quantityy=parseInt(document.querySelector('#quantityy').innerText)
+        console.log(quantityy)
+        let htmlPagi=`<li class="page-item"><a class="page-link" href="?page=${currentPage===1?1:currentPage-1}"> <i class="bi bi-caret-left-fill"></i> </a></li>`
+    
+        for(let i=1;i<=quantityy;i++){
+            htmlPagi+=`<li class="page-item"><a class="page-link ${i==currentPage?'active-page-item':''}" href="?page=${i}">${i}</a></li>`
+        }
+        htmlPagi+=`<li class="page-item"><a class="page-link" href="?page=${currentPage===quantityy?quantityy:currentPage+1}"> <i class="bi bi-caret-right-fill"></i> </a></li>`
+        paginaEl.innerHTML=htmlPagi
 
     })
 </script>

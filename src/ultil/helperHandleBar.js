@@ -9,5 +9,6 @@ module.exports={
     hidden(a){if(!a) {return ''} return a.charAt(0)+a.charAt(1)+'****'+a.slice(6);},
     momentFormat(a){ return moment(a).format('LL');},
     checkedBox(a,b){ if(a.includes(b)) {return 'checked' } },
+    timeCalendar(a){return moment(a).calendar();},
     compareValue(a,b){if(a==b){return true}; return false}
 }
