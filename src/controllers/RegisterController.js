@@ -2,7 +2,7 @@ const argon2=require('argon2')
 const publicFolder=require('../../public/url')
 const {User,ActiveRegister}=require('../database')
 const { v4: uuidv4 } = require('uuid');
-const {sendMailRegister}=require('../ultil/mail')
+const {sendMail}=require('../ultil')
 
 const index=async(req,res)=>{
     res.sendFile(publicFolder+'/html/register.html')
@@ -42,7 +42,7 @@ const create=async(req,res)=>{
         newUser.link='https://the-1-beauty-fashion.herokuapp.com/register/active/'+newActive.token
     }
     console.log(newUser.link)
-    await sendMailRegister(newUser)
+    await sendMail.sendMailRegister(newUser)
     res.status(200).json({success:true,err:null,id:newUser._id})
 }
 const active=async(req,res)=>{
