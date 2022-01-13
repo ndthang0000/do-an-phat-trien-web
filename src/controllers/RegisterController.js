@@ -35,8 +35,13 @@ const create=async(req,res)=>{
         timeOut:date.setDate(date.getDate() + 1),
     })
     await newActive.save()
-    console.log(req.hostname)
-    newUser.link=req.host+'/register/active/'+newActive.token
+    if(req.hostname==='localhost'){
+        newUser.link='http://'+req.hostname+':3000/register/active/'+newActive.token
+    }
+    else{
+        newUser.link='https://the-1-beauty-fashion.herokuapp.com/register/active/'+newActive.token
+    }
+    console.log(newUser.link)
     await sendMailRegister(newUser)
     res.status(200).json({success:true,err:null,id:newUser._id})
 }
