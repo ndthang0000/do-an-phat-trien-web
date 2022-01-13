@@ -8,8 +8,6 @@ const {findProductList}=require('../controllers/helper/product')
 
 const index=async(req,res)=>{  // get all product
     try{
-        console.log(req.hostname)
-        console.log(typeof req.hostname)
         const result=await findProductList(req)
         const relatedProduct=await Product.find({}).limit(3).sort({updatedAt:-1})
         const category=await Category.find({})
