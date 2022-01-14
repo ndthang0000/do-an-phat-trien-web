@@ -35,8 +35,8 @@ const create=async(req,res)=>{
         timeOut:date.setDate(date.getDate() + 1),
     })
     await newActive.save()
-    if(req.hostname==='localhost'){
-        newUser.link='http://'+req.hostname+':3000/register/active/'+newActive.token
+    if(req.hostname==='localhost' || req.hostname==='127.0.0.1') {
+        newUser.link='http://localhost:3000/register/active/'+newActive.token
     }
     else{
         newUser.link='https://the-1-beauty-fashion.herokuapp.com/register/active/'+newActive.token

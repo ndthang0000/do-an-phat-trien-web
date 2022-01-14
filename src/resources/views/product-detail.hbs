@@ -14,6 +14,7 @@
                             <img class="product__details__pic__item--large"
                                 src="https://the-1-beauty-fashion-admin.herokuapp.com{{product.imagesUrl.[0]}}" alt="" >
                                 <div class="discount">-{{discount product.pricePromotion product.price}}%</div>
+                                <div class="productId" style="display:none;">{{product._id}}</div>
                         </div>
                         <div class="product__details__pic__slider owl-carousel">
                             {{#each product.imagesUrl}}
@@ -67,7 +68,7 @@
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab"
-                                    aria-selected="false">Reviews <span>(1)</span></a>
+                                    aria-selected="false">Reviews <span></span></a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab"
@@ -77,20 +78,63 @@
                         <div class="tab-content">
                             <div class="tab-pane active" id="tabs-1" role="tabpanel">
                                 <div class="product__details__tab__desc">
-                                    <h6>Products Review</h6>
-                                    <p>
-                                        <img src="/img/exchange.png" alt="">
-                                        Free exchange within 3 days
-                                    </p>
-                                    <p>
-                                        <img src="/img/geguine.png" alt="">
-                                        Genuine product
-                                    </p>
-                                    <P>
-                                        <img src="/img/freeship.png" alt="">
-                                        Freeship for orders over $99
-                                    </P>
+
+                                    <div class="comment" >
+                                        <table>
+                                            <tbody class="addCommentEl">
+                                            {{#each comment}}
+                                            <tr>
+                                                <td style="padding:20px;">
+                                                {{#if user}}
+                                                <img class="avatar-img userNameAvatar abc" src="{{user.avatarUrl}}" alt="" style="width:50px; height:auto;">
+                                                {{else}}
+                                                <img class="avatar-img userNameAvatar" src="/img/none-user.jpg" alt="" style="width:50px; height:auto;">
+                                                {{/if}}
+                                                </td>
+                                                <td>
+                                                    <div style="display:inline-block; margin-top:10px;"> 
+                                                        {{#if user}}
+                                                        <div class ="userComment" style="font-size:20px;font-weight:600;float:left;">{{user.username}}
+                                                        </div> 
+                                                        {{else}}
+                                                         <div class ="userComment" style="font-size:20px;font-weight:600;float:left;">{{username}}
+                                                        </div>
+                                                        {{/if}}
+                                                        <div style="float:right; margin-top:3px; padding-left:7px; color:rgb(126, 122, 122);">{{timeCalendar createAt}} </div>
+                                                        </div>
+                                                    <p class="content" style="font-size: 17px; color:#000;">{{content}}</p>
+                                                </td>
+                                            </tr>
+                                            {{/each}}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div>
+                                        <table>
+                                            <tr>
+                                                <td style="padding:20px;">
+                                                <img class="avatar-img commentAvatar" src="" alt="" style="width:50px; height:auto;">
+                                                </td>
+                                                <td >
+                                                    <div class="commentName" style="font-size:20px;font-weight:600;margin-top:40px;"  >
+                                                    </div> 
+                                                    <div><input class="writeComment" type="type" style="border:none; border-bottom:1px solid gray; width:400px;" placeholder="Write a comment..."></div>
+                                                    <button type="button" class="btnComment " data-toggle= "modal" data-target="#exampleModal">Send</button>
+                                                    <div class="spinner-border" role="status" style="margin-left:50px; display:none;">
+                                                    <span class="sr-only">Loading...</span>
+                                                    </div>
+                                                </td>
+
+                                            </tr>
+                                        </table>
+                                    </div>
                                 </div>
+                                <div class="custom-pagination">
+                                <span style="display: none;" id="quantityy">{{quantityPageComment}}</span>
+                                <ul class="pagination" style="margin-top:15px; margin-left:100px;">
+                                <li class="page-item"><a class="page-link" href="?page=2"></a></li>
+                                 </ul>
+                    </div>
                             </div>
                             <div class="tab-pane" id="tabs-2" role="tabpanel">
                                 <div class="product__details__tab__desc">
@@ -115,6 +159,29 @@
                 </div>
             </div>
         </div>
+        <div style="display: none;" id="currentPage-hb">{{curPage}}</div>
+        <!-- Button trigger modal -->
+{{!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  Launch demo modal
+</button> --}}
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="heading" style="text-align: center; margin-top:5px;">
+        <h4>YOU ARE NOT LOG IN</h4>
+      </div>
+      <div class="modal-body">
+        <input class="noneUsername" type="type" style="border:none;border-bottom:0.5px solid gray; width:400px; " placeholder="Please enter your name to continue...">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary " data-dismiss="modal">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 </section>
     <!-- Product Details Section End -->
 
@@ -153,12 +220,133 @@
             </div>
         </div>
         <div style="display: none;" id="JSONproduct">{{productJson}}</div>
+        
 </section>
 <script>
     document.addEventListener('DOMContentLoaded',()=>{
         let product=JSON.parse(document.querySelector('#JSONproduct').innerText)
         const sizeEl=document.querySelector('.info-product-size')
         const sizeHeaderEl=document.querySelector('.info-product-size-header')
+        const writeComment=document.querySelector('.writeComment')
+        const avatarImg=document.querySelector('.commentAvatar')
+        const commentName=document.querySelector('.commentName')
+        const btnComment=document.querySelector('.btnComment')
+        const productId=document.querySelector('.productId').innerText
+        const tbodyEl=document.querySelector('.addCommentEl')
+        const loading=document.querySelector('.spinner-border')
+        const noneUsername=document.querySelector('.noneUsername')
+        const btnPrimary=document.querySelector('.btn-primary')
+        let checkUser=0
+        if(user!=='false')
+        {
+            avatarImg.src=avatarUrl
+            commentName.innerHTML=username
+        }
+        else{
+            console.log('good')
+            avatarImg.src="/img/none-user.jpg"
+            commentName.innerHTML=''
+        }
+
+        btnPrimary.addEventListener('click',(e)=>{
+            if(noneUsername.value!=="")
+            {
+                commentName.innerText=noneUsername.value
+                checkUser=1
+                btnComment.removeAttribute("data-toggle")
+            }
+            else{
+                checkUser=0
+            }
+
+        })
+
+        btnComment.addEventListener('click',(e)=>{
+            if(user!=='false')
+            {
+                btnComment.removeAttribute("data-toggle")
+                loading.style.display="block"
+                fetch(`${window.location.origin}/product/add/comment`,{
+                    headers:{
+                        'Accept':'application/json',
+                        'Content-Type':'application/json'
+                    },
+                    method:'POST',
+                    body:JSON.stringify({ user:user,  product:productId,content:writeComment.value})
+                })
+                .then(res=>res.json())
+                .then(res=>{
+                    console.log(res)
+                    if(res.success) {
+                        loading.style.display="none"
+                        var html=` <tr>
+                                    <td style="padding:20px;">
+                                        <img class="avatar-img" src="${avatarUrl}" alt="" style="width:50px; height:auto;">
+                                    </td>
+                                    <td>
+                                        <div style="display:inline-block; margin-top:10px;"> 
+                                        <div style="font-size:20px;font-weight:600;">${username}</div>
+                                        <div style="font-size: 17px; color:#000; margin-left:0px;">${writeComment.value}</div>
+                                    </td>
+                                    </tr>`
+
+                        tbodyEl.innerHTML =tbodyEl.innerHTML + html
+                        writeComment.value=""
+                        console.log('thanhcon')
+
+                        }
+                    else{
+                        result.innerHTML='ko thanh cong!'
+                    }
+                })
+
+            }
+            else{
+                console.log(checkUser)
+                if(checkUser==1){
+                    console.log('abc')
+                loading.style.display="block"
+                fetch(`${window.location.origin}/product/add/comment`,{
+                    headers:{
+                        'Accept':'application/json',
+                        'Content-Type':'application/json'
+                    },
+                    method:'POST',
+                    body:JSON.stringify({ username: noneUsername.value,  product:productId,content:writeComment.value})
+                })
+                .then(res=>res.json())
+                .then(res=>{
+                    console.log(res)
+                    if(res.success) {
+                        loading.style.display="none"
+                        var html=` <tr>
+                                    <td style="padding:20px;">
+                                        <img class="avatar-img" src="/img/none-user.jpg" alt="" style="width:50px; height:auto;">
+                                    </td>
+                                    <td>
+                                        <div style="display:inline-block; margin-top:10px;"> 
+                                        <div style="font-size:20px;font-weight:600;">${noneUsername.value}</div>
+                                        <div style="font-size: 17px; color:#000; margin-left:0px;">${writeComment.value}</div>
+                                    </td>
+                                    </tr>`
+
+                        tbodyEl.innerHTML =tbodyEl.innerHTML + html
+                        writeComment.value=""
+                        console.log('thanhcon')
+
+                        }
+                    else{
+                        result.innerHTML='ko thanh cong!'
+                    }
+                })
+                
+
+                }
+                else{
+                    console.log('chua dang nhap')
+                }
+            }
+        })
 
         let htmlSize=product.info.map((item,index)=>{
             return`
@@ -186,7 +374,6 @@
         
         const btnAddCartt=document.querySelector('.btn-add-cart')
         const quantity=document.querySelector('input[name="quantity-product"]')
-
 
         btnAddCartt.addEventListener('click',(e)=>{
             let activeSize=document.querySelector('.info-product-size-item.active')
@@ -250,6 +437,15 @@
                 getToast(e)
             }
         })
+        const paginaEl=document.querySelector('.pagination')
+        const currentPage=parseInt(document.querySelector('#currentPage-hb').innerText)
+        const quantityy=parseInt(document.querySelector('#quantityy').innerText)
+        let htmlPagi=`<li class="page-item"><a class="page-link" href="?page=${currentPage===1?1:currentPage-1}"> <i class="bi bi-caret-left-fill"></i> </a></li>`
+        for(let i=1;i<=quantityy;i++){
+            htmlPagi+=`<li class="page-item"><a class="page-link ${i==currentPage?'active-page-item':''}" href="?page=${i}">${i}</a></li>`
+        }
+        htmlPagi+=`<li class="page-item"><a class="page-link" href="?page=${currentPage===quantityy?quantityy:currentPage+1}"> <i class="bi bi-caret-right-fill"></i> </a></li>`
+        paginaEl.innerHTML=htmlPagi
 
     })
 </script>

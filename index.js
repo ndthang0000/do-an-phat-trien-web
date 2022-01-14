@@ -21,7 +21,7 @@ app.use(cors()) // cors
 
 app.engine('hbs', exphbs({
     extname:'hbs',
-    helpers:helperHandleBar
+    helpers:helperHandleBar,
 }));         //set view engine
 app.set('view engine', 'hbs');          //set view engine
 app.set('views',path.join(__dirname,'src/resources/views'))         //set view engine

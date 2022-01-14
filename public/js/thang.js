@@ -1,5 +1,7 @@
 
     const user=document.querySelector('input[name="user"]').value
+    const username=document.querySelector('input[name="username"]').value
+    const avatarUrl=document.querySelector('input[name="avatarUrl"]').value
     const addCartBtn=document.querySelectorAll('.shopping-cart')
 
     const getToast=(e)=>{  // get Toast message
