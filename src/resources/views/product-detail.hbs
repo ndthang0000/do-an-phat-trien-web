@@ -97,7 +97,7 @@
                                                         <div class ="userComment" style="font-size:20px;font-weight:600;float:left;">{{user.username}}
                                                         </div> 
                                                         {{else}}
-                                                         <div class ="userComment" style="font-size:20px;font-weight:600;float:left;">{{username}}
+                                                        <div class ="userComment" style="font-size:20px;font-weight:600;float:left;">{{username}}
                                                         </div>
                                                         {{/if}}
                                                         <div style="float:right; margin-top:3px; padding-left:7px; color:rgb(126, 122, 122);">{{timeCalendar createAt}} </div>
@@ -105,6 +105,8 @@
                                                     <p class="content" style="font-size: 17px; color:#000;">{{content}}</p>
                                                 </td>
                                             </tr>
+                                            {{else}}
+                                            <div style="margin-left: 30px;" class="no-comments"><i class="bi bi-pencil-fill"></i>No comments yet</div>
                                             {{/each}}
                                             </tbody>
                                         </table>
@@ -119,7 +121,7 @@
                                                     <div class="commentName" style="font-size:20px;font-weight:600;margin-top:40px;"  >
                                                     </div> 
                                                     <div><input class="writeComment" type="type" style="border:none; border-bottom:1px solid gray; width:400px;" placeholder="Write a comment..."></div>
-                                                    <button type="button" class="btnComment " data-toggle= "modal" data-target="#exampleModal">Send</button>
+                                                    <button type="button" class="btnComment " data-toggle= "modal" data-target="#exampleModal" style="opacity: 0.4;pointer-events: none;">Send</button>
                                                     <div class="spinner-border" role="status" style="margin-left:50px; display:none;">
                                                     <span class="sr-only">Loading...</span>
                                                     </div>
@@ -237,6 +239,12 @@
         const noneUsername=document.querySelector('.noneUsername')
         const btnPrimary=document.querySelector('.btn-primary')
         let checkUser=0
+
+        function resetForm(){
+            writeComment.value=''
+            btnComment.style.opacity=0.6
+            btnComment.style.pointerEvents='none'
+        }
         if(user!=='false')
         {
             avatarImg.src=avatarUrl
@@ -261,6 +269,17 @@
 
         })
 
+        writeComment.addEventListener('input',(e)=>{
+            if(e.target.value===''){
+                btnComment.style.opacity=0.6
+                btnComment.style.pointerEvents='none'
+            }
+            else{
+                btnComment.style.opacity=1
+                btnComment.style.pointerEvents='auto'
+            }
+        })
+
         btnComment.addEventListener('click',(e)=>{
             if(user!=='false')
             {
@@ -276,7 +295,6 @@
                 })
                 .then(res=>res.json())
                 .then(res=>{
-                    console.log(res)
                     if(res.success) {
                         loading.style.display="none"
                         var html=` <tr>
@@ -291,10 +309,9 @@
                                     </tr>`
 
                         tbodyEl.innerHTML =tbodyEl.innerHTML + html
-                        writeComment.value=""
-                        console.log('thanhcon')
-
-                        }
+                        resetForm()
+                        document.querySelector('.no-comments')?.remove()
+                    }
                     else{
                         result.innerHTML='ko thanh cong!'
                     }
@@ -302,45 +319,39 @@
 
             }
             else{
-                console.log(checkUser)
                 if(checkUser==1){
-                    console.log('abc')
-                loading.style.display="block"
-                fetch(`${window.location.origin}/product/add/comment`,{
-                    headers:{
-                        'Accept':'application/json',
-                        'Content-Type':'application/json'
-                    },
-                    method:'POST',
-                    body:JSON.stringify({ username: noneUsername.value,  product:productId,content:writeComment.value})
-                })
-                .then(res=>res.json())
-                .then(res=>{
-                    console.log(res)
-                    if(res.success) {
-                        loading.style.display="none"
-                        var html=` <tr>
-                                    <td style="padding:20px;">
-                                        <img class="avatar-img" src="/img/none-user.jpg" alt="" style="width:50px; height:auto;">
-                                    </td>
-                                    <td>
-                                        <div style="display:inline-block; margin-top:10px;"> 
-                                        <div style="font-size:20px;font-weight:600;">${noneUsername.value}</div>
-                                        <div style="font-size: 17px; color:#000; margin-left:0px;">${writeComment.value}</div>
-                                    </td>
-                                    </tr>`
+                    loading.style.display="block"
+                    fetch(`${window.location.origin}/product/add/comment`,{
+                        headers:{
+                            'Accept':'application/json',
+                            'Content-Type':'application/json'
+                        },
+                        method:'POST',
+                        body:JSON.stringify({ username: noneUsername.value,  product:productId,content:writeComment.value})
+                    })
+                    .then(res=>res.json())
+                    .then(res=>{
+                        if(res.success) {
+                            loading.style.display="none"
+                            var html=` <tr>
+                                        <td style="padding:20px;">
+                                            <img class="avatar-img" src="/img/none-user.jpg" alt="" style="width:50px; height:auto;">
+                                        </td>
+                                        <td>
+                                            <div style="display:inline-block; margin-top:10px;"> 
+                                            <div style="font-size:20px;font-weight:600;">${noneUsername.value}</div>
+                                            <div style="font-size: 17px; color:#000; margin-left:0px;">${writeComment.value}</div>
+                                        </td>
+                                        </tr>`
 
-                        tbodyEl.innerHTML =tbodyEl.innerHTML + html
-                        writeComment.value=""
-                        console.log('thanhcon')
-
+                            tbodyEl.innerHTML =tbodyEl.innerHTML + html
+                            resetForm()
+                            document.querySelector('.no-comments')?.remove()
                         }
-                    else{
-                        result.innerHTML='ko thanh cong!'
-                    }
-                })
-                
-
+                        else{
+                            result.innerHTML='ko thanh cong!'
+                        }
+                    })
                 }
                 else{
                     console.log('chua dang nhap')
