@@ -4,6 +4,7 @@ const route=express.Router()
 const {ProductController}=require('../controllers')
 
 route.get('/detail/:slug',ProductController.detail)
+route.all('/add/comment',ProductController.addComment)
 route.get('/:category',ProductController.caterology)
 route.post('/:category',ProductController.sort)
 route.get('/',ProductController.index)
