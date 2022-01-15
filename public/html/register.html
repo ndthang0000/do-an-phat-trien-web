@@ -61,7 +61,7 @@
 									</div>
 									<div class="form-group">
 										<input id="password-field" type="password" class="form-control" placeholder="Your password" required="true" name="password">
-										<span class="info-err" style="color: rgb(200 35 35); font-size: 14px;font-weight: 550;"></span>
+										<span class="info-err-password" style="color: rgb(200 35 35); font-size: 14px;font-weight: 550;"></span>
 										<span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
 									</div>
 									<div class="form-group">
@@ -107,10 +107,16 @@
         document.addEventListener('DOMContentLoaded',()=>{
 			
 			const spinerEl=document.querySelector('.spinner-border')
-			console.log(spinerEl)
             const retype=document.querySelector('input[name="retypePassword"]')
-            retype.addEventListener('input',(e)=>{
-                let password=document.querySelector('input[name="password"]').value
+			const gmailEle=document.querySelector('input[name="gmail"]')
+			const errorEmailEl=document.querySelector('.info-err-gmail')
+			const btnSubmit=document.querySelector('button[type="submit"]')
+			const passwordEl=document.querySelector('input[name="password"]')
+            const usernameEl=document.querySelector('.info-err-username')
+
+
+			retype.addEventListener('input',(e)=>{
+                let password=passwordEl.value
                 if(e.target.value!==password){
                     document.querySelector('.info-errr').innerText="Don't match with your password"
                 }
@@ -119,17 +125,16 @@
                 }
             })
 
-			const gmailEle=document.querySelector('input[name="gmail"]')
 			gmailEle.addEventListener('blur',(e)=>{
 				if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(e.target.value)==false){
-					document.querySelector('.info-err-gmail').innerText='Email not invalid'
+					errorEmailEl.innerText='Email not invalid'
 				}
 			})
+
 			gmailEle.addEventListener('input',()=>{
-				document.querySelector('.info-err-gmail').innerText=''
+				errorEmailEl.innerText=''
 			})
 
-			const btnSubmit=document.querySelector('button[type="submit"]')
 			btnSubmit.addEventListener('click',(e)=>{
 				e.preventDefault()
 				const inputEle=document.querySelectorAll('input[name]')
@@ -137,13 +142,14 @@
 				inputEle.forEach(item=>{
 					DATA[item.name]=item.value
 				})
-				console.log(DATA)
 				let isEmail=/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(gmailEle.value)
-				if (retype.value===document.querySelector('input[name="password"]').value && isEmail){
+				if (retype.value===passwordEl.value && isEmail){
+					if(passwordEl.value===''){
+						document.querySelector('.info-err-password').innerText='Password không được để trống'
+					}
 					spinerEl.style.visibility='visible'
 					btnSubmit.style.pointerEvents='none'
 					btnSubmit.style.opacity='0.7'
-					console.log(' vo day')
 					fetch(`${location.origin}/register`,
 					{
 						headers: {
@@ -160,7 +166,11 @@
 						btnSubmit.style.opacity='1'
 						if(!res.success){
 							if(res.err==='username'){
-								document.querySelector('.info-err-username').innerText='This username has been existed, please choose another username'
+								usernameEl.innerText='This username has been existed, please choose another username'
+							}
+							else{
+								res.err='email'
+								errorEmailEl.innerText='This gmail has been existed, please choose another gmail'
 							}
 						}
 						else{
@@ -175,43 +185,6 @@
 			})
         })
     </script>
-	<script>
-		document.addEventListener('DOMContentLoaded',()=>{
-			
-			// document.querySelector('.submit').addEventListener('click',()=>{
-			// 	const dataEle=document.querySelectorAll('input[name]')
-			// 	dataEle.forEach(item=>{
-			// 		item.addEventListener('input',(e)=>{
-			// 			e.target.nextElementSibling.textContent=''
-			// 		})
-			// 	})
-			// 	data={[dataEle[0].name]:dataEle[0].value,[dataEle[1].name]:dataEle[1].value,[dataEle[2].name]:dataEle[2].value}
-			// 	fetch("http://localhost:3000/login",
-			// 	{
-			// 		headers: {
-			// 		'Accept': 'application/json',
-			// 		'Content-Type': 'application/json'
-			// 		},
-			// 		method: "POST",
-			// 		body: JSON.stringify(data)
-			// 	})
-			// 	.then(res=>res.json())
-			// 	.then(res=>{
-			// 		console.log(res)
-			// 		if(res.success){
-			// 			window.location.replace("http://localhost:3000");
-			// 		}else{
-			// 			if(res.type==='username'){
-			// 				document.querySelectorAll('.info-err')[0].innerHTML=`<i class="bi bi-exclamation-triangle-fill"> ${res.message}</i>`
-			// 			}
-			// 			else{
-			// 				document.querySelectorAll('.info-err')[1].innerHTML=`<i class="bi bi-exclamation-triangle-fill"> ${res.message}</i>`
-			// 			}
-			// 		}
-			// 	})
-			// })
-		})	
-	</script>
 	</body>
 </html>
 
