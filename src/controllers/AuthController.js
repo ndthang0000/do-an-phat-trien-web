@@ -23,5 +23,5 @@ const validation=(req,res)=>{
 module.exports={
     index,
     validation,
-    forgotPassword
+
 }

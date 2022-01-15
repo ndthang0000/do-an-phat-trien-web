@@ -60,8 +60,8 @@ let sendMailResetPassword=async(data)=>{
   await transporter.sendMail({
       from: 'ndthang0000@gmail.com', // sender address
       to: data.gmail, // list of receivers
-      subject: "Kích hoạt tài khoản", // Subject line
-      html: `<h2>Xác thực tài khoản</h2>
+      subject: "Đặt lại mật khẩu", // Subject line
+      html: `<h2>Đặt lại mật khẩu</h2>
               <p>- Vào lúc <b>${moment(data.createdAt).format('LL')}</b>, bạn đã đăng ký tài khoản tại website của chúng tôi <3 </p>
               <p>Để xác thực đây là bạn, vui lòng nhấn vào đường link bên dưới</p>
               <p> <a href="${data.link}">Lấy lại mật khẩu</a> </p>

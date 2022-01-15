@@ -28,43 +28,19 @@
 				<div class="col-md-6 col-lg-4">
 					<div class="login-wrap p-0">
 						<a style="font-size: 20px; text-align: center;display: block;color: #37e780;" href="/">Go back to Home</a>
-					<h3 class="mb-4 text-center" style="font-size: 28px;font-weight: 600;">Login Now</h3>
+					<h3 class="text-center" style="font-size: 28px;font-weight: 600;margin-bottom:70px;">Reset password</h3>
+					<h1 class="mb-2 text-center" style="font-size: 18px;font-weight: 600; padding:20px;">Enter the email you registered!</h1>
 				<form  class="signin-form" method="post">
 					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Username" required name="username">
-						<span class="info-err" style="color: rgb(200 35 35); font-size: 14px;font-weight: 550;"></span>
+						<input type="text" class="form-control" placeholder="Email" required name="email">
+						<span class="info-err-email" style="color: rgb(200 35 35); font-size: 14px;font-weight: 550;"></span>
 					</div>
+
 				<div class="form-group">
-					<input id="password-field" type="password" class="form-control" placeholder="Password" required name="password">
-					<span class="info-err" style="color: rgb(200 35 35); font-size: 14px;font-weight: 550;"></span>
-					<span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+					<button type="submit" style="display: flex;align-items: center;justify-content: center;margin-top:40px;" class="form-control btn btn-primary submit px-3">SUBMIT</button>
 				</div>
-				<div class="form-group">
-					<button type="submit" style="display: flex;align-items: center;justify-content: center;" class="form-control btn btn-primary submit px-3">Log In</button>
-				</div>
-				<div class="form-group d-md-flex">
-					<div class="w-50">
-						<label class="checkbox-wrap checkbox-primary">Remember Me
-							<input type="checkbox" checked name="isRemember">
-							<span class="checkmark"></span>
-						</label>
-								</div>
-								<div class="w-50 text-md-right">
-									<a href="#" style="color: #fff">Forgot Password</a>
-								</div>
-				</div>
+				
 				</form>
-				<p class="w-100 text-center">&mdash; Or Sign In With &mdash;</p>
-				<div class="social d-flex text-center">
-					<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-					</fb:login-button>
-					<a href="#" class="px-2 py-2 ml-md-1 rounded"><span class="ion-logo-twitter mr-2"></span> Google</a>
-				</div>
-				<a class="register" style="color:#37e780;font-size: 20px;" href="/register">Create a new account?</a>
-				</div>
-				</div>
-				<div id="status">
-				</div>
 			</div>
 		</div>
 	</section>
@@ -74,50 +50,33 @@
 	<script src="js/login.js"></script>
 	<script>
 		document.addEventListener('DOMContentLoaded',()=>{
-			const input =document.querySelectorAll('input[name]')
-			input.forEach(item=>{
-				item.addEventListener('change',()=>{
-					document.querySelectorAll('.info-err')[1].innerHTML=''
+			let emailReset=document.querySelector('input[name="email"]');
+			let btnSubmit=document.querySelector('.btn-primary');
+			let errEmail=document.querySelector('.info-err-email')
+			console.log(btnSubmit)
+			console.log(emailReset)
+			btnSubmit.addEventListener('click',(e)=>{
+				
+				fetch(`${location.origin}/reset-password`,
+				{
+					headers: {
+							'Accept': 'application/json',
+							'Content-Type': 'application/json'
+						},
+						method: "POST",
+						body: JSON.stringify({gmail:emailReset.value})
+				})
+				console.log('123')
+				.then(res=>res.json())
+                .then(res=>{
+					if(!res.success){
+						errEmail.innerText='This email has not been exists!'
+						}
+						else{
+							console.log('thanh cong')
+						}
 				})
 			})
-			if(window.location.search){
-				document.querySelectorAll('.info-err')[1].innerHTML='Wrong username or password'
-				console.log(document.querySelectorAll('.info-err')[1])
-				console.log(' vo daayy')
-			}
-			console.log(' sdsf')
-			// document.querySelector('.submit').addEventListener('click',()=>{
-			// 	const dataEle=document.querySelectorAll('input[name]')
-			// 	dataEle.forEach(item=>{
-			// 		item.addEventListener('input',(e)=>{
-			// 			e.target.nextElementSibling.textContent=''
-			// 		})
-			// 	})
-			// 	data={[dataEle[0].name]:dataEle[0].value,[dataEle[1].name]:dataEle[1].value,[dataEle[2].name]:dataEle[2].value}
-			// 	fetch("http://localhost:3000/login",
-			// 	{
-			// 		headers: {
-			// 		'Accept': 'application/json',
-			// 		'Content-Type': 'application/json'
-			// 		},
-			// 		method: "POST",
-			// 		body: JSON.stringify(data)
-			// 	})
-			// 	.then(res=>res.json())
-			// 	.then(res=>{
-			// 		console.log(res)
-			// 		if(res.success){
-			// 			window.location.replace("http://localhost:3000");
-			// 		}else{
-			// 			if(res.type==='username'){
-			// 				document.querySelectorAll('.info-err')[0].innerHTML=`<i class="bi bi-exclamation-triangle-fill"> ${res.message}</i>`
-			// 			}
-			// 			else{
-			// 				document.querySelectorAll('.info-err')[1].innerHTML=`<i class="bi bi-exclamation-triangle-fill"> ${res.message}</i>`
-			// 			}
-			// 		}
-			// 	})
-			// })
 		})	
 	</script>
 	</body>

@@ -7,6 +7,7 @@ const RegisterController=require('./RegisterController')
 const CheckOutController=require('./CheckOutController')
 const ContactController=require('./ContactController')
 const BlogController=require('./BlogController')
+const ResetPasswordController=require('./ResetPasswordController')
 
 module.exports={
     AuthController,
@@ -17,5 +18,6 @@ module.exports={
     RegisterController,
     CheckOutController,
     ContactController,
-    BlogController
+    BlogController,
+    ResetPasswordController
 }
