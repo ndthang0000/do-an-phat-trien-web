@@ -50,8 +50,17 @@
                         {{#each allOrder}}
                         <div class="accordion-item" >
                             <h2 class="accordion-header" id="flush-heading-{{@index}}" >
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-{{@index}}" aria-expanded="false" aria-controls="flush-collapse-{{@index}}" {{#if (compareValue status 1)}} style="background-color: green;" {{else}}style="background-color: #ff7979;"{{/if}}>
-                                    {{momentFormat createAt}}
+                                <button class="accordion-button collapsed" 
+                                type="button" 
+                                data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapse-{{@index}}" 
+                                aria-expanded="false" 
+                                aria-controls="flush-collapse-{{@index}}" 
+                                {{#if (compareValue status 1)}} 
+                                style="background-color: rgb(129, 199, 129);" 
+                                {{else}}style="background-color: #ff7979;"
+                                {{/if}}>
+                                    {{momentFormat createdAt}}
                                 <span style="margin-left: 30px;color:red;font-weight:650">${{sum}}</span>
                                 <span style="margin-left: 30px;">{{{quantity}}} items</span>
                                 <span style="margin-left: 30px;font-weight:650">{{#if (compareValue status 1)}} Done !!!{{else}}Is processing ...{{/if}}</span>

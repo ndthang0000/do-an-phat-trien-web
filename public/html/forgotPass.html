@@ -33,7 +33,7 @@
 				<form  class="signin-form" method="post">
 					<div class="form-group">
 						<input type="text" class="form-control" placeholder="Email" required name="email">
-						<span class="info-err-email" style="color: rgb(200 35 35); font-size: 14px;font-weight: 550;"></span>
+						<span class="info-err-email" style="color: rgb(200 35 35); font-size: 14px;font-weight: 550;font-size: 22px;"></span>
 					</div>
 
 				<div class="form-group">
@@ -53,28 +53,29 @@
 			let emailReset=document.querySelector('input[name="email"]');
 			let btnSubmit=document.querySelector('.btn-primary');
 			let errEmail=document.querySelector('.info-err-email')
-			console.log(btnSubmit)
-			console.log(emailReset)
-			btnSubmit.addEventListener('click',(e)=>{
-				
-				fetch(`${location.origin}/reset-password`,
+			
+			btnSubmit.addEventListener('click',(e)=>{	
+				e.preventDefault()
+				fetch(`${location.origin}/forgot-password/reset-password`,
 				{
 					headers: {
 							'Accept': 'application/json',
 							'Content-Type': 'application/json'
-						},
-						method: "POST",
-						body: JSON.stringify({gmail:emailReset.value})
+					},
+					method: "POST",
+					body: JSON.stringify({gmail:emailReset.value})
 				})
-				console.log('123')
 				.then(res=>res.json())
-                .then(res=>{
+				.then(res=>{
 					if(!res.success){
 						errEmail.innerText='This email has not been exists!'
-						}
-						else{
-							console.log('thanh cong')
-						}
+					}
+					else{
+						errEmail.innerText='Please check your email to get your account back'
+						errEmail.style.color='rgb(0 255 108)'
+						btnSubmit.style.pointerEvents='none'
+						btnSubmit.style.opacity='0.4'
+					}
 				})
 			})
 		})	

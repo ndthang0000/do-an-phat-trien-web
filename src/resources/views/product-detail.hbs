@@ -135,7 +135,7 @@
                                 <span style="display: none;" id="quantityy">{{quantityPageComment}}</span>
                                 <ul class="pagination" style="margin-top:15px; margin-left:100px;">
                                 <li class="page-item"><a class="page-link" href="?page=2"></a></li>
-                                 </ul>
+                                </ul>
                     </div>
                             </div>
                             <div class="tab-pane" id="tabs-2" role="tabpanel">
@@ -224,6 +224,7 @@
         <div style="display: none;" id="JSONproduct">{{productJson}}</div>
         
 </section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
     document.addEventListener('DOMContentLoaded',()=>{
         let product=JSON.parse(document.querySelector('#JSONproduct').innerText)
@@ -285,6 +286,8 @@
             {
                 btnComment.removeAttribute("data-toggle")
                 loading.style.display="block"
+                btnComment.style.opacity=0.6
+                btnComment.style.pointerEvents='none'
                 fetch(`${window.location.origin}/product/add/comment`,{
                     headers:{
                         'Accept':'application/json',
@@ -295,6 +298,8 @@
                 })
                 .then(res=>res.json())
                 .then(res=>{
+                    btnComment.style.opacity=1
+                    btnComment.style.pointerEvents='auto'
                     if(res.success) {
                         loading.style.display="none"
                         var html=` <tr>
@@ -303,7 +308,9 @@
                                     </td>
                                     <td>
                                         <div style="display:inline-block; margin-top:10px;"> 
-                                        <div style="font-size:20px;font-weight:600;">${username}</div>
+                                        <div style="font-size:20px;font-weight:600;float:left">${username}</div>
+                                        <div style="float:right; margin-top:3px; padding-left:7px; color:rgb(126, 122, 122);">${moment(new Date()).calendar()} </div>
+                                        </div>
                                         <div style="font-size: 17px; color:#000; margin-left:0px;">${writeComment.value}</div>
                                     </td>
                                     </tr>`
@@ -321,6 +328,8 @@
             else{
                 if(checkUser==1){
                     loading.style.display="block"
+                    btnComment.style.opacity=0.6
+                    btnComment.style.pointerEvents='none'
                     fetch(`${window.location.origin}/product/add/comment`,{
                         headers:{
                             'Accept':'application/json',
@@ -331,6 +340,8 @@
                     })
                     .then(res=>res.json())
                     .then(res=>{
+                        btnComment.style.opacity=1
+                        btnComment.style.pointerEvents='auto'
                         if(res.success) {
                             loading.style.display="none"
                             var html=` <tr>
@@ -339,7 +350,9 @@
                                         </td>
                                         <td>
                                             <div style="display:inline-block; margin-top:10px;"> 
-                                            <div style="font-size:20px;font-weight:600;">${noneUsername.value}</div>
+                                            <div style="font-size:20px;font-weight:600;float:right">${noneUsername.value}</div>
+                                            <div style="float:right; margin-top:3px; padding-left:7px; color:rgb(126, 122, 122);">${moment(new Date()).calendar()} </div>
+                                            </div>
                                             <div style="font-size: 17px; color:#000; margin-left:0px;">${writeComment.value}</div>
                                         </td>
                                         </tr>`
