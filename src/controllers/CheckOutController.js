@@ -51,8 +51,8 @@ const newOrder=async(req,res)=>{
         await Cart.deleteMany({user:req.user._id})
         let allDetailOrder=await OrderDetail.find({orderId:newOrder._id}).populate('productId')
         newOrder['product']=allDetailOrder
-        await sendMail.sendMailOrder(newOrder)
         res.status(200).json({success:true})
+        await sendMail.sendMailOrder(newOrder)
     }
     else{
         try{
@@ -90,8 +90,8 @@ const newOrder=async(req,res)=>{
             console.log(allDetailOrder)
             newOrder['product']=allDetailOrder
             console.log(newOrder)
-            await sendMail.sendMailOrder(newOrder)
             res.status(200).json({success:true})
+            await sendMail.sendMailOrder(newOrder)
         }catch(e){
             res.status(400).json({success:false})
         }

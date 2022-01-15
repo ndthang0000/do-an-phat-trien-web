@@ -17,6 +17,11 @@ const create=async(req,res)=>{
         return res.status(400).json({success:false,err:'username'})
     }
     
+    const existEmail=await User.findOne({gmail:gmail})
+    if(existEmail){
+        return res.status(400).json({success:false,err:'email'})
+    }
+
     let newPassword=await argon2.hash(password)
     let newUser=new User({
         name,
@@ -35,15 +40,14 @@ const create=async(req,res)=>{
         timeOut:date.setDate(date.getDate() + 1),
     })
     await newActive.save()
+    res.status(200).json({success:true,err:null,id:newUser._id})
     if(req.hostname==='localhost' || req.hostname==='127.0.0.1') {
         newUser.link='http://localhost:3000/register/active/'+newActive.token
     }
     else{
         newUser.link='https://the-1-beauty-fashion.herokuapp.com/register/active/'+newActive.token
     }
-    console.log(newUser.link)
     await sendMail.sendMailRegister(newUser)
-    res.status(200).json({success:true,err:null,id:newUser._id})
 }
 const active=async(req,res)=>{
     let {token}=req.params
