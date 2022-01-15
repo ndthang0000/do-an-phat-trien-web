@@ -52,6 +52,7 @@
         else{
             let item=JSON.parse(localStorage.getItem('cart'))
             if(!item){
+                console.log(item)
                 document.querySelector('.cart-length').innerText=0
             }
             else{

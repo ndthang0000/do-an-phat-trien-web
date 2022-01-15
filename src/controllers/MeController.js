@@ -74,6 +74,11 @@ const history=async(req,res)=>{
             $match:{
             user:req.user._id
             }
+        },
+        {
+            $sort:{
+                createdAt:-1
+            }
         }
     ])
     for(let i=0;i<allOrder.length;i++){
