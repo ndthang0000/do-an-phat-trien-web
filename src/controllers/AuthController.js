@@ -5,6 +5,8 @@ const publicFolder=require('../../public/url')
 const index=(req,res)=>{
     res.sendFile(publicFolder+'/html/login.html')
 }
+
+
 const validation=(req,res)=>{
     console.log(req.user)
     
@@ -16,7 +18,10 @@ const validation=(req,res)=>{
     }
 }
 
+
+
 module.exports={
     index,
-    validation
+    validation,
+    forgotPassword
 }

@@ -10,6 +10,5 @@ module.exports={
     momentFormat(a){ return moment(a).format('LL');},
     checkedBox(a,b){ if(a.includes(b)) {return 'checked' } },
     timeCalendar(a){return moment(a).calendar();},
-    compareValue(a,b){if(a==b){return true}; return false},
-    compareNull(a){if(a==''){return true}; return false}
+    compareValue(a,b){if(a==b){return true}; return false}
 }
