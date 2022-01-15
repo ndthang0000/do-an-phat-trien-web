@@ -6,5 +6,5 @@ const passport = require('../middlewares/passport')
 
 route.get('/',AuthController.index)
 route.post('/',passport.authenticate('local',{ successRedirect: '/',failureRedirect: '/login?wrong'}))
-                                                
+
 module.exports=route
