@@ -132,62 +132,31 @@
                     <h4>Latest Products</h4>
                     <div class="latest-product__slider owl-carousel">
                         <div class="latest-prdouct__slider__item">
-                            <a href="/" class="latest-product__item">
+                            {{#each lastestProduct1}}
+                            <a href="/product/detail/{{slug}}" class="latest-product__item">
                                 <div class="latest-product__item__pic">
-                                    <img src="/img/latest-product/lp-1.jpg" alt="">
+                                    <img src="https://the-1-beauty-fashion-admin.herokuapp.com{{this.imagesUrl.[0]}}" alt="">
                                 </div>
                                 <div class="latest-product__item__text">
-                                    <h6>Crab Pool Security</h6>
-                                    <span>$30.00</span>
+                                    <h6>{{name}}</h6>
+                                    <span>{{pricePromotion}}</span>
                                 </div>
                             </a>
-                            <a href="/" class="latest-product__item">
-                                <div class="latest-product__item__pic">
-                                    <img src="/img/latest-product/lp-2.jpg" alt="">
-                                </div>
-                                <div class="latest-product__item__text">
-                                    <h6>Crab Pool Security</h6>
-                                    <span>$30.00</span>
-                                </div>
-                            </a>
-                            <a href="/" class="latest-product__item">
-                                <div class="latest-product__item__pic">
-                                    <img src="/img/latest-product/lp-3.jpg" alt="">
-                                </div>
-                                <div class="latest-product__item__text">
-                                    <h6>Crab Pool Security</h6>
-                                    <span>$30.00</span>
-                                </div>
-                            </a>
+                            {{/each}}
+                            
                         </div>
                         <div class="latest-prdouct__slider__item">
-                            <a href="/" class="latest-product__item">
+                            {{#each lastestProduct2}}
+                            <a href="/product/detail/{{slug}}" class="latest-product__item">
                                 <div class="latest-product__item__pic">
-                                    <img src="/img/latest-product/lp-1.jpg" alt="">
+                                    <img src="https://the-1-beauty-fashion-admin.herokuapp.com{{this.imagesUrl.[0]}}" alt="">
                                 </div>
                                 <div class="latest-product__item__text">
-                                    <h6>Crab Pool Security</h6>
-                                    <span>$30.00</span>
+                                    <h6>{{name}}</h6>
+                                    <span>{{pricePromotion}}</span>
                                 </div>
                             </a>
-                            <a href="/" class="latest-product__item">
-                                <div class="latest-product__item__pic">
-                                    <img src="/img/latest-product/lp-2.jpg" alt="">
-                                </div>
-                                <div class="latest-product__item__text">
-                                    <h6>Crab Pool Security</h6>
-                                    <span>$30.00</span>
-                                </div>
-                            </a>
-                            <a href="/" class="latest-product__item">
-                                <div class="latest-product__item__pic">
-                                    <img src="/img/latest-product/lp-3.jpg" alt="">
-                                </div>
-                                <div class="latest-product__item__text">
-                                    <h6>Crab Pool Security</h6>
-                                    <span>$30.00</span>
-                                </div>
-                            </a>
+                            {{/each}}
                         </div>
                     </div>
                 </div>
@@ -197,62 +166,30 @@
                     <h4>Top Rated Products</h4>
                     <div class="latest-product__slider owl-carousel">
                         <div class="latest-prdouct__slider__item">
-                            <a href="/" class="latest-product__item">
+                            {{#each saleProduct1}}
+                            <a href="/product/detail/{{slug}}" class="latest-product__item">
                                 <div class="latest-product__item__pic">
-                                    <img src="/img/latest-product/lp-1.jpg" alt="">
+                                    <img src="https://the-1-beauty-fashion-admin.herokuapp.com{{this.imagesUrl.[0]}}" alt="">
                                 </div>
                                 <div class="latest-product__item__text">
-                                    <h6>Crab Pool Security</h6>
-                                    <span>$30.00</span>
+                                    <h6>{{name}}</h6>
+                                    <span>{{pricePromotion}}</span>
                                 </div>
                             </a>
-                            <a href="/" class="latest-product__item">
-                                <div class="latest-product__item__pic">
-                                    <img src="/img/latest-product/lp-2.jpg" alt="">
-                                </div>
-                                <div class="latest-product__item__text">
-                                    <h6>Crab Pool Security</h6>
-                                    <span>$30.00</span>
-                                </div>
-                            </a>
-                            <a href="/" class="latest-product__item">
-                                <div class="latest-product__item__pic">
-                                    <img src="/img/latest-product/lp-3.jpg" alt="">
-                                </div>
-                                <div class="latest-product__item__text">
-                                    <h6>Crab Pool Security</h6>
-                                    <span>$30.00</span>
-                                </div>
-                            </a>
+                            {{/each}}
                         </div>
                         <div class="latest-prdouct__slider__item">
-                            <a href="/" class="latest-product__item">
+                            {{#each saleProduct2}}
+                            <a href="/product/detail/{{slug}}" class="latest-product__item">
                                 <div class="latest-product__item__pic">
-                                    <img src="/img/latest-product/lp-1.jpg" alt="">
+                                    <img src="https://the-1-beauty-fashion-admin.herokuapp.com{{this.imagesUrl.[0]}}" alt="">
                                 </div>
                                 <div class="latest-product__item__text">
-                                    <h6>Crab Pool Security</h6>
-                                    <span>$30.00</span>
+                                    <h6>{{name}}</h6>
+                                    <span>{{pricePromotion}}</span>
                                 </div>
                             </a>
-                            <a href="/" class="latest-product__item">
-                                <div class="latest-product__item__pic">
-                                    <img src="/img/latest-product/lp-2.jpg" alt="">
-                                </div>
-                                <div class="latest-product__item__text">
-                                    <h6>Crab Pool Security</h6>
-                                    <span>$30.00</span>
-                                </div>
-                            </a>
-                            <a href="/" class="latest-product__item">
-                                <div class="latest-product__item__pic">
-                                    <img src="/img/latest-product/lp-3.jpg" alt="">
-                                </div>
-                                <div class="latest-product__item__text">
-                                    <h6>Crab Pool Security</h6>
-                                    <span>$30.00</span>
-                                </div>
-                            </a>
+                            {{/each}}
                         </div>
                     </div>
                 </div>
@@ -262,62 +199,30 @@
                     <h4>Review Products</h4>
                     <div class="latest-product__slider owl-carousel">
                         <div class="latest-prdouct__slider__item">
-                            <a href="/" class="latest-product__item">
+                            {{#each lastestProduct1}}
+                            <a href="/product/detail/{{slug}}" class="latest-product__item">
                                 <div class="latest-product__item__pic">
-                                    <img src="/img/latest-product/lp-1.jpg" alt="">
+                                    <img src="https://the-1-beauty-fashion-admin.herokuapp.com{{this.imagesUrl.[0]}}" alt="">
                                 </div>
                                 <div class="latest-product__item__text">
-                                    <h6>Crab Pool Security</h6>
-                                    <span>$30.00</span>
+                                    <h6>{{name}}</h6>
+                                    <span>{{pricePromotion}}</span>
                                 </div>
                             </a>
-                            <a href="/" class="latest-product__item">
-                                <div class="latest-product__item__pic">
-                                    <img src="/img/latest-product/lp-2.jpg" alt="">
-                                </div>
-                                <div class="latest-product__item__text">
-                                    <h6>Crab Pool Security</h6>
-                                    <span>$30.00</span>
-                                </div>
-                            </a>
-                            <a href="/" class="latest-product__item">
-                                <div class="latest-product__item__pic">
-                                    <img src="/img/latest-product/lp-3.jpg" alt="">
-                                </div>
-                                <div class="latest-product__item__text">
-                                    <h6>Crab Pool Security</h6>
-                                    <span>$30.00</span>
-                                </div>
-                            </a>
+                            {{/each}}
                         </div>
                         <div class="latest-prdouct__slider__item">
-                            <a href="/" class="latest-product__item">
+                            {{#each saleProduct2}}
+                            <a href="/product/detail/{{slug}}" class="latest-product__item">
                                 <div class="latest-product__item__pic">
-                                    <img src="/img/latest-product/lp-1.jpg" alt="">
+                                    <img src="https://the-1-beauty-fashion-admin.herokuapp.com{{this.imagesUrl.[0]}}" alt="">
                                 </div>
                                 <div class="latest-product__item__text">
-                                    <h6>Crab Pool Security</h6>
-                                    <span>$30.00</span>
+                                    <h6>{{name}}</h6>
+                                    <span>{{pricePromotion}}</span>
                                 </div>
                             </a>
-                            <a href="/" class="latest-product__item">
-                                <div class="latest-product__item__pic">
-                                    <img src="/img/latest-product/lp-2.jpg" alt="">
-                                </div>
-                                <div class="latest-product__item__text">
-                                    <h6>Crab Pool Security</h6>
-                                    <span>$30.00</span>
-                                </div>
-                            </a>
-                            <a href="/" class="latest-product__item">
-                                <div class="latest-product__item__pic">
-                                    <img src="/img/latest-product/lp-3.jpg" alt="">
-                                </div>
-                                <div class="latest-product__item__text">
-                                    <h6>Crab Pool Security</h6>
-                                    <span>$30.00</span>
-                                </div>
-                            </a>
+                            {{/each}}
                         </div>
                     </div>
                 </div>
@@ -326,7 +231,6 @@
     </div>
 </section>
     <!-- Latest Product Section End -->
-
     <!-- Blog Section Begin -->
 <section class="from-blog spad">
     <div class="container">
@@ -391,6 +295,5 @@
         if(user!=='false'){
             fetchCart2()
         }
-        
     })
 </script>

@@ -15,6 +15,7 @@ const Product=new Schema({
     rating:{point:Number,quantity:Number},
     categoryId:[{type:Schema.Types.ObjectId,ref:'Category'}],
     slug:{type:String,slug:"name",unique:true},
+    quantitySold:{type:Number,default:0},
 },{timestamps:true})
 
 
