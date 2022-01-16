@@ -1,19 +1,19 @@
-
+require('dotenv').config()
 const nodemailer = require("nodemailer");
+const mg = require('nodemailer-mailgun-transport');
 const moment =require('moment')
 
-let transporter = nodemailer.createTransport({
-    service: 'gmail',
-    host: "smtp.gmail.com",
-    secure: false, // true for 465, false for other ports
-    auth: {
-      user: 'ndthang0000@gmail.com', // generated ethereal user
-      pass: 'ducthang123456', // generated ethereal password
-    },
-});
+const auth = {
+  auth: {
+    api_key: process.env.MAILGUN_API_KEY,
+    domain: process.env.MAILGUN_DOMAIN
+  }
+}
+const transporter = nodemailer.createTransport(mg(auth));
+
 let sendMailOrder=async(data)=>{
   await transporter.sendMail({
-      from: 'ndthang0000@gmail.com', // sender address
+      from: '1beauty@mg.penphy.com', // sender address
       to: data.email, // list of receivers
       subject: "Thông tin đặt hàng", // Subject line
       html: `<h2>Đặt hàng thành công</h2>
@@ -39,7 +39,7 @@ let sendMailOrder=async(data)=>{
 }
 let sendMailRegister=async(data)=>{
   await transporter.sendMail({
-      from: 'ndthang0000@gmail.com', // sender address
+      from: '1beauty@mg.penphy.com', // sender address
       to: data.gmail, // list of receivers
       subject: "Kích hoạt tài khoản", // Subject line
       html: `<h2>Xác thực tài khoản</h2>
@@ -54,7 +54,7 @@ let sendMailRegister=async(data)=>{
 }
 let sendMailResetPassword=async(data)=>{
   await transporter.sendMail({
-      from: 'ndthang0000@gmail.com', // sender address
+      from: '1beauty@mg.penphy.com', // sender address
       to: data.gmail, // list of receivers
       subject: "Đặt lại mật khẩu", // Subject line
       html: `<h2>Đặt lại mật khẩu</h2>
