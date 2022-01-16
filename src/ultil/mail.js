@@ -1,9 +1,9 @@
 
 const nodemailer = require("nodemailer");
-var hbs = require('nodemailer-express-handlebars');
 const moment =require('moment')
 
 let transporter = nodemailer.createTransport({
+    service: 'gmail',
     host: "smtp.gmail.com",
     secure: false, // true for 465, false for other ports
     auth: {
@@ -11,10 +11,6 @@ let transporter = nodemailer.createTransport({
       pass: 'ducthang123456', // generated ethereal password
     },
 });
-transporter.use('compile', hbs({
-    viewPath:'views',
-    extName:'hbs'
-}));
 let sendMailOrder=async(data)=>{
   await transporter.sendMail({
       from: 'ndthang0000@gmail.com', // sender address
