@@ -38,7 +38,8 @@ const formPassword=async(req,res)=>{
     if(findToken){
         let user=await User.findOne({_id:findToken.userId})
         res.render('formResetPassword',{
-            user:MongooseToObject(user),
+            username:user.username,
+            name:user.name,
             success:false,
         })
     }
@@ -49,13 +50,21 @@ const formPassword=async(req,res)=>{
 const resetPassword=async(req,res)=>{
     let {token}=req.params
     let findToken=await ResetPassword.findOne({token:token})
+    let now=new Date()
+    console.log(findToken)
+    if(now-findToken.timeOut){
+        console.log(' now lớn')
+    }
+    else{
+        console.log('now nhỏ')
+    }
     if(findToken){
         let password=await argon2.hash(req.body.newPassword)
-        console.log(password)
         await User.updateOne({_id:findToken.userId},{password:password})
         let findUser=await User.findOne({_id:findToken.userId})
         res.render('formResetPassword',{
-            user:MongooseToObject(findUser),
+            username:findUser.username,
+            name:findUser.name,
             success:true,
             message:'Change password successfully !!'
         })

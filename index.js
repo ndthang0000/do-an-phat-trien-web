@@ -4,7 +4,6 @@ const exphbs  = require('express-handlebars');
 const path=require('path')
 const app = express()
 const passport=require('passport')
-const cors=require('cors')
 
 const logger = require('morgan')
 require('dotenv').config()
@@ -17,7 +16,7 @@ app.use(express.static(path.join(__dirname,'/public'))) // public
 
 app.use(logger('dev'))
 
-app.use(cors()) // cors
+
 
 app.engine('hbs', exphbs({
     extname:'hbs',
@@ -53,5 +52,7 @@ db.connect().then(()=>{
     route(app)
 })
 
-app.listen(process.env.PORT||3000)
+app.listen(process.env.PORT||3000,()=>{
+    console.log('Server run on port 3000')
+})
 

@@ -297,4 +297,9 @@ select{
 select:hover{
   border: 1px solid #2ecc71;
 }
+@media (max-width:650px){
+  .writeComment{
+    width: 100% !important;
+  }
+}
 /*# sourceMappingURL=custom_thang.css.map *

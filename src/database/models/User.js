@@ -11,6 +11,5 @@ const User=new Schema({
     gender:{type:String},
     avatarUrl:{type:String, default:'/img/avatar.png'},
     isAuth:{type:Boolean,default:false},
-    listProductHasBuy:[{type:Schema.Types.ObjectId,ref:'Product'}]
 },{timestamps:true})
 module.exports=mongoose.model('User',User)

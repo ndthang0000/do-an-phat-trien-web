@@ -58,12 +58,22 @@
                                 aria-controls="flush-collapse-{{@index}}" 
                                 {{#if (compareValue status 1)}} 
                                 style="background-color: rgb(129, 199, 129);" 
-                                {{else}}style="background-color: #ff7979;"
+                                {{else if (compareValue status 0)}}
+                                style="background-color: rgb(227, 245, 66);"
+                                {{else}}
+                                style="background-color: #ff7979;"
                                 {{/if}}>
                                     {{momentFormat createdAt}}
                                 <span style="margin-left: 30px;color:red;font-weight:650">${{sum}}</span>
                                 <span style="margin-left: 30px;">{{{quantity}}} items</span>
-                                <span style="margin-left: 30px;font-weight:650">{{#if (compareValue status 1)}} Done !!!{{else}}Is processing ...{{/if}}</span>
+                                <span style="margin-left: 30px;font-weight:650">
+                                    {{#if (compareValue status 1)}} 
+                                    Done !!!
+                                    {{else if (compareValue status 0)}}
+                                    Is transporting...
+                                    {{else}}
+                                    Is processing ...
+                                    {{/if}}</span>
                                 </button>
                             </h2>
                             <div id="flush-collapse-{{@index}}" class="accordion-collapse collapse" aria-labelledby="flush-heading-{{@index}}" data-bs-parent="#accordionFlushExample">
