@@ -7,7 +7,7 @@ git clone https://github.com/ndthang0000/do-an-phat-trien-web
 cd do-an-phat-trien-web
 
 npm install
-```
+
 npm start
 
 Server run on port 3000
